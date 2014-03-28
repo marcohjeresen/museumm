@@ -22,7 +22,7 @@ public class Employee {
     private int password;
     private ArrayList phoneList;
 
-    public Employee(int cpr, String name, String adresse, int postZip, String city, String username, int password, ArrayList phoneList) {
+    public Employee(int cpr, String name, String adresse, int postZip, String city, String username, int password) {
         this.cpr = cpr;
         this.name = name;
         this.adresse = adresse;

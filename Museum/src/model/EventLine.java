@@ -78,6 +78,33 @@ public class EventLine {
         this.customer = customer;
     }
 
+    @Override
+    public String toString() {
+        String eventLine = "";
+        
+        for (EventType eventType : eventtypeList) {
+            eventLine = eventLine + eventType.toString()+"\n";
+        }
+        eventLine = eventLine + "Date: " + date + "Customer: " + customer;
+        return eventLine;
+       }
+    
+    public double getEventlinePriceDk(){
+        double dk = 0;
+        for (EventType eventType : eventtypeList) {
+            dk = dk + eventType.getPriceDk();
+        }
+        return dk;
+    }
+    
+    public double getEventlineEuro(){
+        double euro = 0;
+        for (EventType eventType : eventtypeList) {
+            euro = euro + eventType.getPriceEuro();
+        }
+        return euro;
+    }
+
 
     
     

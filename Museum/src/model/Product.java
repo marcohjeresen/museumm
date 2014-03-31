@@ -10,7 +10,7 @@ package model;
  *
  * @author markh_000
  */
-public class Product extends ProductGroup{
+public class Product{
     private int productNumber;
     private String name;
     private ProductGroup productGroup;
@@ -21,8 +21,8 @@ public class Product extends ProductGroup{
     private double discount;
     private int quantities;
 
-    public Product(int productNumber, String name, ProductGroup groupNumber, String supplier, double buyPrice, double priceDk, double priceEuro, double discount, int quantities, int groupId, String groupType) {
-        super(groupId, groupType);
+    public Product(int productNumber, String name, ProductGroup groupNumber, String supplier, double buyPrice, double priceDk, double priceEuro, double discount, int quantities) {
+        
         this.productNumber = productNumber;
         this.name = name;
         this.productGroup = groupNumber;
@@ -105,6 +105,13 @@ public class Product extends ProductGroup{
     public void setQuantities(int quantities) {
         this.quantities = quantities;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" + "productNumber=" + productNumber + ", name=" + name + ", productGroup=" + productGroup + ", priceDk=" + priceDk + ", priceEuro=" + priceEuro + '}';
+    }
+
+    
     
 }
 

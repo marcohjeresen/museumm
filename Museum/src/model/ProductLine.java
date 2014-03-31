@@ -46,6 +46,33 @@ public class ProductLine {
     public void setSale(Sale saleId) {
         this.sale = saleId;
     }
+
+    @Override
+    public String toString() {
+        String productLine = "Sale Number: "+sale.getId()+"\n";
+        
+        for (Product product : productList) {
+            productLine = productLine + product.toString();
+        }
+
+        return productLine;
+    }
+    
+    public double getListPriceDk(){
+        double dk = 0;
+        for (Product product : productList) {
+            dk = dk + product.getPriceDk();
+        }
+        return dk;
+    }
+    
+    public double getListPriceEuro(){
+        double euro = 0;
+        for (Product product : productList) {
+            euro = euro + product.getPriceEuro();
+        }
+        return euro;
+    }
    
     
 }

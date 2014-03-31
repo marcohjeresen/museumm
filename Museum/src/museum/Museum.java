@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Employee;
+import model.*;
 import veiw.Gui;
 
 /**
@@ -24,6 +24,8 @@ public class Museum {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+      
         ArrayList<Employee> employeeList = new ArrayList<>();
         try {
             DBConnection db = new DBConnection();

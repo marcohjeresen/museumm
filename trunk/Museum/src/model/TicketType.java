@@ -54,5 +54,11 @@ public class TicketType {
     public void setPriceEuro(double priceEuro) {
         this.priceEuro = priceEuro;
     }
+
+    @Override
+    public String toString() {
+        return "TicketType{" + "type=" + type + ", priceDk=" + priceDk + ", priceEuro=" + priceEuro + '}';
+    }
+    
     
 }

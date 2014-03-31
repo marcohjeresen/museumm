@@ -66,6 +66,11 @@ public class EventType {
     public void setTime(Time time) {
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return "EventType{" + "type=" + type + ", priceDk=" + priceDk + ", priceEuro=" + priceEuro + ", time=" + time + '}';
+    }
     
     
 }

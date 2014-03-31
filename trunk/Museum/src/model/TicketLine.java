@@ -68,5 +68,18 @@ public class TicketLine {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        String ticketLine = "";
+        
+        for (TicketType ticketType : ticketList) {
+            ticketLine = ticketLine + ticketType.toString();
+        }
+        
+        return ticketLine + "Quantities: " + quantities + " Date: " + date;
+    }
+    
+    
     
 }

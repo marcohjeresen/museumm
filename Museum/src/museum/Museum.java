@@ -62,7 +62,8 @@ public class Museum {
             }
             System.out.println("\n");
         }
-        
+        Gui gu = new Gui(employeeHandler.getEmployeeList());
+        gu.setVisible(true);
     }
 
 //        for (Product product : ph.getProductList()) {

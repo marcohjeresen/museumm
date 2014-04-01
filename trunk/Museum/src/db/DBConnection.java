@@ -49,7 +49,7 @@ public class DBConnection {
             connect = (Connection) DriverManager.getConnection(db, user, pass);
             state = (Statement) connect.createStatement();
             isConnected = true;
-            System.out.println("jeps");
+
         } catch (SQLException ex) {
             System.out.println("Could not connect: " + db + " , " + user + " , " + pass);
             System.out.println(ex.getLocalizedMessage());

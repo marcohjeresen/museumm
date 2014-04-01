@@ -56,5 +56,10 @@ public class Sale {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "Sale" + "id: " + id + " paymentType: " + paymentType.getType() + " employee: " + employee.getName() + " date: " + date;
+    }
     
 }

@@ -85,7 +85,7 @@ public class EventLine {
         for (EventType eventType : eventtypeList) {
             eventLine = eventLine + eventType.toString()+"\n";
         }
-        eventLine = eventLine + "Date: " + date + "Customer: " + customer;
+        eventLine = eventLine + "Date: " + date + " Customer: " + customer.getName();
         return eventLine;
        }
     

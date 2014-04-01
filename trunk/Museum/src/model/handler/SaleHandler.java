@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.handler;
 
 import db.DBConnection;
@@ -20,6 +19,7 @@ import museum.Museum;
  * @author markh_000
  */
 public class SaleHandler {
+
     private Sale sale;
     private EmployeeHandler eh;
     private PaymentTypeHandler pth;
@@ -31,13 +31,13 @@ public class SaleHandler {
         saleList = new ArrayList<>();
         getDatabase();
     }
-    
-    public void getDatabase(){
+
+    public void getDatabase() {
         DBConnection db = new DBConnection();
         try {
             ResultSet rs = db.getResult("SELECT * FROM sale");
             while (rs.next()) {
-               
+
                 for (PaymentType payment : pth.getPtList()) {
                     if (payment.getId() == rs.getInt("sale_paymenttype_id")) {
                         for (Employee employee : eh.getEmployeeList()) {
@@ -61,5 +61,5 @@ public class SaleHandler {
     public void setSaleList(ArrayList<Sale> saleList) {
         this.saleList = saleList;
     }
-    
+
 }

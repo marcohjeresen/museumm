@@ -17,6 +17,9 @@ public class Sale {
     private PaymentType paymentType;
     private Employee employee;
     private Date date;
+    private TicketLine tl;
+    private EventLine el;
+    private ProductLine pl;
 
     public Sale(int id, PaymentType paymentType, Employee employee, Date date) {
         this.id = id;
@@ -31,6 +34,30 @@ public class Sale {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public TicketLine getTl() {
+        return tl;
+    }
+
+    public void setTl(TicketLine tl) {
+        this.tl = tl;
+    }
+
+    public EventLine getEl() {
+        return el;
+    }
+
+    public void setEl(EventLine el) {
+        this.el = el;
+    }
+
+    public ProductLine getPl() {
+        return pl;
+    }
+
+    public void setPl(ProductLine pl) {
+        this.pl = pl;
     }
 
     public PaymentType getPaymentType() {

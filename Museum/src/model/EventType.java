@@ -69,7 +69,7 @@ public class EventType {
 
     @Override
     public String toString() {
-        return "EventType{" + "type=" + type + ", priceDk=" + priceDk + ", priceEuro=" + priceEuro + ", time=" + time + '}';
+        return "EventType: "+"type: " + type + " priceDk: " + priceDk + " priceEuro: " + priceEuro + " time: " + time;
     }
     
     

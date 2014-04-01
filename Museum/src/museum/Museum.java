@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.*;
-import model.handler.EmployeeHandler;
-import model.handler.ProductHandler;
+import model.handler.*;
 import veiw.Gui;
 
 /**
@@ -26,8 +25,13 @@ public class Museum {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        CustomerHandler cmh = new CustomerHandler(); 
+        PaymentTypeHandler pth = new PaymentTypeHandler();
         ProductHandler ph = new ProductHandler();
         EmployeeHandler eh = new EmployeeHandler();
+        CashHandler ch = new CashHandler(eh);
+        SaleHandler sh = new SaleHandler(eh, pth);
+        EventHandler evt = new EventHandler(sh, cmh);
         
         for (Product product : ph.getProductList()) {
             System.out.println(product.getGroupNumber().getGroupType());
@@ -35,6 +39,18 @@ public class Museum {
 
         for (Employee employee : eh.getEmployeeList()) {
             System.out.println(employee.getName());
+        }
+        
+        for (CashRegister cashreg : ch.getCashList()) {
+            System.out.println(cashreg.getDate()+" "+cashreg.getEmployee().getName());
+        }
+        
+        for (Sale sale : sh.getSaleList()) {
+            System.out.println(sale.toString());
+        }
+        
+        for (EventLine event : evt.getEventLineList()) {
+            System.out.println(event.toString());
         }
      
     }

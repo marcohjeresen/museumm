@@ -49,7 +49,9 @@ public class ProductHandler {
             while (rse.next()) {
                 for (ProductGroup group : groupList) {
                     if (group.getGroupId() == rse.getInt("product_groupid")) {
-                        Product pr = new Product(rse.getInt("product_numberid"), rse.getString("product_name"), group, rse.getString("product_supplier"), rse.getDouble("product_buyprice"), rse.getDouble("product_saleprice_dk"), rse.getDouble("product_saleprice_euro"), rse.getDouble("product_discount"), rse.getInt("product_quantities"));
+                        Product pr = new Product(rse.getInt("product_numberid"), rse.getString("product_name"), group, rse.getString("product_supplier"), 
+                                rse.getDouble("product_buyprice"), rse.getDouble("product_saleprice_dk"), rse.getDouble("product_saleprice_euro"), 
+                                rse.getDouble("product_discount"), rse.getInt("product_quantities"));
                         productList.add(pr);
                     }
                 }

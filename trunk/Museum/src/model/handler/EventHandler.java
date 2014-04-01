@@ -35,6 +35,7 @@ public class EventHandler {
         eventLineList = new ArrayList<>();
         eventTypeList = new ArrayList<>();
         getDatabase();
+        addLineToSale();
     }
     
      public void getDatabase() {
@@ -72,6 +73,16 @@ public class EventHandler {
             }
         } catch (SQLException ex) {
             Logger.getLogger(Museum.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     
+      public void addLineToSale() {
+        for (Sale sale : sh.getSaleList()) {
+            for (EventLine eventLine : eventLineList) {
+                if (sale == eventLine.getSale()) {
+                    sale.setEl(eventLine);
+                }
+            }
         }
     }
 

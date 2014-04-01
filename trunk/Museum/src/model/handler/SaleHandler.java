@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.*;
+import model.handler.EmployeeHandler;
+import model.handler.PaymentTypeHandler;
+import museum.Museum;
 import museum.Museum;
 
 /**
@@ -52,6 +55,10 @@ public class SaleHandler {
         } catch (SQLException ex) {
             Logger.getLogger(Museum.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void addSaleLine(){
+        
     }
 
     public ArrayList<Sale> getSaleList() {

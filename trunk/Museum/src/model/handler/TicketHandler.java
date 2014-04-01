@@ -34,7 +34,7 @@ public class TicketHandler {
         tpList = new ArrayList<>();
         tlList = new ArrayList<>();
         getDatabase();
-        
+        addLineToSale();
     }
     
     public void getDatabase() {
@@ -70,25 +70,31 @@ public class TicketHandler {
             Logger.getLogger(Museum.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    public void addLineToSale() {
+        for (Sale sale : saleh.getSaleList()) {
+            for (TicketLine ticketLine : tlList) {
+                if (sale == ticketLine.getSale()) {
+                    sale.setTl(ticketLine);
+                }
+            }
+        }
+    }
+    
     public ArrayList<TicketType> getTpList() {
         return tpList;
     }
-
+    
     public void setTpList(ArrayList<TicketType> tpList) {
         this.tpList = tpList;
     }
-
+    
     public ArrayList<TicketLine> getTlList() {
         return tlList;
     }
-
+    
     public void setTlList(ArrayList<TicketLine> tlList) {
         this.tlList = tlList;
     }
     
 }
-
-
-    
-

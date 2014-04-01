@@ -5,6 +5,7 @@
  */
 package museum;
 
+import model.handler.SaleHandler;
 import db.DBConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,32 +26,45 @@ public class Museum {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CustomerHandler customerHandler = new CustomerHandler(); 
+        CustomerHandler customerHandler = new CustomerHandler();
         PaymentTypeHandler paymentTypeHandler = new PaymentTypeHandler();
-        ProductHandler productHandler = new ProductHandler();
+
         EmployeeHandler employeeHandler = new EmployeeHandler();
         CashHandler cashHandler = new CashHandler(employeeHandler);
+
         SaleHandler saleHandler = new SaleHandler(employeeHandler, paymentTypeHandler);
+        ProductHandler productHandler = new ProductHandler(saleHandler);
         EventHandler eventHandler = new EventHandler(saleHandler, customerHandler);
         TicketHandler ticketHandler = new TicketHandler(saleHandler);
         InvoiceHandler invoiceHandler = new InvoiceHandler(saleHandler);
+
+        for (Sale sale : saleHandler.getSaleList()) {
+            if (sale.getTl() != null) {
+                for (TicketLine ticketline : sale.getTl()) {
+                    for (TicketType ticketType : ticketline.getTicketList()) {
+                        System.out.println(ticketType.toString());
+                    }
+                }
+            }
+            if (sale.getEl() != null) {
+                for (EventLine eventline : sale.getEl()) {
+                    for (EventType eventtype : eventline.getEventtypeList()) {
+                        System.out.println(eventtype.toString());
+                    }
+                }
+            }
+            if (sale.getPl() != null) {
+                for (ProductLine productline : sale.getPl()) {
+                    for (Product product : productline.getProductList()) {
+                        System.out.println(product.toString());
+                    }
+                }
+            }
+            System.out.println("\n");
+        }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+    }
+
 //        for (Product product : ph.getProductList()) {
 //            System.out.println(product.getGroupNumber().getGroupType());
 //        }
@@ -70,7 +84,4 @@ public class Museum {
 //        for (EventLine event : evt.getEventLineList()) {
 //            System.out.println(event.toString());
 //        }
-     
-    }
-
 }

@@ -52,8 +52,8 @@ public class ProductHandler {
             while (rse.next()) {
                 for (ProductGroup group : groupList) {
                     if (group.getGroupId() == rse.getInt("product_groupid")) {
-                        Product pr = new Product(rse.getInt("product_numberid"), rse.getString("product_name"), group, rse.getString("product_supplier"), 
-                                rse.getDouble("product_buyprice"), rse.getDouble("product_saleprice_dk"), rse.getDouble("product_saleprice_euro"), 
+                        Product pr = new Product(rse.getInt("product_numberid"), rse.getString("product_name"), group, rse.getString("product_supplier"),
+                                rse.getDouble("product_buyprice"), rse.getDouble("product_saleprice_dk"), rse.getDouble("product_saleprice_euro"),
                                 rse.getDouble("product_discount"), rse.getInt("product_quantities"));
                         productList.add(pr);
                     }
@@ -62,19 +62,19 @@ public class ProductHandler {
         } catch (SQLException ex) {
             Logger.getLogger(Museum.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         try {
             ResultSet rse = db.getResult("SELECT * FROM productline");
             while (rse.next()) {
                 for (Sale sale : saleh.getSaleList()) {
                     if (sale.getId() == rse.getInt("productline_sale_id")) {
                         for (Product product : productList) {
-                    if (product.getProductNumber() == rse.getInt("productline_product_id")) {
-                        pl = new ProductLine(rse.getInt("productline_id"), sale);
-                        pl.setProductList(product);
-                        productLineList.add(pl);
-                    }
-                }
+                            if (product.getProductNumber() == rse.getInt("productline_product_id")) {
+                                pl = new ProductLine(rse.getInt("productline_id"), sale);
+                                pl.setProductList(product);
+                                productLineList.add(pl);
+                            }
+                        }
                     }
                 }
             }
@@ -83,12 +83,13 @@ public class ProductHandler {
         }
 
     }
-    
+
     public void addLineToSale() {
         for (Sale sale : saleh.getSaleList()) {
             for (ProductLine productLine : productLineList) {
+                System.out.println("hej");
                 if (sale == productLine.getSale()) {
-                    System.out.println("jeps");
+
                     sale.setPl(productLine);
                 }
             }
@@ -118,6 +119,5 @@ public class ProductHandler {
     public void setGroupList(ArrayList<ProductGroup> groupList) {
         this.groupList = groupList;
     }
-    
 
 }

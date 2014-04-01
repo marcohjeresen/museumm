@@ -25,33 +25,51 @@ public class Museum {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CustomerHandler cmh = new CustomerHandler(); 
-        PaymentTypeHandler pth = new PaymentTypeHandler();
-        ProductHandler ph = new ProductHandler();
-        EmployeeHandler eh = new EmployeeHandler();
-        CashHandler ch = new CashHandler(eh);
-        SaleHandler sh = new SaleHandler(eh, pth);
-        EventHandler evt = new EventHandler(sh, cmh);
+        CustomerHandler customerHandler = new CustomerHandler(); 
+        PaymentTypeHandler paymentTypeHandler = new PaymentTypeHandler();
+        ProductHandler productHandler = new ProductHandler();
+        EmployeeHandler employeeHandler = new EmployeeHandler();
+        CashHandler cashHandler = new CashHandler(employeeHandler);
+        SaleHandler saleHandler = new SaleHandler(employeeHandler, paymentTypeHandler);
+        EventHandler eventHandler = new EventHandler(saleHandler, customerHandler);
+        TicketHandler ticketHandler = new TicketHandler(saleHandler);
+        InvoiceHandler invoiceHandler = new InvoiceHandler(saleHandler);
         
-        for (Product product : ph.getProductList()) {
-            System.out.println(product.getGroupNumber().getGroupType());
-        }
-
-        for (Employee employee : eh.getEmployeeList()) {
-            System.out.println(employee.getName());
-        }
         
-        for (CashRegister cashreg : ch.getCashList()) {
-            System.out.println(cashreg.getDate()+" "+cashreg.getEmployee().getName());
-        }
         
-        for (Sale sale : sh.getSaleList()) {
-            System.out.println(sale.toString());
-        }
         
-        for (EventLine event : evt.getEventLineList()) {
-            System.out.println(event.toString());
-        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        for (Product product : ph.getProductList()) {
+//            System.out.println(product.getGroupNumber().getGroupType());
+//        }
+//
+//        for (Employee employee : eh.getEmployeeList()) {
+//            System.out.println(employee.getName());
+//        }
+//        
+//        for (CashRegister cashreg : ch.getCashList()) {
+//            System.out.println(cashreg.getDate()+" "+cashreg.getEmployee().getName());
+//        }
+//        
+//        for (Sale sale : sh.getSaleList()) {
+//            System.out.println(sale.toString());
+//        }
+//        
+//        for (EventLine event : evt.getEventLineList()) {
+//            System.out.println(event.toString());
+//        }
      
     }
 

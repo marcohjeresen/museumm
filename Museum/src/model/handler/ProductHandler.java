@@ -25,12 +25,15 @@ public class ProductHandler {
     private ArrayList<Product> productList;
     private ArrayList<ProductLine> productLineList;
     private ArrayList<ProductGroup> groupList;
+    private SaleHandler saleh;
 
-    public ProductHandler() {
+    public ProductHandler(SaleHandler saleh) {
+        this.saleh = saleh;
         productList = new ArrayList<>();
         productLineList = new ArrayList<>();
         groupList = new ArrayList<>();
         getDatabase();
+        addLineToSale();
     }
 
     public void getDatabase() {
@@ -59,7 +62,37 @@ public class ProductHandler {
         } catch (SQLException ex) {
             Logger.getLogger(Museum.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        try {
+            ResultSet rse = db.getResult("SELECT * FROM productline");
+            while (rse.next()) {
+                for (Sale sale : saleh.getSaleList()) {
+                    if (sale.getId() == rse.getInt("productline_sale_id")) {
+                        for (Product product : productList) {
+                    if (product.getProductNumber() == rse.getInt("productline_product_id")) {
+                        pl = new ProductLine(rse.getInt("productline_id"), sale);
+                        pl.setProductList(product);
+                        productLineList.add(pl);
+                    }
+                }
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Museum.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+    }
+    
+    public void addLineToSale() {
+        for (Sale sale : saleh.getSaleList()) {
+            for (ProductLine productLine : productLineList) {
+                if (sale == productLine.getSale()) {
+                    System.out.println("jeps");
+                    sale.setPl(productLine);
+                }
+            }
+        }
     }
 
     public ArrayList<Product> getProductList() {

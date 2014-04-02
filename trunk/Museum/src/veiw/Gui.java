@@ -6,19 +6,45 @@
 
 package veiw;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
-import model.Employee;
+import model.handler.*;
+import model.*;
 
 /**
  *
  * @author markh_000
  */
 public class Gui extends javax.swing.JFrame {
-    
+    private ArrayList<Groups> groupsList;
+    private ProductHandler pr;
     /**
      * Creates new form Gui
      */
-    public Gui() {
+    public Gui(ProductHandler pr) {
+        setSize(new Dimension(750, 600));
+        this.pr = pr;
+        groupsList = new ArrayList<>();
+//        createPanels(pr.getGroupList());
+    }
+    
+    private void createPanels(ArrayList<ProductGroup> groupList) {
+
+        int x = 0;
+        int y = 0;
+        int height = 0;
+        int width = 0;
+        for (ProductGroup groupl : groupList) {
+            Groups ap = new Groups(groupl);
+            ap.setLocation(x, y);
+            jPanel_groups.add(ap);
+            jPanel_groups.revalidate();
+            y += ap.getHeight();
+            ap.setVisible(true);
+            height = ap.getHeight();
+            width = ap.getWidth();
+            groupsList.add(ap);
+        }
         
     }
     
@@ -33,42 +59,70 @@ public class Gui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel_groups = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel_groups.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+        jButton1.setText("jButton1");
+
+        javax.swing.GroupLayout jPanel_groupsLayout = new javax.swing.GroupLayout(jPanel_groups);
+        jPanel_groups.setLayout(jPanel_groupsLayout);
+        jPanel_groupsLayout.setHorizontalGroup(
+            jPanel_groupsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_groupsLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jButton1)
+                .addContainerGap(557, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        jPanel_groupsLayout.setVerticalGroup(
+            jPanel_groupsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_groupsLayout.createSequentialGroup()
+                .addContainerGap(222, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(120, 120, 120))
         );
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel_groups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(460, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel_groups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(jButton2)))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -76,6 +130,8 @@ public class Gui extends javax.swing.JFrame {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JPanel jPanel_groups;
     // End of variables declaration//GEN-END:variables
 }

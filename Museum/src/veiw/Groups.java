@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package veiw;
+
+import java.awt.Dimension;
+import model.ProductGroup;
 import model.handler.*;
 
 /**
@@ -12,13 +14,33 @@ import model.handler.*;
  * @author markh_000
  */
 public class Groups extends javax.swing.JPanel {
-private ProductHandler productHandler;
+
+    private ProductGroup productGroup;
+
     /**
      * Creates new form Groups
      */
-    public Groups(ProductHandler productHandler) {
-        this.productHandler = productHandler;
+    public Groups(ProductGroup groups) {
+        int x = 0;
+        if (groups.getGroupType().length() < 6) {
+            x = groups.getGroupType().length() * 16;
+        } else if (groups.getGroupType().length() > 5 && groups.getGroupType().length() < 8) {
+            x = groups.getGroupType().length() * 12 + 6;
+        } else if (groups.getGroupType().length() > 7 && groups.getGroupType().length() < 12){
+            x = groups.getGroupType().length() * 11;
+        }else if (groups.getGroupType().length() > 12 && groups.getGroupType().length() < 20){
+             x = groups.getGroupType().length() * 10;
+        }else{
+            x = groups.getGroupType().length() * 8;
+        }
+
+        
+
+        System.out.println(x + " " + groups.getGroupType().length());
+        setSize(new Dimension(x, 40));
+        this.productGroup = groups;
         initComponents();
+        jButton1.setText(groups.getGroupType());
     }
 
     /**
@@ -33,24 +55,27 @@ private ProductHandler productHandler;
         jButton1 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

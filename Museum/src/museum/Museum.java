@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.*;
 import model.handler.*;
-import veiw.Gui;
+import veiw.*;
 
 /**
  *
@@ -44,7 +44,7 @@ public class Museum {
             
         }
 //        System.out.println(saleHandler.searchSale(2).toString());
-        Gui gu = new Gui(employeeHandler.getEmployeeList());
+        Guie2 gu = new Guie2(productHandler);
         gu.setVisible(true);
     }
 

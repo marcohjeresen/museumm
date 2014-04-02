@@ -26,6 +26,7 @@ public class Museum {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Listeners listeners = new Listeners();
         CustomerHandler customerHandler = new CustomerHandler();
         PaymentTypeHandler paymentTypeHandler = new PaymentTypeHandler();
 
@@ -43,8 +44,8 @@ public class Museum {
             
         }
 //        System.out.println(saleHandler.searchSale(2).toString());
-//        Gui gu = new Gui(employeeHandler.getEmployeeList());
-//        gu.setVisible(true);
+        Gui gu = new Gui(employeeHandler.getEmployeeList());
+        gu.setVisible(true);
     }
 
 }

@@ -34,5 +34,10 @@ public class ProductGroup {
     public void setGroupType(String groupType) {
         this.groupType = groupType;
     }
+
+    @Override
+    public String toString() {
+        return "groupId: " + groupId + " groupType: " + groupType;
+    }
     
 }

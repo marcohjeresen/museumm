@@ -108,7 +108,8 @@ public class Product{
 
     @Override
     public String toString() {
-        return "Product{" + "productNumber=" + productNumber + ", name=" + name + ", productGroup=" + productGroup + ", priceDk=" + priceDk + ", priceEuro=" + priceEuro + '}';
+        return "productNumber: " + productNumber + " name: " + name 
+                + " productGroup: " + productGroup.getGroupType() + " priceDk: " + priceDk + " priceEuro: " + priceEuro;
     }
 
     

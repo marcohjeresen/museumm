@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import java.util.Date;
  * @author markh_000
  */
 public class Sale {
+
     private int id;
     private PaymentType paymentType;
     private Employee employee;
@@ -21,6 +21,9 @@ public class Sale {
     private ArrayList<TicketLine> ticketLine;
     private ArrayList<EventLine> eventLine;
     private ArrayList<ProductLine> productLine;
+    private ArrayList<Invoice> invoiceList;
+    private double endpriceDk;
+    private double endpriceEuro;
 
     public Sale(int id, PaymentType paymentType, Employee employee, Date date) {
         this.id = id;
@@ -30,6 +33,7 @@ public class Sale {
         ticketLine = new ArrayList<>();
         eventLine = new ArrayList<>();
         productLine = new ArrayList<>();
+        invoiceList = new ArrayList<>();
     }
 
     public int getId() {
@@ -88,13 +92,73 @@ public class Sale {
         this.date = date;
     }
 
+    public ArrayList<Invoice> getInvoiceList() {
+        return invoiceList;
+    }
+
+    public void setInvoiceList(Invoice invoice) {
+        invoiceList.add(invoice);
+    }
+
+   
+
     @Override
     public String toString() {
-        String sale = "Sale id: " + id + " paymentType: " + paymentType.getType() + " employee: " + employee.getName() + " date: " + date;
-        
+        endpriceDk = 0;
+        endpriceEuro = 0;
+        String sale = "Sale id: " + id + "\n" + "paymentType: " + paymentType.getType() + " employee: " + employee.getName() + " date: " + date + "\nProduct: \n";
+        if (productLine != null) {
+            for (ProductLine productline : productLine) {
+                for (Product product : productline.getProductList()) {
+                    sale = sale + product.toString() + "\n";
+                    endpriceDk = endpriceDk + product.getPriceDk();
+                    endpriceEuro = endpriceEuro + product.getPriceEuro();
+                }
+            }
+        }
+        if (eventLine != null) {
+            sale = sale + "Event: \n";
+            for (EventLine eventline : eventLine) {
+                for (EventType eventtype : eventline.getEventtypeList()) {
+                    sale = sale + eventtype.toString() + " Customer: " + eventline.getCustomer().getName() + "\n";
+                    endpriceDk = endpriceDk + eventtype.getPriceDk();
+                    endpriceEuro = endpriceEuro + eventtype.getPriceEuro();
+                }
+            }
+        }
+        if (ticketLine != null) {
+            sale = sale + "Tickets: \n";
+            for (TicketLine ticketline : ticketLine) {
+                for (TicketType ticketType : ticketline.getTicketList()) {
+                    sale = sale + ticketType.toString() + "\n";
+                    endpriceDk = endpriceDk + ticketType.getPriceDk();
+                    endpriceEuro = endpriceEuro + ticketType.getPriceEuro();
+                }
+            }
+        }
+        if (invoiceList != null) {
+            for (Invoice invoice : invoiceList) {
+                sale = sale + "Invoice: \n" + invoice.toString() + "\n";
+            }
             
-        
-        return sale;
+        }
+        return sale + "PriceDk: " + endpriceDk + " PriceEuro: " + endpriceEuro + "\n";
     }
-    
+
+    public double getEndpriceDk() {
+        return endpriceDk;
+    }
+
+    public void setEndpriceDk(double endpriceDk) {
+        this.endpriceDk = endpriceDk;
+    }
+
+    public double getEndpriceEuro() {
+        return endpriceEuro;
+    }
+
+    public void setEndpriceEuro(double endpriceEuro) {
+        this.endpriceEuro = endpriceEuro;
+    }
+
 }

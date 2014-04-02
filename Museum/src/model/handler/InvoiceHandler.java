@@ -32,6 +32,7 @@ public class InvoiceHandler {
         inList = new ArrayList<>();
         insList = new ArrayList<>();
         getDatabase();
+        addInvoiceToSale();
     }
     
     public void getDatabase() {
@@ -64,6 +65,16 @@ public class InvoiceHandler {
             Logger.getLogger(Museum.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    public void addInvoiceToSale() {
+        for (Sale sale : saleH.getSaleList()) {
+            for (Invoice invoice : inList) {
+                if (sale == invoice.getSale()) {
+                    sale.setInvoiceList(invoice);
+                }
+            }
+        }
     }
 
     public ArrayList<Invoice> getInList() {

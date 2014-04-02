@@ -6,6 +6,7 @@
 package model.handler;
 
 import db.DBConnection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -57,8 +58,19 @@ public class SaleHandler {
         }
     }
     
-    public void addSaleLine(){
+    public void opretSale(int id, PaymentType payment, Employee employee, Date date){
+        sale = new Sale(id, payment, employee, date);
+        saleList.add(sale);
+    }
+    
+    public Sale searchSale(int saleid){
         
+        for (Sale sale1 : saleList) {
+            if (sale1.getId() ==  saleid) {
+                sale = sale1;
+            }
+        }
+        return sale;
     }
 
     public ArrayList<Sale> getSaleList() {

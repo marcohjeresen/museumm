@@ -87,13 +87,17 @@ public class ProductHandler {
     public void addLineToSale() {
         for (Sale sale : saleh.getSaleList()) {
             for (ProductLine productLine : productLineList) {
-                System.out.println("hej");
                 if (sale == productLine.getSale()) {
 
                     sale.setPl(productLine);
                 }
             }
         }
+    }
+    
+    public void opretProductLine(int id, Sale sale){
+        pl = new ProductLine(id, sale);
+        productLineList.add(pl);
     }
 
     public ArrayList<Product> getProductList() {

@@ -56,5 +56,10 @@ public class CashRegister {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
+
+    @Override
+    public String toString() {
+        return "date: " + date + " amountDk: " + amountDk + " amountEuro: " + amountEuro + " employee: " + employee.getName();
+    }
     
 }

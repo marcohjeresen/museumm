@@ -39,51 +39,12 @@ public class Museum {
         InvoiceHandler invoiceHandler = new InvoiceHandler(saleHandler);
 
         for (Sale sale : saleHandler.getSaleList()) {
-            if (sale.getTl() != null) {
-                for (TicketLine ticketline : sale.getTl()) {
-                    for (TicketType ticketType : ticketline.getTicketList()) {
-                        System.out.println(ticketType.toString());
-                    }
-                }
-            }
-            if (sale.getEl() != null) {
-                for (EventLine eventline : sale.getEl()) {
-                    for (EventType eventtype : eventline.getEventtypeList()) {
-                        System.out.println(eventtype.toString());
-                    }
-                }
-            }
-            if (sale.getPl() != null) {
-                for (ProductLine productline : sale.getPl()) {
-                    for (Product product : productline.getProductList()) {
-                        System.out.println(product.toString());
-                    }
-                }
-            }
-            System.out.println("\n");
+            System.out.println(sale.toString());
+            
         }
-        Gui gu = new Gui(employeeHandler.getEmployeeList());
-        gu.setVisible(true);
+//        System.out.println(saleHandler.searchSale(2).toString());
+//        Gui gu = new Gui(employeeHandler.getEmployeeList());
+//        gu.setVisible(true);
     }
 
-//        for (Product product : ph.getProductList()) {
-//            System.out.println(product.getGroupNumber().getGroupType());
-//        }
-//
-//        for (Employee employee : eh.getEmployeeList()) {
-//            System.out.println(employee.getName());
-//        }
-//        
-//        for (CashRegister cashreg : ch.getCashList()) {
-//            System.out.println(cashreg.getDate()+" "+cashreg.getEmployee().getName());
-//        }
-//        
-//        for (Sale sale : sh.getSaleList()) {
-//            System.out.println(sale.toString());
-//        }
-//        
-//        for (EventLine event : evt.getEventLineList()) {
-//            System.out.println(event.toString());
-//        }
-    
 }

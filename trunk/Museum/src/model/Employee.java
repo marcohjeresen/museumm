@@ -20,6 +20,7 @@ public class Employee {
     private String city;
     private String username;
     private int password;
+    private int phone;
     private ArrayList phoneList;
 
     public Employee(int cpr, String name, String adresse, int postZip, String city, String username, int password) {
@@ -95,6 +96,16 @@ public class Employee {
 
     public void setPassword(int password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        String employee = "cpr: " + cpr + " name: " + name + " adresse: " + adresse + " postZip: " + postZip + " city: " 
+                + city + " username: " + username + " phoneList: ";
+        for (Object number : phoneList) {
+            employee = employee + number+" - ";
+        }
+        return employee;
     }
     
 }

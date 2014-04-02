@@ -76,5 +76,10 @@ public class Invoice {
     public void setInvoiceStatus(InvoiceStatus invoiceStatus) {
         this.invoiceStatus = invoiceStatus;
     }
+
+    @Override
+    public String toString() {
+        return "id: " + id + " date: " + date + " priceDk: " + priceDk + " priceEuro: " + priceEuro + " invoiceStatus: " + invoiceStatus.getType();
+    }
     
 }

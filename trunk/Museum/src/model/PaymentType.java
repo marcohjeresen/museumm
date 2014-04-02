@@ -44,5 +44,10 @@ public class PaymentType {
     public void setFee(double fee) {
         this.fee = fee;
     }
+
+    @Override
+    public String toString() {
+        return "id: " + id + " type: " + type + " fee: " + fee;
+    }
     
 }

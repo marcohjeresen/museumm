@@ -57,7 +57,7 @@ public class TicketType {
 
     @Override
     public String toString() {
-        return "TicketType{" + "type=" + type + ", priceDk=" + priceDk + ", priceEuro=" + priceEuro + '}';
+        return "type: " + type + " priceDk: " + priceDk + " priceEuro: " + priceEuro;
     }
     
     

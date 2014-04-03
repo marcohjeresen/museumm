@@ -93,5 +93,9 @@ public class EventHandler {
     public void setEventLineList(ArrayList<EventLine> eventLineList) {
         this.eventLineList = eventLineList;
     }
+
+    public ArrayList<EventType> getEventTypeList() {
+        return eventTypeList;
+    }
     
 }

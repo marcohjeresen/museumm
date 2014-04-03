@@ -23,8 +23,9 @@ public class KurvHandler {
     private ArrayList<Product> productList;
     private ArrayList<TicketType> ticketTypesList;
     private ArrayList<EventType> eventTypesList;
+    private Listeners listeners;
 
-    public KurvHandler(ProductHandler productHandler, CustomerHandler customerHandler, PaymentTypeHandler paymentTypeHandler, TicketHandler ticketHandler, EmployeeHandler employeeHandler, EventHandler eventHandler, SaleHandler saleHandler, InvoiceHandler invoiceHandler) {
+    public KurvHandler(ProductHandler productHandler, CustomerHandler customerHandler, PaymentTypeHandler paymentTypeHandler, TicketHandler ticketHandler, EmployeeHandler employeeHandler, EventHandler eventHandler, SaleHandler saleHandler, InvoiceHandler invoiceHandler, Listeners listeners1) {
         this.productHandler = productHandler;
         this.customerHandler = customerHandler;
         this.paymentTypeHandler = paymentTypeHandler;
@@ -33,6 +34,7 @@ public class KurvHandler {
         this.eventHandler = eventHandler;
         this.saleHandler = saleHandler;
         this.invoiceHandler = invoiceHandler;
+        this.listeners = listeners1;
         productList = new ArrayList<>();
         ticketTypesList = new ArrayList<>();
         eventTypesList = new ArrayList<>();
@@ -41,6 +43,8 @@ public class KurvHandler {
     
     public void setProductList(Product product){
         productList.add(product);
+        listeners.notifyListeners();
+        
     }
 
     public ArrayList<Product> getProductList() {
@@ -49,10 +53,22 @@ public class KurvHandler {
 
     @Override
     public String toString() {
-        String kurv = "";
+        double Prisdk = 0;
+        double Priseuro = 0;
+        String kurv = "Nummer:\tVareTitle:\t\tPrisDk:\tPrisEuro:\n";
         for (Product product : productList) {
-            kurv = kurv + product.toString()+"\n";
+            if (product.getName().length() < 15) {
+                kurv = kurv + product.getProductNumber()+ "\t"+product.getName()+"\t\t"+product.getPriceDk()+"\t"+product.getPriceEuro()+"\n";
+            }else{
+                 kurv = kurv + product.getProductNumber()+ "\t"+product.getName()+"\t"+product.getPriceDk()+"\t"+product.getPriceEuro()+"\n";
+            }
+           
+            Prisdk = Prisdk + product.getPriceDk();
+            Priseuro = Priseuro + product.getPriceEuro();
+            
         }
+        
+        kurv = kurv + "\nTotal: \tPrisdDk: "+Prisdk+"           PrisEuro: "+Priseuro;
         return kurv;
     }
 

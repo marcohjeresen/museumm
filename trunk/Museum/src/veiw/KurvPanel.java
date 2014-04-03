@@ -5,20 +5,23 @@
  */
 
 package veiw;
-import model.handler.*;
+
+import java.awt.Dimension;
+
 /**
  *
- * @author markh_000
+ * @author MarcoPc
  */
-public class Kurv extends javax.swing.JPanel {
-private KurvHandler kurvHandler;
+public class KurvPanel extends javax.swing.JPanel {
+
     /**
-     * Creates new form Kurv
+     * Creates new form KurvPanel
      */
-    public Kurv(KurvHandler kurvHandler1) {
-        this.kurvHandler = kurvHandler1;
+    public KurvPanel(String kurv) {
+        setSize(new Dimension(435, 413));
         initComponents();
-        jTextArea1.setText(kurvHandler.toString());
+        jScrollPane1.setVisible(true);
+        jTextArea1.setText(kurv);
     }
 
     /**
@@ -41,11 +44,11 @@ private KurvHandler kurvHandler;
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

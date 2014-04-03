@@ -28,7 +28,7 @@ public class ProductVeiw extends javax.swing.JPanel {
         this.product = product;
         initComponents();
         jButton1.setText(product.getName());
-        System.out.println (jButton1.getWidth());
+        
     }
 
     

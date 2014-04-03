@@ -3,59 +3,118 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package veiw;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import model.ProductGroup;
-import model.handler.ProductHandler;
+import model.*;
+import model.handler.*;
 
 /**
  *
  * @author markh_000
  */
-public class Guie2 extends javax.swing.JFrame {
-private ArrayList<Groups> groupsList;
+public class Guie2 extends javax.swing.JFrame implements ActionListener {
+
+    private ArrayList<Groups> groupsList;
+    private ArrayList<ProductVeiw> prodList;
     private ProductHandler pr;
+    private Listeners listeners;
+    private KurvHandler kurvHandler;
+
     /**
      * Creates new form Guie2
      */
-    public Guie2(ProductHandler pr) {
+    public Guie2(ProductHandler pr, Listeners listeners, KurvHandler kurvHandler) {
+        this.listeners = listeners;
+        this.kurvHandler = kurvHandler;
         setSize(new Dimension(750, 600));
         this.pr = pr;
         groupsList = new ArrayList<>();
+        prodList = new ArrayList<>();
         initComponents();
-    createPanels(pr.getGroupList());
+        pr.addListener(this);
+        createPanels(pr.getGroupList());
+        setProductPanels(pr.getSpecList());
     }
-    
-    private void createPanels(ArrayList<ProductGroup> groupList) {
 
-        int x = 5;
-        int y = 5;
+    private void createPanels(ArrayList<ProductGroup> groupList) {
+        int x = 7;
+        int y = 15;
         int height = 0;
         int width = 0;
         for (ProductGroup groupl : groupList) {
-            Groups ap = new Groups(groupl);
+            Groups ap = new Groups(groupl, listeners, pr);
+            if (groupsList.size() == 4) {
+                x = 7;
+                y = ap.getHeight() + 25;
+            } else if (groupsList.size() == 8) {
+                x = 7;
+                y = 2 * ap.getHeight() + 35;
+            }
             ap.setLocation(x, y);
-//            jPanel_groups.add(ap);
-//            jPanel_groups.revalidate();
-            jPanel1.add(ap);
-            jPanel1.revalidate();
-            x += ap.getWidth()+5;
+            jPanel_groups.add(ap);
+            jPanel_groups.revalidate();
+            x += ap.getWidth() + 5;
             ap.setVisible(true);
             height = ap.getHeight();
             width = ap.getWidth();
             groupsList.add(ap);
+
         }
-//        if (groupsList.size() > 4) {
-//            height *= groupList.size();
-//            jPanel_groups.setPreferredSize(new Dimension(width, height));
-//            width += 18;
-//            jScrollPane1.setPreferredSize(new Dimension(width, height));
-//        }
-        
     }
+
+    public void setProductPanels(ArrayList<Product> productList) {
+        int x = 7;
+        int y = 15;
+        int height = 0;
+        int width = 0;
+        prodList.removeAll(prodList);
+        jPanel2.removeAll();
+        for (Product product : productList) {
+            ProductVeiw pw = new ProductVeiw(product, kurvHandler);
+            if (prodList.size() == 9) {
+                y = 15;
+                x = pw.getWidth() + 10;
+            }
+            pw.setLocation(x, y);
+            jPanel2.add(pw);
+            jPanel2.revalidate();
+            y += pw.getHeight() + 5;
+            pw.setVisible(true);
+            height = pw.getHeight();
+            width = pw.getWidth();
+            prodList.add(pw);
+        }
+    }
+
+    /**
+     *
+     */
+    public void setKurvPanel() {
+        int x = 7;
+        int y = 15;
+        int height = 0;
+        int width = 0;
+
+        jPanel_KurvList.removeAll();
+
+        Kurv kurv = new Kurv(kurvHandler);
+
+        kurv.setLocation(x, y);
+        jPanel_KurvList.add(kurv);
+        jPanel_KurvList.revalidate();
+        y += kurv.getHeight() + 5;
+        kurv.setVisible(true);
+        height = kurv.getHeight();
+        width = kurv.getWidth();
+    }
+        
+
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,60 +124,113 @@ private ArrayList<Groups> groupsList;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jButton_retunere = new javax.swing.JButton();
+        jPanel_groups = new javax.swing.JPanel();
+        jButton_søg = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel_KurvList = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1198, Short.MAX_VALUE)
+        jButton_retunere.setText("Retunere");
+
+        jPanel_groups.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "ProductGroup"));
+
+        javax.swing.GroupLayout jPanel_groupsLayout = new javax.swing.GroupLayout(jPanel_groups);
+        jPanel_groups.setLayout(jPanel_groupsLayout);
+        jPanel_groupsLayout.setHorizontalGroup(
+            jPanel_groupsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 791, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 82, Short.MAX_VALUE)
+        jPanel_groupsLayout.setVerticalGroup(
+            jPanel_groupsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jPanel1);
+        jButton_søg.setText("Søg");
 
-        jButton1.setText("Søg");
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Product"));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 447, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 399, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel_KurvListLayout = new javax.swing.GroupLayout(jPanel_KurvList);
+        jPanel_KurvList.setLayout(jPanel_KurvListLayout);
+        jPanel_KurvListLayout.setHorizontalGroup(
+            jPanel_KurvListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel_KurvListLayout.setVerticalGroup(
+            jPanel_KurvListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 414, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_søg, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_retunere, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel_groups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel_KurvList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addContainerGap(378, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel_groups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jButton_søg, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton_retunere, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jPanel_KurvList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * @param ae
      * @param args the command line arguments
      */
-    
-   
+    public void actionPerformed(ActionEvent ae) {
+        setProductPanels(pr.getSpecList());
+        setKurvPanel();
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jButton_retunere;
+    private javax.swing.JButton jButton_søg;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel_KurvList;
+    private javax.swing.JPanel jPanel_groups;
     // End of variables declaration//GEN-END:variables
 }

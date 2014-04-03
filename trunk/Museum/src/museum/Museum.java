@@ -34,17 +34,14 @@ public class Museum {
         CashHandler cashHandler = new CashHandler(employeeHandler);
 
         SaleHandler saleHandler = new SaleHandler(employeeHandler, paymentTypeHandler);
-        ProductHandler productHandler = new ProductHandler(saleHandler);
+        ProductHandler productHandler = new ProductHandler(saleHandler,listeners);
         EventHandler eventHandler = new EventHandler(saleHandler, customerHandler);
         TicketHandler ticketHandler = new TicketHandler(saleHandler);
         InvoiceHandler invoiceHandler = new InvoiceHandler(saleHandler);
+        KurvHandler kurvHandler = new KurvHandler(productHandler, customerHandler, paymentTypeHandler, ticketHandler, employeeHandler, eventHandler, saleHandler, invoiceHandler);
 
-        for (Sale sale : saleHandler.getSaleList()) {
-            System.out.println(sale.toString());
-            
-        }
-//        System.out.println(saleHandler.searchSale(2).toString());
-        Guie2 gu = new Guie2(productHandler);
+        
+        Guie2 gu = new Guie2(productHandler, listeners, kurvHandler);
         gu.setVisible(true);
     }
 

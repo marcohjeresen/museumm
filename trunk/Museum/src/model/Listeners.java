@@ -20,9 +20,7 @@ public class Listeners {
 
     public Listeners() {
         listeners = new ArrayList<>();
-        
-        
-        
+
     }
 
     public void addListener(ActionListener listener) {

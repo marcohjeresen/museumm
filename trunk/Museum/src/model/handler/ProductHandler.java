@@ -6,6 +6,7 @@
 package model.handler;
 
 import db.DBConnection;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,12 +27,16 @@ public class ProductHandler {
     private ArrayList<ProductLine> productLineList;
     private ArrayList<ProductGroup> groupList;
     private SaleHandler saleh;
+    private ArrayList<Product> specList;
+    private Listeners listners;
 
-    public ProductHandler(SaleHandler saleh) {
+    public ProductHandler(SaleHandler saleh, Listeners listeners) {
+        this.listners = listeners;
         this.saleh = saleh;
         productList = new ArrayList<>();
         productLineList = new ArrayList<>();
         groupList = new ArrayList<>();
+        specList = new ArrayList<>();
         getDatabase();
         addLineToSale();
     }
@@ -100,9 +105,32 @@ public class ProductHandler {
         productLineList.add(pl);
     }
 
+    public void setSpecProductList(ProductGroup group) {
+        specList.removeAll(specList);
+        
+        for (Product product : productList) {
+            if (product.getGroupNumber() == group) {
+                specList.add(product);
+            }
+        }
+        listners.notifyListeners();
+    }
+    
+    public void addListener(ActionListener listener) {
+        listners.addListener(listener);
+
+    }
+
+    public ArrayList<Product> getSpecList() {
+        return specList;
+    }
+    
+
     public ArrayList<Product> getProductList() {
         return productList;
     }
+    
+    
 
     public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;

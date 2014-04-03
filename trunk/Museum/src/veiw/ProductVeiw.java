@@ -6,50 +6,34 @@
 package veiw;
 
 import java.awt.Dimension;
-import model.*;
+import model.Product;
 import model.handler.*;
 
 /**
  *
  * @author markh_000
  */
-public class Groups extends javax.swing.JPanel {
+public class ProductVeiw extends javax.swing.JPanel {
 
-    private ProductGroup productGroup;
-    private Listeners listners;
-    private ProductHandler ph;
-    
+    private Product product;
+    private KurvHandler kurvHandler;
 
     /**
-     * Creates new form Groups
+     * Creates new form ProductVeiw
      */
-    public Groups(ProductGroup groups, Listeners listners, ProductHandler ph) {
-        this.productGroup = groups;
-        this.listners = listners;
-        this.ph = ph;
-        int x = 0;
-        x = 192;
-//        if (groups.getGroupType().length() < 6) {
-//            x = groups.getGroupType().length() * 16;
-//        } else if (groups.getGroupType().length() > 5 && groups.getGroupType().length() < 8) {
-//            x = groups.getGroupType().length() * 12 + 6;
-//        } else if (groups.getGroupType().length() > 7 && groups.getGroupType().length() < 12){
-//            x = groups.getGroupType().length() * 11;
-//        }else if (groups.getGroupType().length() > 12 && groups.getGroupType().length() < 20){
-//             x = groups.getGroupType().length() * 10;
-//        }else{
-//            x = groups.getGroupType().length() * 8;
-//        }
+    public ProductVeiw(Product product, KurvHandler kurvHandler) {
 
-        
-
-        
-        setSize(new Dimension(x, 40));
-        
+        setSize(new Dimension(220, 40));
+        this.kurvHandler = kurvHandler;
+        this.product = product;
         initComponents();
-        jButton1.setText(groups.getGroupType());
+        jButton1.setText(product.getName());
+        System.out.println (jButton1.getWidth());
     }
 
+    
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,8 +45,7 @@ public class Groups extends javax.swing.JPanel {
 
         jButton1 = new javax.swing.JButton();
 
-        jButton1.setText("jButton1");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.setText("Tilføj");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -73,17 +56,16 @@ public class Groups extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ph.setSpecProductList(productGroup);
-        
+       kurvHandler.setProductList(product);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

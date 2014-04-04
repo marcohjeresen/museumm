@@ -41,13 +41,9 @@ public class Museum {
         KurvHandler kurvHandler = new KurvHandler(productHandler, customerHandler, paymentTypeHandler, ticketHandler, employeeHandler, 
                 eventHandler, saleHandler, invoiceHandler, listeners);
 
-        for (TicketType string : ticketHandler.getTpList()) {
-            System.out.println(string.getType());
-        }
         
-        for (EventType string : eventHandler.getEventTypeList()) {
-            System.out.println(string.getType());
-        }
+        
+        
         Guie2 gu = new Guie2(productHandler, listeners, kurvHandler);
         gu.setVisible(true);
     }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package veiw;
+package veiw.Panel;
 
 import java.awt.Dimension;
 
@@ -18,7 +18,7 @@ public class KurvPanel extends javax.swing.JPanel {
      * Creates new form KurvPanel
      */
     public KurvPanel(String kurv) {
-        setSize(new Dimension(435, 413));
+        setSize(new Dimension(435, 385));
         initComponents();
         jScrollPane1.setVisible(true);
         jTextArea1.setText(kurv);

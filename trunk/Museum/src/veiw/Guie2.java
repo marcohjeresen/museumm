@@ -5,12 +5,16 @@
  */
 package veiw;
 
+import veiw.Panel.ProductVeiw;
+import veiw.Panel.Groups;
+import veiw.Panel.KurvPanel;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import model.*;
 import model.handler.*;
+import veiw.Panel.UserPanel;
 
 /**
  *
@@ -21,6 +25,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     private ArrayList<Groups> groupsList;
     private ArrayList<ProductVeiw> prodList;
     private ArrayList<KurvPanel> kurvList;
+    private EmployeeHandler employeeHandler;
     private ProductHandler pr;
     private Listeners listeners;
     private KurvHandler kurvHandler;
@@ -28,9 +33,10 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     /**
      * Creates new form Guie2
      */
-    public Guie2(ProductHandler pr, Listeners listeners, KurvHandler kurvHandler) {
+    public Guie2(ProductHandler pr, Listeners listeners, KurvHandler kurvHandler, EmployeeHandler employeeHandler) {
         this.listeners = listeners;
         this.kurvHandler = kurvHandler;
+        this.employeeHandler = employeeHandler;
         setSize(new Dimension(750, 600));
         this.pr = pr;
         groupsList = new ArrayList<>();
@@ -41,6 +47,19 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         createPanels(pr.getGroupList());
         setProductPanels(pr.getSpecList());
         setKurvPanel();
+        setLoginPanel();
+        disableEnableBottoms();
+    }
+
+    public void disableEnableBottoms() {
+        try {
+            String name = employeeHandler.getLogIndEmployee().getName();
+            jButton_betal.setEnabled(true);
+            jButton_retunere.setEnabled(true);
+        } catch (NullPointerException ex) {
+            jButton_betal.setEnabled(false);
+            jButton_retunere.setEnabled(false);
+        }
     }
 
     private void createPanels(ArrayList<ProductGroup> groupList) {
@@ -93,9 +112,6 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         }
     }
 
-    /**
-     *
-     */
     public void setKurvPanel() {
         int x = 7;
         int y = 15;
@@ -103,50 +119,38 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         int width = 0;
         jPanel_KurvList.removeAll();
         kurvList.removeAll(kurvList);
-            KurvPanel k = new KurvPanel(kurvHandler.toString());
-            
-            k.setLocation(x, y);
-            jPanel_KurvList.add(k);
-            jPanel_KurvList.revalidate();
-            x += k.getWidth() + 5;
-            k.setVisible(true);
-            height = k.getHeight();
-            width = k.getWidth();
-            kurvList.add(k);
+        KurvPanel k = new KurvPanel(kurvHandler.toString());
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-//        System.out.println(" heeeeej");
-//        int x = 7;
-//        int y = 15;
-//        int height = 0;
-//        int width = 0;
-//
-//        jPanel_KurvList.removeAll();
-//        String kurv2 = kurvHandler.toString();
-//        System.out.println(kurv2);
-//
-//        Kurv kurv = new Kurv(kurv2);
-//
-//        kurv.setLocation(x, y);
-//        jPanel_KurvList.add(kurv);
-//        jPanel_KurvList.revalidate();
-//        
-//        kurv.setVisible(true);
-//        height = kurv.getHeight();
-//        width = kurv.getWidth();
-//        kurvList.add(kurv);
+        k.setLocation(x, y);
+        jPanel_KurvList.add(k);
+        jPanel_KurvList.revalidate();
+        x += k.getWidth() + 5;
+        k.setVisible(true);
+        height = k.getHeight();
+        width = k.getWidth();
+        kurvList.add(k);
+
     }
-        
 
-    
+    public void setLoginPanel() {
+        int x = 0;
+        int y = 0;
+        int height = 0;
+        int width = 0;
+
+        jPanel_user.removeAll();
+
+        UserPanel up = new UserPanel(employeeHandler, kurvHandler);
+
+        up.setLocation(x, y);
+        jPanel_user.add(up);
+        jPanel_user.revalidate();
+        y += up.getHeight() + 5;
+        up.setVisible(true);
+        height = up.getHeight();
+        width = up.getWidth();
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -161,9 +165,9 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         jPanel_groups = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel_KurvList = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jButton_clearKurv = new javax.swing.JButton();
+        jButton_betal = new javax.swing.JButton();
+        jPanel_user = new javax.swing.JPanel();
         jButton_søg = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -189,7 +193,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 311, Short.MAX_VALUE)
+            .addGap(0, 253, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,19 +213,19 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
             .addGap(0, 382, Short.MAX_VALUE)
         );
 
-        jButton1.setText("jButton1");
+        jButton_clearKurv.setText("Clear Kurv");
 
-        jButton2.setText("jButton2");
+        jButton_betal.setText("Betal");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel_userLayout = new javax.swing.GroupLayout(jPanel_user);
+        jPanel_user.setLayout(jPanel_userLayout);
+        jPanel_userLayout.setHorizontalGroup(
+            jPanel_userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 59, Short.MAX_VALUE)
+        jPanel_userLayout.setVerticalGroup(
+            jPanel_userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 89, Short.MAX_VALUE)
         );
 
         jButton_søg.setText("Søg");
@@ -234,24 +238,26 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
                 .addContainerGap(34, Short.MAX_VALUE)
                 .addComponent(jButton_søg, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jPanel_groups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton_retunere, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2)
-                                .addGap(131, 131, 131))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jPanel_KurvList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
-                    .addComponent(jPanel_groups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton_retunere, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton_clearKurv, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_betal, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel_KurvList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,15 +275,13 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton_retunere, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton1)
-                                .addComponent(jButton2)))
+                            .addComponent(jButton_retunere, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_betal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton_clearKurv, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 22, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         pack();
@@ -290,17 +294,19 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         setProductPanels(pr.getSpecList());
         setKurvPanel();
+        setLoginPanel();
+        disableEnableBottoms();
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton_betal;
+    private javax.swing.JButton jButton_clearKurv;
     private javax.swing.JButton jButton_retunere;
     private javax.swing.JButton jButton_søg;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel_KurvList;
     private javax.swing.JPanel jPanel_groups;
+    private javax.swing.JPanel jPanel_user;
     // End of variables declaration//GEN-END:variables
 }

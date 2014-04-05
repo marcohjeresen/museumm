@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Employee;
+import model.*;
 import museum.Museum;
 
 /**
@@ -22,8 +22,10 @@ public class EmployeeHandler {
 
     private Employee employee;
     private ArrayList<Employee> employeeList;
+    private Listeners listeners;
 
-    public EmployeeHandler() {
+    public EmployeeHandler(Listeners listeners1) {
+        this.listeners = listeners1;
         employeeList = new ArrayList<>();
         getdatabase();
     }
@@ -60,6 +62,25 @@ public class EmployeeHandler {
 
     public void setEmployeeList(ArrayList<Employee> employeeList) {
         this.employeeList = employeeList;
+    }
+    
+    public void setLoginEmployee(int kode){
+        for (Employee employee1 : employeeList) {
+            if (employee1.getPassword() == kode) {
+                this.employee = employee1;
+                listeners.notifyListeners();
+                
+                
+            }
+        }
+    }
+    public void logEmployeeUd(){
+        employee = null;
+        listeners.notifyListeners();
+    }
+    
+    public Employee getLogIndEmployee(){
+        return employee;
     }
     
     

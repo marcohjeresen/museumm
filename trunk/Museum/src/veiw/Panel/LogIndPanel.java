@@ -11,7 +11,7 @@ import model.handler.EmployeeHandler;
  *
  * @author MarcoPc
  */
-public class LogInd extends javax.swing.JPanel {
+public class LogIndPanel extends javax.swing.JPanel {
 
     private EmployeeHandler employeeHandler;
     private String kode;
@@ -19,10 +19,11 @@ public class LogInd extends javax.swing.JPanel {
     /**
      * Creates new form LogInd
      */
-    public LogInd(EmployeeHandler employeeHandler) {
+    public LogIndPanel(EmployeeHandler employeeHandler) {
         this.employeeHandler = employeeHandler;
         initComponents();
         kode = "0";
+        settextfield();
     }
 
     public void setKode(String tal) {
@@ -270,7 +271,13 @@ public class LogInd extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        
            int talkode = Integer.parseInt(kode);
+           kode = "0";
+           settextfield();
            employeeHandler.setLoginEmployee(talkode);
+           if (employeeHandler.getLogIndEmployee() == null) {
+               jTextField_kode.setText("Ingen mach. prøv igen");
+        }
+           
            
     }//GEN-LAST:event_jButton2ActionPerformed
 

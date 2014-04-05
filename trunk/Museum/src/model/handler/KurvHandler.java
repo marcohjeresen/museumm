@@ -7,6 +7,7 @@
 package model.handler;
 import java.util.ArrayList;
 import model.*;
+import java.math.*;
 /**
  *
  * @author markh_000
@@ -25,6 +26,8 @@ public class KurvHandler {
     private ArrayList<EventType> eventTypesList;
     private Listeners listeners;
     private Employee employee;
+    private double Prisdk;
+    private double Priseuro;
 
     public KurvHandler(ProductHandler productHandler, CustomerHandler customerHandler, PaymentTypeHandler paymentTypeHandler, TicketHandler ticketHandler, EmployeeHandler employeeHandler, EventHandler eventHandler, SaleHandler saleHandler, InvoiceHandler invoiceHandler, Listeners listeners1) {
         this.productHandler = productHandler;
@@ -43,9 +46,18 @@ public class KurvHandler {
     }
     
     public void setProductList(Product product){
+        
         productList.add(product);
         listeners.notifyListeners();
         
+    }
+    public void clearKurv(){
+        productList.removeAll(productList);
+        ticketTypesList.removeAll(ticketTypesList);
+        eventTypesList.removeAll(eventTypesList);
+        Prisdk = 0;
+        Priseuro = 0;
+        listeners.notifyListeners();
     }
 
     public ArrayList<Product> getProductList() {
@@ -54,8 +66,7 @@ public class KurvHandler {
 
     @Override
     public String toString() {
-        double Prisdk = 0;
-        double Priseuro = 0;
+        
         String kurv = "Nummer:\tVareTitle:\t\tPrisDk:\tPrisEuro:\n";
         for (Product product : productList) {
             if (product.getName().length() < 15) {
@@ -69,8 +80,11 @@ public class KurvHandler {
             
         }
         
-        kurv = kurv + "\nTotal: \tPrisdDk: "+Prisdk+"           PrisEuro: "+Priseuro;
+        ;
         return kurv;
+    }
+    public String priceToString(){
+        return "\nTotal: \tPrisdDk: "+Prisdk+"           PrisEuro: "+Priseuro;
     }
     
     public void setBruger(int kode){

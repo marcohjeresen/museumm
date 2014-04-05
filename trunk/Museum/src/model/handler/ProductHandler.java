@@ -115,6 +115,18 @@ public class ProductHandler {
         }
         listners.notifyListeners();
     }
+    public void searchProduct(int productnumber){
+        specList.removeAll(specList);
+        
+        for (Product product : productList) {
+            if (product.getProductNumber() == productnumber) {
+                specList.add(product);
+                listners.notifyListeners();
+            }
+        }
+        
+        
+    }
     
     public void addListener(ActionListener listener) {
         listners.addListener(listener);
@@ -122,6 +134,7 @@ public class ProductHandler {
     }
 
     public ArrayList<Product> getSpecList() {
+        
         return specList;
     }
     

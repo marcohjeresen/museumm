@@ -12,8 +12,10 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JPopupMenu;
 import model.*;
 import model.handler.*;
+import veiw.Panel.SearchPanel;
 import veiw.Panel.UserPanel;
 
 /**
@@ -29,6 +31,9 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     private ProductHandler pr;
     private Listeners listeners;
     private KurvHandler kurvHandler;
+    private UserPanel up;
+    private JPopupMenu popup;
+    private SearchPanel searchPanel;
 
     /**
      * Creates new form Guie2
@@ -37,6 +42,8 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         this.listeners = listeners;
         this.kurvHandler = kurvHandler;
         this.employeeHandler = employeeHandler;
+        up = new UserPanel(employeeHandler, kurvHandler);
+        searchPanel = new SearchPanel(pr, this);
         setSize(new Dimension(750, 600));
         this.pr = pr;
         groupsList = new ArrayList<>();
@@ -49,6 +56,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         setKurvPanel();
         setLoginPanel();
         disableEnableBottoms();
+        popup = new JPopupMenu();
     }
 
     public void disableEnableBottoms() {
@@ -119,7 +127,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         int width = 0;
         jPanel_KurvList.removeAll();
         kurvList.removeAll(kurvList);
-        KurvPanel k = new KurvPanel(kurvHandler.toString());
+        KurvPanel k = new KurvPanel(kurvHandler.toString(), kurvHandler.priceToString());
 
         k.setLocation(x, y);
         jPanel_KurvList.add(k);
@@ -138,10 +146,9 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         int height = 0;
         int width = 0;
 
+        up.closepopup();
+        up.setPicAndName();
         jPanel_user.removeAll();
-
-        UserPanel up = new UserPanel(employeeHandler, kurvHandler);
-
         up.setLocation(x, y);
         jPanel_user.add(up);
         jPanel_user.revalidate();
@@ -149,7 +156,20 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         up.setVisible(true);
         height = up.getHeight();
         width = up.getWidth();
-
+repaint();
+    }
+    
+    public void popUpPanel() {
+        
+        searchPanel.setPreferredSize(new Dimension(235, 410));
+        
+        popup.add(searchPanel);
+        popup.setLocation(100, 100);
+        popup.setVisible(true);
+ 
+    }
+    public void closePopupPanel(){
+        popup.setVisible(false);
     }
 
     /**
@@ -169,6 +189,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         jButton_betal = new javax.swing.JButton();
         jPanel_user = new javax.swing.JPanel();
         jButton_søg = new javax.swing.JButton();
+        jButton_fortryd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -214,6 +235,11 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         );
 
         jButton_clearKurv.setText("Clear Kurv");
+        jButton_clearKurv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_clearKurvActionPerformed(evt);
+            }
+        });
 
         jButton_betal.setText("Betal");
 
@@ -229,6 +255,13 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         );
 
         jButton_søg.setText("Søg");
+        jButton_søg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_søgActionPerformed(evt);
+            }
+        });
+
+        jButton_fortryd.setText("Fortryd");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -249,12 +282,15 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
                         .addContainerGap()
                         .addComponent(jPanel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_retunere, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_fortryd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton_clearKurv, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton_retunere, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton_betal, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel_KurvList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -274,10 +310,11 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton_betal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton_retunere, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton_betal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton_clearKurv, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton_clearKurv, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_fortryd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -286,6 +323,14 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton_clearKurvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_clearKurvActionPerformed
+       kurvHandler.clearKurv();
+    }//GEN-LAST:event_jButton_clearKurvActionPerformed
+
+    private void jButton_søgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_søgActionPerformed
+        popUpPanel();
+    }//GEN-LAST:event_jButton_søgActionPerformed
 
     /**
      * @param ae
@@ -302,6 +347,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_betal;
     private javax.swing.JButton jButton_clearKurv;
+    private javax.swing.JButton jButton_fortryd;
     private javax.swing.JButton jButton_retunere;
     private javax.swing.JButton jButton_søg;
     private javax.swing.JPanel jPanel2;

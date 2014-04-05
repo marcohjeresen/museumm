@@ -30,7 +30,7 @@ public class Museum {
         CustomerHandler customerHandler = new CustomerHandler();
         PaymentTypeHandler paymentTypeHandler = new PaymentTypeHandler();
 
-        EmployeeHandler employeeHandler = new EmployeeHandler();
+        EmployeeHandler employeeHandler = new EmployeeHandler(listeners);
         CashHandler cashHandler = new CashHandler(employeeHandler);
 
         SaleHandler saleHandler = new SaleHandler(employeeHandler, paymentTypeHandler);
@@ -44,7 +44,7 @@ public class Museum {
         
         
         
-        Guie2 gu = new Guie2(productHandler, listeners, kurvHandler);
+        Guie2 gu = new Guie2(productHandler, listeners, kurvHandler, employeeHandler);
         gu.setVisible(true);
     }
 

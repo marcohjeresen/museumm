@@ -32,7 +32,7 @@ public class DBConnection {
         this.port = "3306";
         this.dbNavn = "museumsydøstdanmark";
         this.user = "root";
-        this.pass = "root";
+        this.pass = "Root";
         this.db = "jdbc:mysql://" + host + ":" + port + "/" + dbNavn;
         isConnected = false;
         connection();

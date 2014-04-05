@@ -24,6 +24,7 @@ public class KurvHandler {
     private ArrayList<TicketType> ticketTypesList;
     private ArrayList<EventType> eventTypesList;
     private Listeners listeners;
+    private Employee employee;
 
     public KurvHandler(ProductHandler productHandler, CustomerHandler customerHandler, PaymentTypeHandler paymentTypeHandler, TicketHandler ticketHandler, EmployeeHandler employeeHandler, EventHandler eventHandler, SaleHandler saleHandler, InvoiceHandler invoiceHandler, Listeners listeners1) {
         this.productHandler = productHandler;
@@ -70,6 +71,26 @@ public class KurvHandler {
         
         kurv = kurv + "\nTotal: \tPrisdDk: "+Prisdk+"           PrisEuro: "+Priseuro;
         return kurv;
+    }
+    
+    public void setBruger(int kode){
+        for (Employee employ : employeeHandler.getEmployeeList()) {
+            System.out.println("jeps");
+            if (employ.getPassword() == kode) {
+                System.out.println("jeps");
+                this.employee = employ;
+                listeners.notifyListeners();
+            }
+        }
+    }
+    public Employee getEmployee(){
+        listeners.notifyListeners();
+        return employee;
+    }
+    
+    public void logUd(){
+        listeners.notifyListeners();
+        employee = null;
     }
 
    

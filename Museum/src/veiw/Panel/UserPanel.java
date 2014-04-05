@@ -23,7 +23,7 @@ public class UserPanel extends javax.swing.JPanel {
     private KurvHandler kurvHandler;
     private JPopupMenu popup;
     
-    private LogInd logInd;
+    private LogIndPanel logInd;
 
 
     /**
@@ -33,7 +33,7 @@ public class UserPanel extends javax.swing.JPanel {
         setSize(new Dimension(348, 70));
         this.employeeHandler = employeeHandler;
         popup = new JPopupMenu();
-        logInd = new LogInd(employeeHandler);
+        logInd = new LogIndPanel(employeeHandler);
         initComponents();
         setPicAndName();
 
@@ -62,6 +62,9 @@ public class UserPanel extends javax.swing.JPanel {
     public void logUd() {
         employeeHandler.logEmployeeUd();
         setPicAndName();
+    }
+    public void closepopup(){
+        popup.setVisible(false);
     }
     
     public void popUpPanel() {

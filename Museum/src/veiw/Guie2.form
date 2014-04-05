@@ -34,20 +34,21 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel_user" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="103" groupAlignment="1" attributes="0">
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jButton_retunere" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="jButton_fortryd" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButton_clearKurv" min="-2" pref="106" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jButton_retunere" min="-2" pref="130" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButton_betal" min="-2" pref="106" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jPanel_KurvList" min="-2" max="-2" attributes="0"/>
@@ -74,10 +75,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButton_retunere" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
-                          <Component id="jButton_betal" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jButton_clearKurv" alignment="1" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButton_betal" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="jButton_retunere" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="jButton_clearKurv" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="jButton_fortryd" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -170,6 +172,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Clear Kurv"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_clearKurvActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton_betal">
       <Properties>
@@ -194,6 +199,14 @@
     <Component class="javax.swing.JButton" name="jButton_s&#xf8;g">
       <Properties>
         <Property name="text" type="java.lang.String" value="S&#xf8;g"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_s&#xf8;gActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton_fortryd">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Fortryd"/>
       </Properties>
     </Component>
   </SubComponents>

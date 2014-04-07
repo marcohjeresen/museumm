@@ -31,7 +31,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     private ProductHandler pr;
     private Listeners listeners;
     private KurvHandler kurvHandler;
-    private UserPanel up;
+    private UserPanel userPanel;
     private JPopupMenu popup;
     private SearchPanel searchPanel;
 
@@ -42,7 +42,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         this.listeners = listeners;
         this.kurvHandler = kurvHandler;
         this.employeeHandler = employeeHandler;
-        up = new UserPanel(employeeHandler, kurvHandler);
+        userPanel = new UserPanel(employeeHandler, kurvHandler);
         searchPanel = new SearchPanel(pr, this);
         setSize(new Dimension(750, 600));
         this.pr = pr;
@@ -141,35 +141,30 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     }
 
     public void setLoginPanel() {
-        int x = 0;
-        int y = 0;
-        int height = 0;
-        int width = 0;
-
-        up.closepopup();
-        up.setPicAndName();
+        userPanel.closepopup();
+        userPanel.setPicAndName();
         jPanel_user.removeAll();
-        up.setLocation(x, y);
-        jPanel_user.add(up);
+        userPanel.setLocation(0, 0);
+        jPanel_user.add(userPanel);
         jPanel_user.revalidate();
-        y += up.getHeight() + 5;
-        up.setVisible(true);
-        height = up.getHeight();
-        width = up.getWidth();
-repaint();
+        userPanel.setVisible(true);
     }
     
-    public void popUpPanel() {
-        
+    public void searchPanel() {
         searchPanel.setPreferredSize(new Dimension(235, 410));
-        
         popup.add(searchPanel);
         popup.setLocation(100, 100);
         popup.setVisible(true);
  
     }
-    public void closePopupPanel(){
+    public void closeSearchPanel(){
         popup.setVisible(false);
+    }
+    
+    public void setCashRegistre(){
+        if (kurvHandler.getEmployee() != null && kurvHandler.getCashRegister() == null) {
+            
+        }
     }
 
     /**
@@ -262,6 +257,11 @@ repaint();
         });
 
         jButton_fortryd.setText("Fortryd");
+        jButton_fortryd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_fortrydActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,12 +276,10 @@ repaint();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -329,8 +327,12 @@ repaint();
     }//GEN-LAST:event_jButton_clearKurvActionPerformed
 
     private void jButton_søgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_søgActionPerformed
-        popUpPanel();
+        searchPanel();
     }//GEN-LAST:event_jButton_søgActionPerformed
+
+    private void jButton_fortrydActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_fortrydActionPerformed
+        kurvHandler.cancelLast();
+    }//GEN-LAST:event_jButton_fortrydActionPerformed
 
     /**
      * @param ae

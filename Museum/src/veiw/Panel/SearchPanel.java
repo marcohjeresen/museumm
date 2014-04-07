@@ -269,7 +269,9 @@ public class SearchPanel extends javax.swing.JPanel {
         if (productHandler.getSpecList().isEmpty()) {
             jTextField_number.setText("Ingen machende producter");
         }else{
-            guie2.closePopupPanel();
+            guie2.closeSearchPanel();
+            search = "0";
+            setTextfield();
         }
     }//GEN-LAST:event_jButton_godkendtActionPerformed
 

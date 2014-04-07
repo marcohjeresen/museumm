@@ -38,7 +38,7 @@ public class CashHandler {
             while (rs.next()) {
                     for (Employee employeeList : eh.getEmployeeList()) {
                     if (employeeList.getCpr() == rs.getInt("starting_employee_cpr")) {
-                        cr = new CashRegister(rs.getDate("starting_date"), rs.getDouble("starting_amount_dk"), rs.getDouble("starting_amount_euro"), employeeList );
+                        cr = new CashRegister(rs.getString("starting_date"), rs.getDouble("starting_amount_dk"), rs.getDouble("starting_amount_euro"), employeeList );
                         cashList.add(cr);
                     }
                 }

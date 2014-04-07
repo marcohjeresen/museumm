@@ -3,16 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.handler;
+
 import java.util.ArrayList;
 import model.*;
 import java.math.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+
 /**
  *
  * @author markh_000
  */
 public class KurvHandler {
+    
     private ProductHandler productHandler;
     private CustomerHandler customerHandler;
     private PaymentTypeHandler paymentTypeHandler;
@@ -26,9 +32,10 @@ public class KurvHandler {
     private ArrayList<EventType> eventTypesList;
     private Listeners listeners;
     private Employee employee;
+    private CashRegister cashRegister;
     private double Prisdk;
     private double Priseuro;
-
+    
     public KurvHandler(ProductHandler productHandler, CustomerHandler customerHandler, PaymentTypeHandler paymentTypeHandler, TicketHandler ticketHandler, EmployeeHandler employeeHandler, EventHandler eventHandler, SaleHandler saleHandler, InvoiceHandler invoiceHandler, Listeners listeners1) {
         this.productHandler = productHandler;
         this.customerHandler = customerHandler;
@@ -45,13 +52,22 @@ public class KurvHandler {
         
     }
     
-    public void setProductList(Product product){
+    public void setProductList(Product product) {
         
         productList.add(product);
         listeners.notifyListeners();
         
     }
-    public void clearKurv(){
+
+    public void cancelLast() {
+        if (!productList.isEmpty()) {
+            productList.remove(productList.size() - 1);
+            listeners.notifyListeners();
+        }
+        
+    }
+    
+    public void clearKurv() {
         productList.removeAll(productList);
         ticketTypesList.removeAll(ticketTypesList);
         eventTypesList.removeAll(eventTypesList);
@@ -59,57 +75,66 @@ public class KurvHandler {
         Priseuro = 0;
         listeners.notifyListeners();
     }
-
+    
     public ArrayList<Product> getProductList() {
         return productList;
     }
-
+    
     @Override
     public String toString() {
-        
+        Prisdk = 0;
+        Priseuro = 0;
         String kurv = "Nummer:\tVareTitle:\t\tPrisDk:\tPrisEuro:\n";
         for (Product product : productList) {
             if (product.getName().length() < 15) {
-                kurv = kurv + product.getProductNumber()+ "\t"+product.getName()+"\t\t"+product.getPriceDk()+"\t"+product.getPriceEuro()+"\n";
-            }else{
-                 kurv = kurv + product.getProductNumber()+ "\t"+product.getName()+"\t"+product.getPriceDk()+"\t"+product.getPriceEuro()+"\n";
+                kurv = kurv + product.getProductNumber() + "\t" + product.getName() + "\t\t" + product.getPriceDk() + "\t" + product.getPriceEuro() + "\n";
+                Prisdk = Prisdk + product.getPriceDk();
+                Priseuro = Priseuro + product.getPriceEuro();
+            } else {
+                kurv = kurv + product.getProductNumber() + "\t" + product.getName() + "\t" + product.getPriceDk() + "\t" + product.getPriceEuro() + "\n";
+                Prisdk = Prisdk + product.getPriceDk();
+                Priseuro = Priseuro + product.getPriceEuro();
             }
-           
-            Prisdk = Prisdk + product.getPriceDk();
-            Priseuro = Priseuro + product.getPriceEuro();
-            
         }
-        
-        ;
+        Priseuro = Priseuro * 100;
+        Priseuro = Math.round(Priseuro);
+        Priseuro = (Priseuro / 100);
         return kurv;
     }
-    public String priceToString(){
-        return "\nTotal: \tPrisdDk: "+Prisdk+"           PrisEuro: "+Priseuro;
+    
+    public String priceToString() {
+        return "\nTotal: \tPrisdDk: " + Prisdk + "           PrisEuro: " + Priseuro;
     }
     
-    public void setBruger(int kode){
+    public void setBruger(int kode) {
         for (Employee employ : employeeHandler.getEmployeeList()) {
-            System.out.println("jeps");
             if (employ.getPassword() == kode) {
-                System.out.println("jeps");
                 this.employee = employ;
                 listeners.notifyListeners();
             }
         }
     }
-    public Employee getEmployee(){
+    public void setCashRegister(double beløbDk, double beløbEuro){
+        Calendar cal = Calendar.getInstance();
+        String str = cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-"+cal.get(Calendar.DATE)+" "+cal.get(Calendar.HOUR)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND);
+        
+        cashRegister = new CashRegister(str, beløbDk, beløbEuro, employee);
+        
+    }
+
+    public CashRegister getCashRegister() {
+        return cashRegister;
+    }
+    
+    
+    public Employee getEmployee() {
         listeners.notifyListeners();
         return employee;
     }
     
-    public void logUd(){
+    public void logUd() {
         listeners.notifyListeners();
         employee = null;
     }
-
-   
-    
-    
-    
     
 }

@@ -99,6 +99,10 @@ public class KurvHandler {
         Priseuro = Priseuro * 100;
         Priseuro = Math.round(Priseuro);
         Priseuro = (Priseuro / 100);
+        
+        Prisdk = Prisdk * 100;
+        Prisdk = Math.round(Prisdk);
+        Prisdk = (Prisdk / 100);
         return kurv;
     }
     
@@ -119,6 +123,7 @@ public class KurvHandler {
         String str = cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-"+cal.get(Calendar.DATE)+" "+cal.get(Calendar.HOUR)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND);
         
         cashRegister = new CashRegister(str, beløbDk, beløbEuro, employee);
+        listeners.notifyListeners();
         
     }
 
@@ -128,7 +133,7 @@ public class KurvHandler {
     
     
     public Employee getEmployee() {
-        listeners.notifyListeners();
+        
         return employee;
     }
     

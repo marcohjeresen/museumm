@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import javax.swing.JPopupMenu;
 import model.*;
 import model.handler.*;
-import veiw.Panel.SearchPanel;
-import veiw.Panel.UserPanel;
+import veiw.Panel.*;
 
 /**
  *
@@ -32,8 +31,10 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     private Listeners listeners;
     private KurvHandler kurvHandler;
     private UserPanel userPanel;
-    private JPopupMenu popup;
+    private JPopupMenu searchPop;
+    private JPopupMenu cashRegistre;
     private SearchPanel searchPanel;
+    private CashRegistre cashRegistre1;
 
     /**
      * Creates new form Guie2
@@ -44,6 +45,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         this.employeeHandler = employeeHandler;
         userPanel = new UserPanel(employeeHandler, kurvHandler);
         searchPanel = new SearchPanel(pr, this);
+        cashRegistre1 = new CashRegistre(kurvHandler);
         setSize(new Dimension(750, 600));
         this.pr = pr;
         groupsList = new ArrayList<>();
@@ -56,7 +58,8 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         setKurvPanel();
         setLoginPanel();
         disableEnableBottoms();
-        popup = new JPopupMenu();
+        searchPop = new JPopupMenu();
+        cashRegistre = new JPopupMenu();
     }
 
     public void disableEnableBottoms() {
@@ -149,22 +152,35 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         jPanel_user.revalidate();
         userPanel.setVisible(true);
     }
-    
+
     public void searchPanel() {
         searchPanel.setPreferredSize(new Dimension(235, 410));
-        popup.add(searchPanel);
-        popup.setLocation(100, 100);
-        popup.setVisible(true);
- 
+        searchPop.add(searchPanel);
+        searchPop.setLocation(100, 100);
+        searchPop.setVisible(true);
+
     }
-    public void closeSearchPanel(){
-        popup.setVisible(false);
+
+    public void closeSearchPanel() {
+        searchPop.setVisible(false);
     }
-    
-    public void setCashRegistre(){
-        if (kurvHandler.getEmployee() != null && kurvHandler.getCashRegister() == null) {
+
+    public void setCashRegistre() {
+        
+
+        closeCashrige();
+        if (employeeHandler.getLogIndEmployee() != null && kurvHandler.getCashRegister() == null) {
+            cashRegistre.add(cashRegistre1);
+            cashRegistre.setLocation(100, 100);
+            cashRegistre.setVisible(true);
+//        
             
         }
+
+    }
+
+    public void closeCashrige() {
+        cashRegistre.setVisible(false);
     }
 
     /**
@@ -323,7 +339,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_clearKurvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_clearKurvActionPerformed
-       kurvHandler.clearKurv();
+        kurvHandler.clearKurv();
     }//GEN-LAST:event_jButton_clearKurvActionPerformed
 
     private void jButton_søgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_søgActionPerformed
@@ -343,6 +359,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         setKurvPanel();
         setLoginPanel();
         disableEnableBottoms();
+        setCashRegistre();
     }
 
 

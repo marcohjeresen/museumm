@@ -13,23 +13,23 @@ import java.util.Date;
  * @author markh_000
  */
 public class CashRegister {
-    private Date date;
+    private String date;
     private double amountDk;
     private double amountEuro;
     private Employee employee;
 
-    public CashRegister(Date date, double amountDk, double amountEuro, Employee employee) {
+    public CashRegister(String date, double amountDk, double amountEuro, Employee employee) {
         this.date = date;
         this.amountDk = amountDk;
         this.amountEuro = amountEuro;
         this.employee = employee;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -106,8 +106,8 @@ public class Sale {
     public String toString() {
         endpriceDk = 0;
         endpriceEuro = 0;
-        String sale = "Sale id: " + id + "\n" + "paymentType: " + paymentType.getType() + " employee: " + employee.getName() + " date: " + date + "\nProduct: \n";
-        if (productLine != null) {
+        String sale = "\nSale id: " + id + "\n" + "paymentType: " + paymentType.getType() + " employee: " + employee.getName() + " date: " + date + "\n\nProduct: \n";
+        if (!productLine.isEmpty()) {
             for (ProductLine productline : productLine) {
                 for (Product product : productline.getProductList()) {
                     sale = sale + product.toString() + "\n";
@@ -116,8 +116,8 @@ public class Sale {
                 }
             }
         }
-        if (eventLine != null) {
-            sale = sale + "Event: \n";
+        if (!eventLine.isEmpty()) {
+            sale = sale + "\nEvent: \n";
             for (EventLine eventline : eventLine) {
                 for (EventType eventtype : eventline.getEventtypeList()) {
                     sale = sale + eventtype.toString() + " Customer: " + eventline.getCustomer().getName() + "\n";
@@ -126,8 +126,8 @@ public class Sale {
                 }
             }
         }
-        if (ticketLine != null) {
-            sale = sale + "Tickets: \n";
+        if (!ticketLine.isEmpty()) {
+            sale = sale + "\nTickets: \n";
             for (TicketLine ticketline : ticketLine) {
                 for (TicketType ticketType : ticketline.getTicketList()) {
                     sale = sale + ticketType.toString() + "\n";
@@ -136,12 +136,15 @@ public class Sale {
                 }
             }
         }
-        if (invoiceList != null) {
+        if (!invoiceList.isEmpty()) {
             for (Invoice invoice : invoiceList) {
-                sale = sale + "Invoice: \n" + invoice.toString() + "\n";
+                sale = sale + "\nInvoice: \n" + invoice.toString() + "\n";
             }
             
         }
+        endpriceEuro = endpriceEuro * 100;
+        endpriceEuro = Math.round(endpriceEuro);
+        endpriceEuro = (endpriceEuro / 100);
         return sale + "PriceDk: " + endpriceDk + " PriceEuro: " + endpriceEuro + "\n";
     }
 

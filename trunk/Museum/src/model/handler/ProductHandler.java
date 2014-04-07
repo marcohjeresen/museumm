@@ -73,11 +73,19 @@ public class ProductHandler {
             while (rse.next()) {
                 for (Sale sale : saleh.getSaleList()) {
                     if (sale.getId() == rse.getInt("productline_sale_id")) {
+                         pl = new ProductLine(rse.getInt("productline_id"), sale);
                         for (Product product : productList) {
                             if (product.getProductNumber() == rse.getInt("productline_product_id")) {
-                                pl = new ProductLine(rse.getInt("productline_id"), sale);
-                                pl.setProductList(product);
-                                productLineList.add(pl);
+                               
+                                int count = 0;
+                                while (count < rse.getInt("productline_quantities")) {
+                                     pl.setProductList(product);
+                                    
+                                    System.out.println("fuck");
+                                    count++;
+                                }
+                               productLineList.add(pl);
+
                             }
                         }
                     }
@@ -99,15 +107,15 @@ public class ProductHandler {
             }
         }
     }
-    
-    public void opretProductLine(int id, Sale sale){
+
+    public void opretProductLine(int id, Sale sale) {
         pl = new ProductLine(id, sale);
         productLineList.add(pl);
     }
 
     public void setSpecProductList(ProductGroup group) {
         specList.removeAll(specList);
-        
+
         for (Product product : productList) {
             if (product.getGroupNumber() == group) {
                 specList.add(product);
@@ -115,35 +123,32 @@ public class ProductHandler {
         }
         listners.notifyListeners();
     }
-    public void searchProduct(int productnumber){
+
+    public void searchProduct(int productnumber) {
         specList.removeAll(specList);
-        
+
         for (Product product : productList) {
             if (product.getProductNumber() == productnumber) {
                 specList.add(product);
                 listners.notifyListeners();
             }
         }
-        
-        
+
     }
-    
+
     public void addListener(ActionListener listener) {
         listners.addListener(listener);
 
     }
 
     public ArrayList<Product> getSpecList() {
-        
+
         return specList;
     }
-    
 
     public ArrayList<Product> getProductList() {
         return productList;
     }
-    
-    
 
     public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;

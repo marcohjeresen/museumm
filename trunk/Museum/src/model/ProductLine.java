@@ -52,7 +52,7 @@ public class ProductLine {
         String productLine = "Sale Number: "+sale.getId()+"\n";
         
         for (Product product : productList) {
-            productLine = productLine + product.toString();
+            productLine = productLine + product.toString()+ "\n";
         }
 
         return productLine;

@@ -28,6 +28,7 @@ public class EventHandler {
     private Sale sale;
     private SaleHandler sh;
     private CustomerHandler cth;
+    private EventType eventType;
 
     public EventHandler(SaleHandler sh, CustomerHandler cth) {
         this.sh = sh;
@@ -98,6 +99,14 @@ public class EventHandler {
 
     public ArrayList<EventType> getEventTypeList() {
         return eventTypeList;
+    }
+    
+    public void setSpecEventType(EventType eventType1){
+        eventType = eventType1;
+    }
+    
+    public EventType getEventType(){
+        return eventType;
     }
     
 //    public void setSpecielList(){

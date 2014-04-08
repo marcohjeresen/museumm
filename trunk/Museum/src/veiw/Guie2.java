@@ -231,19 +231,16 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
                 eventviewList.removeAll(eventviewList);
                 jPanel2.removeAll();
 
-//                eventviewList pw = new EventView(kurvHandler, eventHandler., width);
-//                    if (eventviewList.size() == 9) {
-//                    y = 15;
-//                    x = pw.getWidth() + 10;
-//                }
-//                pw.setLocation(x, y);
-//                jPanel2.add(pw);
-//                jPanel2.revalidate();
-//                y += pw.getHeight() + 5;
-//                pw.setVisible(true);
-//                height = pw.getHeight();
-//                width = pw.getWidth();
-//                eventviewList.add(pw);
+                EventView pw = new EventView(kurvHandler, eventHandler.getEventType());
+//                    
+                pw.setLocation(x, y);
+                jPanel2.add(pw);
+                jPanel2.revalidate();
+                y += pw.getHeight() + 5;
+                pw.setVisible(true);
+                height = pw.getHeight();
+                width = pw.getWidth();
+                eventviewList.add(pw);
                 break;
             default:
         }
@@ -357,7 +354,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 382, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel_KurvList.setBorder(javax.swing.BorderFactory.createTitledBorder("Kurv"));
@@ -465,8 +462,8 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel_groups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel_KurvList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel_KurvList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton_søg, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
@@ -475,7 +472,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
                         .addComponent(jButton_event, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton_billet, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

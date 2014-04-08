@@ -62,7 +62,7 @@ public class Museum {
 //            System.out.println(string.toString());
 //        }
 
-        Guie2 gu = new Guie2(productHandler, listeners, kurvHandler, employeeHandler);
+        Guie2 gu = new Guie2(productHandler, listeners, kurvHandler, employeeHandler, eventHandler, ticketHandler);
         gu.setVisible(true);
     }
 

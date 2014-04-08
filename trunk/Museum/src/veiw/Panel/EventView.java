@@ -3,53 +3,43 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package veiw.Panel;
 
+package veiw.Panel;
 import java.awt.Dimension;
 import model.*;
 import model.handler.*;
-
 /**
  *
- * @author markh_000
+ * @author MarcoPc
  */
-public class Groups extends javax.swing.JPanel {
-
-    private ProductGroup productGroup;
-    private Listeners listners;
-    private ProductHandler ph;
-    
-
+public class EventView extends javax.swing.JPanel {
+private KurvHandler kurvHandler;
+private EventType eventType;
+private int plusAntal;
     /**
-     * Creates new form Groups
+     * Creates new form EventView
      */
-    public Groups(ProductGroup groups, Listeners listners, ProductHandler ph) {
-        this.productGroup = groups;
-        this.listners = listners;
-        this.ph = ph;
-        int x = 0;
-        x = 192;
-//        if (groups.getGroupType().length() < 6) {
-//            x = groups.getGroupType().length() * 16;
-//        } else if (groups.getGroupType().length() > 5 && groups.getGroupType().length() < 8) {
-//            x = groups.getGroupType().length() * 12 + 6;
-//        } else if (groups.getGroupType().length() > 7 && groups.getGroupType().length() < 12){
-//            x = groups.getGroupType().length() * 11;
-//        }else if (groups.getGroupType().length() > 12 && groups.getGroupType().length() < 20){
-//             x = groups.getGroupType().length() * 10;
-//        }else{
-//            x = groups.getGroupType().length() * 8;
-//        }
-
-        
-
-        
-        setSize(new Dimension(x, 40));
-        
+    public EventView(KurvHandler kurvHandler, EventType eventType, int plusAntal) {
+        this.kurvHandler = kurvHandler;
+        this.eventType = eventType;
+        setSize(new Dimension(250, 40));
         initComponents();
-        jButton1.setText(groups.getGroupType());
+        jButton1.setText(eventType.getType());
     }
 
+    public void addticket(){
+        if (plusAntal == 1) {
+            kurvHandler.setEventTypesList(eventType);
+        }else if (plusAntal == 5) {
+            for (int i = 0; i < 5; i++) {
+                kurvHandler.setEventTypesList(eventType);
+            }
+        }else if (plusAntal == 10) {
+            for (int i = 0; i < 10; i++) {
+                kurvHandler.setEventTypesList(eventType);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,7 +52,6 @@ public class Groups extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -73,17 +62,16 @@ public class Groups extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ph.setSpecProductList(productGroup);
-        
+       addticket();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

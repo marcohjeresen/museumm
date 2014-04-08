@@ -3,37 +3,58 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package veiw.Panel;
-
 import java.awt.Dimension;
-import model.Product;
+import javax.swing.JButton;
+import model.*;
 import model.handler.*;
-
 /**
  *
- * @author markh_000
+ * @author MarcoPc
  */
-public class ProductVeiw extends javax.swing.JPanel {
-
-    private Product product;
+public class TicketVeiw extends javax.swing.JPanel {
     private KurvHandler kurvHandler;
+    private TicketType ticketType;
+    private int plusAntal;
 
     /**
-     * Creates new form ProductVeiw
+     * Creates new form TicketVeiw
      */
-    public ProductVeiw(Product product, KurvHandler kurvHandler) {
-
+    public TicketVeiw(TicketType ticketType1, KurvHandler kurvHandler1, int plusAntal) {
+        this.ticketType = ticketType1;
+        this.kurvHandler = kurvHandler1;
+        this.plusAntal = plusAntal;
         setSize(new Dimension(250, 40));
-        this.kurvHandler = kurvHandler;
-        this.product = product;
         initComponents();
-        jButton1.setText(product.getName());
-        jLabel1.setText("Stock: "+product.getQuantities());
+settext();
+    }
+    public void settext(){
+        
+        if (plusAntal == 1) {
+            jButton1.setText("+1");
+        }else if (plusAntal == 2){
+            jButton1.setText("+5");
+        }else if (plusAntal == 3) {
+            jButton1.setText("+10");
+        }
+            
+    }
+    
+    public void addticket(){
+        if (plusAntal == 1) {
+            kurvHandler.setTicketTypesList(ticketType);
+        }else if (plusAntal == 2) {
+            for (int i = 0; i < 5; i++) {
+                kurvHandler.setTicketTypesList(ticketType);
+            }
+        }else if (plusAntal == 3) {
+            for (int i = 0; i < 10; i++) {
+                kurvHandler.setTicketTypesList(ticketType);
+            }
+        }
     }
 
-    
-
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,41 +65,32 @@ public class ProductVeiw extends javax.swing.JPanel {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
-        jButton1.setText("Tilføj");
+        jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("jLabel1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       kurvHandler.setProductList(product);
+        addticket();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

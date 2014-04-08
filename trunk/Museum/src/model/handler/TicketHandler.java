@@ -27,12 +27,14 @@ public class TicketHandler {
     private SaleHandler saleh;
     
     private ArrayList<TicketType> tpList;
+    private TicketType specticket;
     private ArrayList<TicketLine> tlList;
     
     public TicketHandler(SaleHandler saleh) {
         this.saleh = saleh;
         tpList = new ArrayList<>();
         tlList = new ArrayList<>();
+        
         getDatabase();
         addLineToSale();
     }
@@ -95,6 +97,19 @@ public class TicketHandler {
     
     public void setTlList(ArrayList<TicketLine> tlList) {
         this.tlList = tlList;
+    }
+    public void setSpecTicket(TicketType ticketType) {
+        specticket = null;
+
+        specticket = ticketType;
+        
+    }
+    public void clearSpecTicket(){
+        specticket = null;
+    }
+
+    public TicketType getSpecticket() {
+        return specticket;
     }
     
 }

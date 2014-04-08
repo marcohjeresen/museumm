@@ -24,6 +24,7 @@ public class EventHandler {
     private EventLine el;
     private ArrayList<EventType> eventTypeList;
     private ArrayList<EventLine> eventLineList;
+    private ArrayList<EventType> specList;
     private Sale sale;
     private SaleHandler sh;
     private CustomerHandler cth;
@@ -34,6 +35,7 @@ public class EventHandler {
         
         eventLineList = new ArrayList<>();
         eventTypeList = new ArrayList<>();
+        specList = new ArrayList<>();
         getDatabase();
         addLineToSale();
     }
@@ -97,5 +99,16 @@ public class EventHandler {
     public ArrayList<EventType> getEventTypeList() {
         return eventTypeList;
     }
+    
+//    public void setSpecielList(){
+//        specList.removeAll(specList);
+//
+//        for (EventType eventType : eventTypeList) {
+//            if (eventType.getId() == group) {
+//                specList.add(product);
+//            }
+//        }
+//        listners.notifyListeners();
+//    }
     
 }

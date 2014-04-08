@@ -123,6 +123,10 @@ public class ProductHandler {
         }
         listners.notifyListeners();
     }
+    
+    public void clearSpecProductList(){
+        specList.removeAll(specList);
+    }
 
     public void searchProduct(int productnumber) {
         specList.removeAll(specList);

@@ -72,7 +72,7 @@ public class UserPanel extends javax.swing.JPanel {
         logInd.setPreferredSize(new Dimension(220, 400));
         
         popup.add(logInd);
-        popup.setLocation(200, 200);
+        popup.setLocation(250, 220);
         popup.setVisible(true);
  
     }

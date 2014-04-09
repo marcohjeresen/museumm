@@ -28,9 +28,9 @@ public class Listeners {
 
     }
 
-    public void notifyListeners() {
+    public void notifyListeners(String event) {
         for (ActionListener actionListener : listeners) {
-            actionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, ""));
+            actionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, event));
         }
 
     }

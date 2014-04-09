@@ -121,7 +121,7 @@ public class ProductHandler {
                 specList.add(product);
             }
         }
-        listners.notifyListeners();
+        listners.notifyListeners("Update view");
     }
     
     public void clearSpecProductList(){
@@ -134,7 +134,7 @@ public class ProductHandler {
         for (Product product : productList) {
             if (product.getProductNumber() == productnumber) {
                 specList.add(product);
-                listners.notifyListeners();
+                listners.notifyListeners("Update view");
             }
         }
 

@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * and openSearchPanel the template in the editor.
  */
 package veiw;
 
@@ -22,16 +22,16 @@ import veiw.Panel.*;
  * @author markh_000
  */
 public class Guie2 extends javax.swing.JFrame implements ActionListener {
-    
+
     private ArrayList<ProductGroupsPanel> productgroupsList;
     private ArrayList<ProductVeiw> prodList;
-    
+
     private ArrayList<EventGroupPanel> eventgroupList;
     private ArrayList<EventView> eventviewList;
-    
+
     private ArrayList<TicketGroupPanel> ticketGroupList;
     private ArrayList<TicketVeiw> ticketViewList;
-    
+
     private ArrayList<KurvPanel> kurvList;
     private EmployeeHandler employeeHandler;
     private ProductHandler pr;
@@ -44,6 +44,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     private JPopupMenu cashRegistre;
     private SearchPanel searchPanel;
     private CashRegistre cashRegistre1;
+    private boolean openSearchPanel;
 
     /**
      * Creates new form Guie2
@@ -56,10 +57,10 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         this.eventHandler = eventHandler;
         this.ticketHandler = ticketHandler1;
         userPanel = new UserPanel(employeeHandler, kurvHandler);
-        searchPanel = new SearchPanel(pr, this);
+        searchPanel = new SearchPanel(pr, this, kurvHandler);
         cashRegistre1 = new CashRegistre(kurvHandler);
         setSize(new Dimension(750, 600));
-        
+
         productgroupsList = new ArrayList<>();
         eventgroupList = new ArrayList<>();
         ticketGroupList = new ArrayList<>();
@@ -72,15 +73,15 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         createPanels("Product");
         searchPop = new JPopupMenu();
         cashRegistre = new JPopupMenu();
+        openSearchPanel = false;
         kurvHandler.setTypeView("Product");
         setViewPanels();
         setKurvPanel();
         setLoginPanel();
         disableEnableBottoms();
-        
-        
+
     }
-    
+
     public void disableEnableBottoms() {
         try {
             String name = employeeHandler.getLogIndEmployee().getName();
@@ -91,7 +92,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
             jButton_retunere.setEnabled(false);
         }
     }
-    
+
     private void createPanels(String type) {
         int x = 7;
         int y = 15;
@@ -100,7 +101,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         switch (type) {
             case "Product":
                 jPanel_groups.removeAll();
-                
+
                 repaint();
                 productgroupsList.removeAll(productgroupsList);
                 for (ProductGroup groupl : pr.getGroupList()) {
@@ -144,11 +145,11 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
                     width = ep.getWidth();
                     eventgroupList.add(ep);
                 }
-                
+
                 break;
             case "Ticket":
                 jPanel_groups.removeAll();
-                
+
                 repaint();
                 ticketGroupList.removeAll(ticketGroupList);
                 for (TicketType ticketType : ticketHandler.getTpList()) {
@@ -169,12 +170,12 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
                     width = tp.getWidth();
                     ticketGroupList.add(tp);
                 }
-                
+
                 break;
-            
+
         }
     }
-    
+
     public void setViewPanels() {
         int x = 7;
         int y = 15;
@@ -183,36 +184,39 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         jPanel2.revalidate();
         jPanel2.removeAll();
         jPanel2.repaint();
-        switch (kurvHandler.getTypeView()) {
-            case "Product":
-                prodList.removeAll(prodList);
-                jPanel2.removeAll();
-                for (Product product : pr.getSpecList()) {
-                    ProductVeiw pw = new ProductVeiw(product, kurvHandler);
-                    if (prodList.size() == 9) {
-                        y = 15;
-                        x = pw.getWidth() + 10;
+        if (employeeHandler.getLogIndEmployee() == null) {
+            userPanel.popUpPanel();
+        } else {
+            switch (kurvHandler.getTypeView()) {
+                case "Product":
+                    prodList.removeAll(prodList);
+                    jPanel2.removeAll();
+                    for (Product product : pr.getSpecList()) {
+                        ProductVeiw pw = new ProductVeiw(product, kurvHandler);
+                        if (prodList.size() == 9) {
+                            y = 15;
+                            x = pw.getWidth() + 10;
+                        }
+                        pw.setLocation(x, y);
+                        jPanel2.add(pw);
+                        jPanel2.revalidate();
+                        y += pw.getHeight() + 5;
+                        pw.setVisible(true);
+                        height = pw.getHeight();
+                        width = pw.getWidth();
+                        prodList.add(pw);
                     }
-                    pw.setLocation(x, y);
-                    jPanel2.add(pw);
-                    jPanel2.revalidate();
-                    y += pw.getHeight() + 5;
-                    pw.setVisible(true);
-                    height = pw.getHeight();
-                    width = pw.getWidth();
-                    prodList.add(pw);
-                }
-                break;
-            case "Ticket":
-                ticketViewList.removeAll(ticketViewList);
-                jPanel2.removeAll();
-                int antalplus = 3;
-                for (int i = 0; i < antalplus; i++) {
-                    TicketVeiw tw = new TicketVeiw(ticketHandler.getSpecticket(), kurvHandler, i+1);
-                    if (ticketViewList.size() == 9) {
-                        y = 15;
-                        x = tw.getWidth() + 10;
-                    }
+                    break;
+                case "Ticket":
+                    ticketViewList.removeAll(ticketViewList);
+                    jPanel2.removeAll();
+                    int antalplus = 3;
+                    for (int i = 0; i < antalplus; i++) {
+                        TicketVeiw tw = new TicketVeiw(ticketHandler.getSpecticket(), kurvHandler, i + 1);
+                        if (ticketViewList.size() == 9) {
+                            y = 15;
+                            x = tw.getWidth() + 10;
+                        }
                         tw.setLocation(x, y);
                         jPanel2.add(tw);
                         jPanel2.revalidate();
@@ -221,31 +225,31 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
                         height = tw.getHeight();
                         width = tw.getWidth();
                         ticketViewList.add(tw);
-                        
-                    
-                }
-                
-                break;
-            
-            case "Event":
-                eventviewList.removeAll(eventviewList);
-                jPanel2.removeAll();
 
-                EventView pw = new EventView(kurvHandler, eventHandler.getEventType());
+                    }
+
+                    break;
+
+                case "Event":
+                    eventviewList.removeAll(eventviewList);
+                    jPanel2.removeAll();
+
+                    EventView pw = new EventView(kurvHandler, eventHandler.getEventType());
 //                    
-                pw.setLocation(x, y);
-                jPanel2.add(pw);
-                jPanel2.revalidate();
-                y += pw.getHeight() + 5;
-                pw.setVisible(true);
-                height = pw.getHeight();
-                width = pw.getWidth();
-                eventviewList.add(pw);
-                break;
-            default:
+                    pw.setLocation(x, y);
+                    jPanel2.add(pw);
+                    jPanel2.revalidate();
+                    y += pw.getHeight() + 5;
+                    pw.setVisible(true);
+                    height = pw.getHeight();
+                    width = pw.getWidth();
+                    eventviewList.add(pw);
+                    break;
+                default:
+            }
         }
     }
-    
+
     public void setKurvPanel() {
         int x = 7;
         int y = 15;
@@ -254,7 +258,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         jPanel_KurvList.removeAll();
         kurvList.removeAll(kurvList);
         KurvPanel k = new KurvPanel(kurvHandler.toString(), kurvHandler.priceToString());
-        
+
         k.setLocation(x, y);
         jPanel_KurvList.add(k);
         jPanel_KurvList.revalidate();
@@ -263,9 +267,9 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         height = k.getHeight();
         width = k.getWidth();
         kurvList.add(k);
-        
+
     }
-    
+
     public void setLoginPanel() {
         userPanel.closepopup();
         userPanel.setPicAndName();
@@ -275,32 +279,39 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         jPanel_user.revalidate();
         userPanel.setVisible(true);
     }
-    
+
     public void searchPanel() {
-        searchPanel.setPreferredSize(new Dimension(235, 410));
-        searchPop.add(searchPanel);
-        searchPop.setLocation(100, 100);
-        searchPop.setVisible(true);
-        
+
+        if (!openSearchPanel) {
+            openSearchPanel = true;
+            searchPanel.setPreferredSize(new Dimension(235, 410));
+            searchPop.add(searchPanel);
+            searchPop.setLocation(200, 150);
+            searchPop.setVisible(true);
+        } else {
+            closeSearchPanel();
+            openSearchPanel = false;
+        }
     }
-    
+
     public void closeSearchPanel() {
+        openSearchPanel = false;
         searchPop.setVisible(false);
     }
-    
+
     public void setCashRegistre() {
-        
+
         closeCashrige();
         if (employeeHandler.getLogIndEmployee() != null && kurvHandler.getCashRegister() == null) {
             cashRegistre.add(cashRegistre1);
-            cashRegistre.setLocation(100, 100);
+            cashRegistre.setLocation(250, 220);
             cashRegistre.setVisible(true);
 //        
 
         }
-        
+
     }
-    
+
     public void closeCashrige() {
         cashRegistre.setVisible(false);
     }
@@ -465,8 +476,9 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel_KurvList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
                         .addComponent(jButton_søg, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addGap(36, 36, 36)
                         .addComponent(jButton_product, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton_event, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -496,6 +508,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
 
     private void jButton_søgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_søgActionPerformed
         searchPanel();
+
     }//GEN-LAST:event_jButton_søgActionPerformed
 
     private void jButton_fortrydActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_fortrydActionPerformed
@@ -518,14 +531,31 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
      * @param ae
      * @param args the command line arguments
      */
-    public void actionPerformed(ActionEvent ae) {
-        
-        setKurvPanel();
-        setLoginPanel();
-        setViewPanels();
-        disableEnableBottoms();
-        setCashRegistre();
-        
+    public void actionPerformed(ActionEvent actionEvent) {
+        switch (actionEvent.getActionCommand()) {
+            case "Update kurv":
+                setKurvPanel();
+                break;
+            case "Employee log":
+                setLoginPanel();
+                setCashRegistre();
+                break;
+            case "CashRegister":
+                setCashRegistre();
+                break;
+            case "Update view":
+                setLoginPanel();
+                setViewPanels();
+                break;
+            default:
+                setKurvPanel();
+                setLoginPanel();
+                setViewPanels();
+                disableEnableBottoms();
+                setCashRegistre();
+
+        }
+
     }
 
 

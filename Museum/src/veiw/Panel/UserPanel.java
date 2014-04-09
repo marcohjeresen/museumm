@@ -33,7 +33,7 @@ public class UserPanel extends javax.swing.JPanel {
         setSize(new Dimension(348, 70));
         this.employeeHandler = employeeHandler;
         popup = new JPopupMenu();
-        logInd = new LogIndPanel(employeeHandler);
+        logInd = new LogIndPanel(employeeHandler, kurvHandler);
         initComponents();
         setPicAndName();
 

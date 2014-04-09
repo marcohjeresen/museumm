@@ -28,11 +28,14 @@ public class SaleHandler {
     private EmployeeHandler eh;
     private PaymentTypeHandler pth;
     private ArrayList<Sale> saleList;
+    private int id;
+    
 
     public SaleHandler(EmployeeHandler eh, PaymentTypeHandler pth) {
         this.eh = eh;
         this.pth = pth;
         saleList = new ArrayList<>();
+        int id = 0;
         getDatabase();
     }
 
@@ -46,7 +49,7 @@ public class SaleHandler {
                     if (payment.getId() == rs.getInt("sale_paymenttype_id")) {
                         for (Employee employee : eh.getEmployeeList()) {
                             if (employee.getCpr() == rs.getInt("sale_employee_cpr")) {
-                                sale = new Sale(rs.getInt("sale_id"), payment, employee, rs.getDate("sale_date"));
+                                sale = new Sale(rs.getInt("sale_id"), payment, employee, rs.getString("sale_date"));
                                 saleList.add(sale);
                             }
                         }
@@ -58,10 +61,68 @@ public class SaleHandler {
         }
     }
     
-    public void opretSale(int id, PaymentType payment, Employee employee, Date date){
-        sale = new Sale(id, payment, employee, date);
+    public void opretSale(Employee employee){
+        id = 0;
+        for (Sale sale : getSaleList()) {
+            if (sale.getId() < id) {
+                id = sale.getId();
+            }
+        }
+        id = id + 1;
+        
+        sale = new Sale(id, null, employee, null);
         saleList.add(sale);
     }
+    public Sale getSale(){
+        return sale;
+    }
+    
+    public void clearSaleKurv(){
+        sale.clearTl();
+        sale.clearPl();
+        sale.clearEl();
+    }
+    
+    public void clearSale(){
+        saleList.remove(sale);
+        sale = null;
+    }
+    
+    
+    public void addEventLine(EventLine eventLine){
+        sale.setEl(eventLine);
+    }
+    
+   
+    public void addTicketLine(TicketLine ticketLine){
+        sale.setTl(ticketLine);
+    }
+    
+    public void addProductLine(ProductLine productLine){
+        sale.setPl(productLine);
+    }
+    
+   
+    public void addPaymentType(PaymentType paymentType){
+        sale.setPaymentType(paymentType);
+    }
+    public void addDate(String date){
+        sale.setDate(date);
+    }
+    public void addEndPrice(int dk, int euro){
+        sale.setEndpriceDk(dk);
+        sale.setEndpriceEuro(euro);
+    }
+    public void addInvoice(Invoice invoice){
+        sale.setInvoiceList(null);
+    }
+    
+    
+    
+    
+    
+    
+    
     
     public Sale searchSale(int saleid){
         
@@ -81,4 +142,8 @@ public class SaleHandler {
         this.saleList = saleList;
     }
 
+    
+    
+    
+    
 }

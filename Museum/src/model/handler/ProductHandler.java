@@ -73,18 +73,12 @@ public class ProductHandler {
             while (rse.next()) {
                 for (Sale sale : saleh.getSaleList()) {
                     if (sale.getId() == rse.getInt("productline_sale_id")) {
-                         pl = new ProductLine(rse.getInt("productline_id"), sale);
+
                         for (Product product : productList) {
                             if (product.getProductNumber() == rse.getInt("productline_product_id")) {
-                               
-                                int count = 0;
-                                while (count < rse.getInt("productline_quantities")) {
-                                     pl.setProductList(product);
-                                    
-                                    System.out.println("fuck");
-                                    count++;
-                                }
-                               productLineList.add(pl);
+                                pl = new ProductLine(rse.getInt("productline_id"), sale, product, rse.getInt("productline_quantities"));
+
+                                productLineList.add(pl);
 
                             }
                         }
@@ -108,9 +102,40 @@ public class ProductHandler {
         }
     }
 
-    public void opretProductLine(int id, Sale sale) {
-        pl = new ProductLine(id, sale);
-        productLineList.add(pl);
+    public void opretProductLine(Product product, int quantities) {
+        int idnumer = 0;
+        boolean erder = false;
+        for (int i = 0; i < saleh.getSale().getPl().size(); i++) {
+            if (saleh.getSale().getPl().get(i).getProduct().equals(product)) {
+                int quantitiess = saleh.getSale().getPl().get(i).getQuantities();
+                saleh.getSale().getPl().get(i).setQuantities(quantities + quantitiess);
+                erder = true;
+                idnumer = saleh.getSale().getPl().get(i).getId();
+
+            }
+        }
+
+        if (!erder) {
+            for (ProductLine productLine : productLineList) {
+                if (productLine.getId() > idnumer) {
+                    idnumer = productLine.getId();
+                }
+            }
+            idnumer = idnumer + 1;
+            pl = new ProductLine(idnumer, saleh.getSale(), product, quantities);
+            saleh.addProductLine(pl);
+            productLineList.add(pl);
+
+        } else if (erder) {
+            for (int i = 0; i < productLineList.size(); i++) {
+                if (productLineList.get(i).getId() == idnumer) {
+                    int antal = productLineList.get(i).getQuantities();
+                    productLineList.get(i).setQuantities(quantities + antal);
+                }
+
+            }
+        }
+
     }
 
     public void setSpecProductList(ProductGroup group) {
@@ -123,8 +148,8 @@ public class ProductHandler {
         }
         listners.notifyListeners("Update view");
     }
-    
-    public void clearSpecProductList(){
+
+    public void clearSpecProductList() {
         specList.removeAll(specList);
     }
 

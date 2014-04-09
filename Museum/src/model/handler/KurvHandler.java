@@ -26,6 +26,7 @@ public class KurvHandler {
     private EventHandler eventHandler;
     private SaleHandler saleHandler;
     private InvoiceHandler invoiceHandler;
+    private ProductLine productLine;
     private ArrayList<Product> productList;
     private ArrayList<Product> specProductList;
     private ArrayList<TicketType> ticketTypesList;
@@ -54,11 +55,9 @@ public class KurvHandler {
         
     }
     
-    public void setProductList(Product product) {
-        
-        productList.add(product);
+    public void setProductLine(Product product, int quantities) {
+        productHandler.opretProductLine(product, quantities);
         listeners.notifyListeners("Update kurv");
-        
     }
     
     public void cancelLast() {
@@ -70,11 +69,7 @@ public class KurvHandler {
     }
     
     public void clearKurv() {
-        productList.removeAll(productList);
-        ticketTypesList.removeAll(ticketTypesList);
-        eventTypesList.removeAll(eventTypesList);
-        Prisdk = 0;
-        Priseuro = 0;
+        saleHandler.clearSaleKurv();
         listeners.notifyListeners("Update kurv");
     }
     
@@ -86,43 +81,43 @@ public class KurvHandler {
     public String toString() {
         Prisdk = 0;
         Priseuro = 0;
-        String kurv = "Nummer:\tVareTitle:\t\tPrisDk:\tPrisEuro:\n";
-        if (!productList.isEmpty()) {
-            for (Product product : productList) {
-                if (product.getName().length() < 15) {
-                    kurv = kurv + product.getProductNumber() + "\t" + product.getName() + "\t\t" + product.getPriceDk() + "\t" + product.getPriceEuro() + "\n";
-                    Prisdk = Prisdk + product.getPriceDk();
-                    Priseuro = Priseuro + product.getPriceEuro();
+        String kurv = "Id:          Antal:\tVareTitle:\t\tPrisDk:\tPrisEuro:\n";
+        if (!saleHandler.getSale().getPl().isEmpty()) {
+            for (ProductLine productLine : saleHandler.getSale().getPl()) {
+                if (productLine.getProduct().getName().length() < 15) {
+                    kurv = kurv + productLine.getProduct().getProductNumber() + "    "+productLine.getQuantities() +"\t" + productLine.getProduct().getName() + "\t\t" + productLine.getProduct().getPriceDk() + "\t" + productLine.getProduct().getPriceEuro() + "\n";
+                    Prisdk = Prisdk + (productLine.getProduct().getPriceDk() * productLine.getQuantities());
+                    Priseuro = Priseuro + (productLine.getProduct().getPriceEuro() * productLine.getQuantities());
                 } else {
-                    kurv = kurv + product.getProductNumber() + "\t" + product.getName() + "\t" + product.getPriceDk() + "\t" + product.getPriceEuro() + "\n";
-                    Prisdk = Prisdk + product.getPriceDk();
-                    Priseuro = Priseuro + product.getPriceEuro();
+                    kurv = kurv + productLine.getProduct().getProductNumber() + "    "+productLine.getQuantities() +"\t" + productLine.getProduct().getName() + "\t" + productLine.getProduct().getPriceDk() + "\t" + productLine.getProduct().getPriceEuro() + "\n";
+                    Prisdk = Prisdk + (productLine.getProduct().getPriceDk() * productLine.getQuantities());
+                    Priseuro = Priseuro + (productLine.getProduct().getPriceEuro() * productLine.getQuantities());
                 }
             }            
         }
-        if (!ticketTypesList.isEmpty()) {
-            for (TicketType ticketType : ticketTypesList) {
-                if (ticketType.getType().length() < 15) {
-                    kurv = kurv + ticketType.getId() + "\t"+ ticketType.getType() + "\t\t" + ticketType.getPriceDk()+ "\t" + ticketType.getPriceEuro() + "\n";
-                    Prisdk = Prisdk + ticketType.getPriceDk();
-                    Priseuro = Priseuro + ticketType.getPriceEuro();
+        if (!saleHandler.getSale().getTl().isEmpty()) {
+            for (TicketLine ticketLine : saleHandler.getSale().getTl()) {
+                if (ticketLine.getTicketType().getType().length() < 15) {
+                    kurv = kurv + ticketLine.getTicketType().getId() + "    "+ticketLine.getQuantities()+"\t"+ ticketLine.getTicketType().getType() + "\t\t" + ticketLine.getTicketType().getPriceDk()+ "\t" + ticketLine.getTicketType().getPriceEuro() + "\n";
+                    Prisdk = Prisdk + (ticketLine.getTicketType().getPriceDk() * ticketLine.getQuantities());
+                    Priseuro = Priseuro + (ticketLine.getTicketType().getPriceEuro()* ticketLine.getQuantities());
                 }else {
-                    kurv = kurv + ticketType.getId() + "\t"+ ticketType.getType() + "\t" + ticketType.getPriceDk()+ "\t" + ticketType.getPriceEuro() + "\n";
-                    Prisdk = Prisdk + ticketType.getPriceDk();
-                    Priseuro = Priseuro + ticketType.getPriceEuro();
+                    kurv = kurv + ticketLine.getTicketType().getId() + "    "+ticketLine.getQuantities()+"\t"+ ticketLine.getTicketType().getType() + "\t" + ticketLine.getTicketType().getPriceDk()+ "\t" + ticketLine.getTicketType().getPriceEuro() + "\n";
+                    Prisdk = Prisdk + (ticketLine.getTicketType().getPriceDk() * ticketLine.getQuantities());
+                    Priseuro = Priseuro + (ticketLine.getTicketType().getPriceEuro()* ticketLine.getQuantities());
                 }
             }
         }
-        if (!eventTypesList.isEmpty()) {
-            for (EventType eventType : eventTypesList) {
-                if (eventType.getType().length() < 15) {
-                    kurv = kurv + eventType.getId() + "\t" + eventType.getType() + "\t\t" + eventType.getPriceDk() + "\t" + eventType.getPriceEuro() + "\n";
-                    Prisdk = Prisdk + eventType.getPriceDk();
-                    Priseuro = Priseuro + eventType.getPriceEuro();
+        if (!saleHandler.getSale().getEl().isEmpty()) {
+            for (EventLine eventLine : saleHandler.getSale().getEl()) {
+                if (eventLine.getEventtype().getType().length() < 15) {
+                    kurv = kurv + eventLine.getEventtype().getId() +"    "+eventLine.getQuantities()+ "\t" + eventLine.getEventtype().getType() + "\t\t" + eventLine.getEventtype().getPriceDk() + "\t" + eventLine.getEventtype().getPriceEuro() + "\n";
+                    Prisdk = Prisdk + eventLine.getEventtype().getPriceDk();
+                    Priseuro = Priseuro + eventLine.getEventtype().getPriceEuro();
                 }else{
-                    kurv = kurv + eventType.getId() + "\t" + eventType.getType() + "\t" + eventType.getPriceDk() + "\t" + eventType.getPriceEuro() + "\n";
-                    Prisdk = Prisdk + eventType.getPriceDk();
-                    Priseuro = Priseuro + eventType.getPriceEuro();
+                    kurv = kurv + eventLine.getEventtype().getId() +"    "+eventLine.getQuantities()+ "\t" + eventLine.getEventtype().getType() + "\t" + eventLine.getEventtype().getPriceDk() + "\t" + eventLine.getEventtype().getPriceEuro() + "\n";
+                    Prisdk = Prisdk + eventLine.getEventtype().getPriceDk();
+                    Priseuro = Priseuro + eventLine.getEventtype().getPriceEuro();
                 }
             }
         }
@@ -141,12 +136,10 @@ public class KurvHandler {
     }
     
     public void setBruger(int kode) {
-        for (Employee employ : employeeHandler.getEmployeeList()) {
-            if (employ.getPassword() == kode) {
-                this.employee = employ;
-                listeners.notifyListeners("Employee log");
-            }
-        }
+        employeeHandler.setLoginEmployee(kode);
+        
+        saleHandler.opretSale(employeeHandler.getLogIndEmployee());
+        listeners.notifyListeners("Update kurv");
     }
 
     public void setCashRegister(double beløbDk, double beløbEuro) {
@@ -167,6 +160,7 @@ public class KurvHandler {
         return employee;
     }
     
+    
     public void logUd() {
         listeners.notifyListeners("Employee log");
         employee = null;
@@ -176,8 +170,8 @@ public class KurvHandler {
         return ticketTypesList;
     }
     
-    public void setTicketTypesList(TicketType ticketTypet) {
-        ticketTypesList.add(ticketTypet);
+    public void setTicketTypesLine(TicketType ticketType, int quantities, String date) {
+        ticketHandler.opretTicketLine(ticketType, quantities, date);
         listeners.notifyListeners("Update kurv");
     }
     
@@ -185,8 +179,8 @@ public class KurvHandler {
         return eventTypesList;
     }
     
-    public void setEventTypesList(EventType eventType) {
-        eventTypesList.add(eventType);
+    public void setEventTypesLine(EventType eventType, int quant, int customer, String date) {
+        eventHandler.opretEventLine(eventType, quant, customer, date);
         listeners.notifyListeners("Update kurv");
     }
     

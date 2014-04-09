@@ -17,9 +17,9 @@ public class ReturnProduct {
     private Employee employee;
     private Product product;
     private Sale sale;
-    private Date date;
+    private String date;
 
-    public ReturnProduct(int id, Employee employee, Product product, Sale sale, Date date) {
+    public ReturnProduct(int id, Employee employee, Product product, Sale sale, String date) {
         this.id = id;
         this.employee = employee;
         this.product = product;
@@ -59,11 +59,11 @@ public class ReturnProduct {
         this.sale = sale;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
     

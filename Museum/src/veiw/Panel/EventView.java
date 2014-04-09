@@ -17,6 +17,7 @@ public class EventView extends javax.swing.JPanel {
 
     private KurvHandler kurvHandler;
     private EventType eventType;
+    
     private boolean kunde;
     private boolean dag;
     private boolean måned;
@@ -45,6 +46,7 @@ public class EventView extends javax.swing.JPanel {
         antalBørn = false;
         vidre = false;
         jButton11.setEnabled(false);
+        jButton_ok.setEnabled(false);
         
     }
 
@@ -101,6 +103,7 @@ public class EventView extends javax.swing.JPanel {
         } else if (antalBørn) {
             jTextField_antalBørn.setText(tallet);
             jButton11.setEnabled(true);
+            jButton_ok.setEnabled(true);
             if (vidre) {
                 antalBørn = false;
                 tallet = "";
@@ -148,8 +151,17 @@ public class EventView extends javax.swing.JPanel {
             case "Antalbørn":
                 antalBørn = true;
                 setText("");
+                
                 break;
         }
+    }
+    public void addEventLine(){
+        
+        String dato = jTextField_år.getText() + "-" + jTextField_måned.getText() + "-" + jTextField_dag.getText() + " " + jTextField_tid.getText()+":00";
+        int antal = Integer.parseInt(jTextField_antalBørn.getText()) + Integer.parseInt(jTextField_antalWok.getText());
+        int kundenummer = Integer.parseInt(jTextField_kundenummer.getText());
+        kurvHandler.setEventTypesLine(eventType, antal, kundenummer, dato);
+        
     }
 
     /**
@@ -518,7 +530,7 @@ public class EventView extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_okActionPerformed
-        
+        addEventLine();
     }//GEN-LAST:event_jButton_okActionPerformed
 
     private void jButton_fortrydActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_fortrydActionPerformed

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 import java.util.ArrayList;
@@ -14,20 +13,21 @@ import java.util.Date;
  * @author markh_000
  */
 public class EventLine {
+
     private int id;
-    private ArrayList<EventType> eventtypeList;
+    private EventType eventtype;
     private Sale sale;
     private int quantities;
-    private Date date;
-    private Customer customer;
+    private String date;
+    private int customer;
 
-    public EventLine(int id, Sale sale, int quantities, Date date, Customer customer) {
+    public EventLine(int id, EventType eventtype, Sale sale, int quantities, String date, int customer) {
         this.id = id;
+        this.eventtype = eventtype;
         this.sale = sale;
         this.quantities = quantities;
         this.date = date;
         this.customer = customer;
-        eventtypeList = new ArrayList<>();
     }
 
     public int getId() {
@@ -38,12 +38,12 @@ public class EventLine {
         this.id = id;
     }
 
-    public ArrayList<EventType> getEventtypeList() {
-        return eventtypeList;
+    public EventType getEventtype() {
+        return eventtype;
     }
 
-    public void setEventtypeList(EventType eventType) {
-        eventtypeList.add(eventType);
+    public void setEventtype(EventType eventtype) {
+        this.eventtype = eventtype;
     }
 
     public Sale getSale() {
@@ -62,50 +62,42 @@ public class EventLine {
         this.quantities = quantities;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Customer getCustomer() {
+    public int getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(int customer) {
         this.customer = customer;
     }
 
     @Override
     public String toString() {
         String eventLine = "";
-        
-        for (EventType eventType : eventtypeList) {
-            eventLine = eventLine + eventType.toString()+"\n";
-        }
-        eventLine = eventLine + "Date: " + date + " Customer: " + customer.getName();
+        eventLine = eventLine + eventtype.toString() + "\n";
+        eventLine = eventLine + "Date: " + date + " Customer: " + customer;
         return eventLine;
-       }
-    
-    public double getEventlinePriceDk(){
-        double dk = 0;
-        for (EventType eventType : eventtypeList) {
-            dk = dk + eventType.getPriceDk();
-        }
+    }
+
+    public double getEventlinePriceDk() {
+        int dk = 0;
+        
+            dk = eventtype.getPriceDk() * quantities;
+        
         return dk;
     }
-    
-    public double getEventlineEuro(){
-        double euro = 0;
-        for (EventType eventType : eventtypeList) {
-            euro = euro + eventType.getPriceEuro();
-        }
+
+    public double getEventlineEuro() {
+        int euro = 0;
+        euro = eventtype.getPriceEuro() * quantities;
         return euro;
     }
 
-
-    
-    
 }

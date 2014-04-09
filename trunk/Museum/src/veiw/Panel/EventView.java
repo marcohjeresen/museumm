@@ -17,6 +17,7 @@ public class EventView extends javax.swing.JPanel {
 
     private KurvHandler kurvHandler;
     private EventType eventType;
+    private boolean kunde;
     private boolean dag;
     private boolean måned;
     private boolean år;
@@ -32,10 +33,11 @@ public class EventView extends javax.swing.JPanel {
     public EventView(KurvHandler kurvHandler, EventType eventType) {
         this.kurvHandler = kurvHandler;
         this.eventType = eventType;
-        setSize(new Dimension(238, 370));
+        setSize(new Dimension(238, 375));
         initComponents();
         tallet = "";
-        dag = true;
+        kunde = true;
+        dag = false;
         måned = false;
         år = false;
         tid = false;
@@ -48,7 +50,14 @@ public class EventView extends javax.swing.JPanel {
 
     public void setText(String tal) {
         tallet = tallet + tal;
-        if (dag) {
+        if (kunde) {
+            jTextField_kundenummer.setText(tallet);
+            if (tallet.length() == 8) {
+                kunde = false;
+                dag = true;
+                tallet = "";
+            }
+        }else if (dag) {
             jTextField_dag.setText(tallet);
             if (tallet.length() == 2) {
                 dag = false;
@@ -102,6 +111,7 @@ public class EventView extends javax.swing.JPanel {
     }
     
     public void ændreText(String textfield){
+        kunde = false;
         dag = false;
         måned = false;
         år = false;
@@ -111,6 +121,10 @@ public class EventView extends javax.swing.JPanel {
         vidre = false;
         tallet = "";
         switch (textfield) {
+            case "Kunde":
+                kunde = true;
+                setText("");
+                break;
             case "Dag":
                 dag = true;
                 setText("");
@@ -173,12 +187,13 @@ public class EventView extends javax.swing.JPanel {
         jButton11 = new javax.swing.JButton();
         jButton_ok = new javax.swing.JButton();
         jButton_fortryd = new javax.swing.JButton();
+        jTextField_kundenummer = new javax.swing.JTextField();
 
         jTextField6.setText("jTextField6");
 
         jLabel1.setText("Event Afholdnings Sted:");
 
-        jLabel2.setText("Dato for Event:");
+        jLabel2.setText("Kunde Tlf Nummer:");
 
         jTextField_dag.setEditable(false);
         jTextField_dag.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -329,6 +344,13 @@ public class EventView extends javax.swing.JPanel {
             }
         });
 
+        jTextField_kundenummer.setEditable(false);
+        jTextField_kundenummer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField_kundenummerMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -381,10 +403,14 @@ public class EventView extends javax.swing.JPanel {
                         .addComponent(jTextField_tid))
                     .addComponent(jTextField_sted)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jButton_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
                         .addComponent(jButton_fortryd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField_kundenummer)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,6 +420,8 @@ public class EventView extends javax.swing.JPanel {
                 .addComponent(jTextField_sted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField_kundenummer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
@@ -434,9 +462,9 @@ public class EventView extends javax.swing.JPanel {
                     .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_fortryd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
+                    .addComponent(jButton_fortryd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -526,6 +554,10 @@ public class EventView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_antalBørnActionPerformed
 
+    private void jTextField_kundenummerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_kundenummerMouseClicked
+        ændreText("Kunde");
+    }//GEN-LAST:event_jTextField_kundenummerMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -550,6 +582,7 @@ public class EventView extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField_antalBørn;
     private javax.swing.JTextField jTextField_antalWok;
     private javax.swing.JTextField jTextField_dag;
+    private javax.swing.JTextField jTextField_kundenummer;
     private javax.swing.JTextField jTextField_måned;
     private javax.swing.JTextField jTextField_sted;
     private javax.swing.JTextField jTextField_tid;

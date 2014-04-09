@@ -57,14 +57,14 @@ public class KurvHandler {
     public void setProductList(Product product) {
         
         productList.add(product);
-        listeners.notifyListeners();
+        listeners.notifyListeners("Update kurv");
         
     }
     
     public void cancelLast() {
         if (!productList.isEmpty()) {
             productList.remove(productList.size() - 1);
-            listeners.notifyListeners();
+            listeners.notifyListeners("Update kurv");
         }
         
     }
@@ -75,7 +75,7 @@ public class KurvHandler {
         eventTypesList.removeAll(eventTypesList);
         Prisdk = 0;
         Priseuro = 0;
-        listeners.notifyListeners();
+        listeners.notifyListeners("Update kurv");
     }
     
     public ArrayList<Product> getProductList() {
@@ -144,7 +144,7 @@ public class KurvHandler {
         for (Employee employ : employeeHandler.getEmployeeList()) {
             if (employ.getPassword() == kode) {
                 this.employee = employ;
-                listeners.notifyListeners();
+                listeners.notifyListeners("Employee log");
             }
         }
     }
@@ -154,7 +154,7 @@ public class KurvHandler {
         String str = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DATE) + " " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
         
         cashRegister = new CashRegister(str, beløbDk, beløbEuro, employee);
-        listeners.notifyListeners();
+        listeners.notifyListeners("CashRegister");
         
     }
     
@@ -168,7 +168,7 @@ public class KurvHandler {
     }
     
     public void logUd() {
-        listeners.notifyListeners();
+        listeners.notifyListeners("Employee log");
         employee = null;
     }
     
@@ -178,7 +178,7 @@ public class KurvHandler {
     
     public void setTicketTypesList(TicketType ticketTypet) {
         ticketTypesList.add(ticketTypet);
-        listeners.notifyListeners();
+        listeners.notifyListeners("Update kurv");
     }
     
     public ArrayList<EventType> getEventTypesList() {
@@ -187,7 +187,7 @@ public class KurvHandler {
     
     public void setEventTypesList(EventType eventType) {
         eventTypesList.add(eventType);
-        listeners.notifyListeners();
+        listeners.notifyListeners("Update kurv");
     }
     
     public String getTypeView(){
@@ -213,7 +213,7 @@ public class KurvHandler {
                 break;
                
         }
-        listeners.notifyListeners();
+        listeners.notifyListeners("Update view");
     }
     
 }

@@ -6,6 +6,7 @@
 
 package veiw.Panel;
 
+import model.handler.KurvHandler;
 import model.handler.ProductHandler;
 import veiw.Guie2;
 
@@ -17,13 +18,15 @@ public class SearchPanel extends javax.swing.JPanel {
     private String search;
     private ProductHandler productHandler;
     private Guie2 guie2;
+    private KurvHandler kurvHandler;
 
     /**
      * Creates new form SearchPanel
      */
-    public SearchPanel(ProductHandler productHandler, Guie2 guie2) {
+    public SearchPanel(ProductHandler productHandler, Guie2 guie2, KurvHandler kurvHandler) {
         this.guie2 = guie2;
         this.productHandler = productHandler;
+        this.kurvHandler = kurvHandler;
         initComponents();
         search = "0";
     }
@@ -269,6 +272,7 @@ public class SearchPanel extends javax.swing.JPanel {
         if (productHandler.getSpecList().isEmpty()) {
             jTextField_number.setText("Ingen machende producter");
         }else{
+            kurvHandler.setTypeView("Product");
             guie2.closeSearchPanel();
             search = "0";
             setTextfield();

@@ -15,12 +15,12 @@ import java.util.Date;
 public class Invoice {
     private int id;
     private Sale sale;
-    private Date date;
+    private String date;
     private double priceDk;
     private double priceEuro;
     private InvoiceStatus invoiceStatus;
 
-    public Invoice(int id, Sale sale, Date date, double priceDk, double priceEuro, InvoiceStatus invoiceStatus) {
+    public Invoice(int id, Sale sale, String date, double priceDk, double priceEuro, InvoiceStatus invoiceStatus) {
         this.id = id;
         this.sale = sale;
         this.date = date;
@@ -45,11 +45,11 @@ public class Invoice {
         this.sale = sale;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

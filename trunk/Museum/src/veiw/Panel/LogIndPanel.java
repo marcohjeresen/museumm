@@ -6,6 +6,7 @@
 package veiw.Panel;
 
 import model.handler.EmployeeHandler;
+import model.handler.KurvHandler;
 
 /**
  *
@@ -15,12 +16,14 @@ public class LogIndPanel extends javax.swing.JPanel {
 
     private EmployeeHandler employeeHandler;
     private String kode;
+    private KurvHandler kurvHandler;
 
     /**
      * Creates new form LogInd
      */
-    public LogIndPanel(EmployeeHandler employeeHandler) {
+    public LogIndPanel(EmployeeHandler employeeHandler ,KurvHandler kurvHandler) {
         this.employeeHandler = employeeHandler;
+        this.kurvHandler = kurvHandler;
         initComponents();
         kode = "0";
         settextfield();
@@ -268,7 +271,9 @@ public class LogIndPanel extends javax.swing.JPanel {
            int talkode = Integer.parseInt(kode);
            kode = "0";
            settextfield();
-           employeeHandler.setLoginEmployee(talkode);
+           kurvHandler.setBruger(talkode);
+           
+           
            if (employeeHandler.getLogIndEmployee() == null) {
                jTextField_kode.setText("Ingen mach. prøv igen");
         }

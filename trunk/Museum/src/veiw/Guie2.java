@@ -251,7 +251,8 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     }
 
     public void setKurvPanel() {
-        int x = 7;
+        if (employeeHandler.getLogIndEmployee() != null) {
+            int x = 7;
         int y = 15;
         int height = 0;
         int width = 0;
@@ -267,6 +268,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         height = k.getHeight();
         width = k.getWidth();
         kurvList.add(k);
+        }
 
     }
 

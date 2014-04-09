@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package veiw.Panel;
+
 import java.awt.Dimension;
 import javax.swing.JButton;
 import model.*;
 import model.handler.*;
+
 /**
  *
  * @author MarcoPc
  */
 public class TicketVeiw extends javax.swing.JPanel {
+
     private KurvHandler kurvHandler;
     private TicketType ticketType;
     private int plusAntal;
@@ -27,32 +29,29 @@ public class TicketVeiw extends javax.swing.JPanel {
         this.plusAntal = plusAntal;
         setSize(new Dimension(250, 40));
         initComponents();
-settext();
+        settext();
     }
-    public void settext(){
-        
+
+    public void settext() {
+
         if (plusAntal == 1) {
             jButton1.setText("+1");
-        }else if (plusAntal == 2){
+            plusAntal = 1;
+        } else if (plusAntal == 2) {
             jButton1.setText("+5");
-        }else if (plusAntal == 3) {
+            plusAntal = 5;
+        } else if (plusAntal == 3) {
             jButton1.setText("+10");
+            plusAntal = 10;
         }
-            
+
     }
-    
-    public void addticket(){
-        if (plusAntal == 1) {
-            kurvHandler.setTicketTypesList(ticketType);
-        }else if (plusAntal == 2) {
-            for (int i = 0; i < 5; i++) {
-                kurvHandler.setTicketTypesList(ticketType);
-            }
-        }else if (plusAntal == 3) {
-            for (int i = 0; i < 10; i++) {
-                kurvHandler.setTicketTypesList(ticketType);
-            }
-        }
+
+    public void addticket() {
+        String date = "";
+
+        kurvHandler.setTicketTypesLine(ticketType, plusAntal, date);
+
     }
 
     /**

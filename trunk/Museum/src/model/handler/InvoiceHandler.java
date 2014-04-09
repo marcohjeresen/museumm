@@ -53,7 +53,7 @@ public class InvoiceHandler {
                     if (sale.getId() == rse.getInt("invoice_sale_id")) {
                         for (InvoiceStatus invoiceStatus : insList) {
                             if (invoiceStatus.getId() == rse.getInt("invoice_invoicestatus_id")) {
-                                in = new Invoice(rse.getInt("invoice_id"), sale, rse.getDate("invoice_date"), rse.getDouble("invoice_pricedk"), 
+                                in = new Invoice(rse.getInt("invoice_id"), sale, rse.getString("invoice_date"), rse.getDouble("invoice_pricedk"), 
                                         rse.getDouble("invoice_priceeuro"), ins);
                                 inList.add(in);
                             }

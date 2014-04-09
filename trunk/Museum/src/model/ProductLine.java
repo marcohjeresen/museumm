@@ -14,13 +14,23 @@ import java.util.ArrayList;
  */
 public class ProductLine {
     private int id;
-    private ArrayList<Product> productList;
+    private Product product;
     private Sale sale;
+    private int quantities;
 
-    public ProductLine(int id, Sale saleId) {
+    public ProductLine(int id, Sale saleId, Product product1, int quantities) {
         this.id = id;
         this.sale = saleId;
-        productList = new ArrayList<>();
+        this.product = product1; 
+        this.quantities = quantities;
+    }
+
+    public int getQuantities() {
+        return quantities;
+    }
+
+    public void setQuantities(int quantities) {
+        this.quantities = quantities;
     }
 
     public int getId() {
@@ -31,13 +41,11 @@ public class ProductLine {
         this.id = id;
     }
 
-    public ArrayList<Product> getProductList() {
-        return productList;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductList(Product product) {
-        productList.add(product);
-    }
+    
 
     public Sale getSale() {
         return sale;
@@ -50,29 +58,11 @@ public class ProductLine {
     @Override
     public String toString() {
         String productLine = "Sale Number: "+sale.getId()+"\n";
-        
-        for (Product product : productList) {
             productLine = productLine + product.toString()+ "\n";
-        }
-
         return productLine;
     }
     
-    public double getListPriceDk(){
-        double dk = 0;
-        for (Product product : productList) {
-            dk = dk + product.getPriceDk();
-        }
-        return dk;
-    }
     
-    public double getListPriceEuro(){
-        double euro = 0;
-        for (Product product : productList) {
-            euro = euro + product.getPriceEuro();
-        }
-        return euro;
-    }
    
     
 }

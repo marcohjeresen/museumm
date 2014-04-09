@@ -6,7 +6,7 @@
 package veiw.Panel;
 
 import java.awt.Dimension;
-import model.Product;
+import model.*;
 import model.handler.*;
 
 /**
@@ -16,6 +16,8 @@ import model.handler.*;
 public class ProductVeiw extends javax.swing.JPanel {
 
     private Product product;
+    private ProductHandler productHandler;
+   
     private KurvHandler kurvHandler;
 
     /**
@@ -26,9 +28,16 @@ public class ProductVeiw extends javax.swing.JPanel {
         setSize(new Dimension(250, 40));
         this.kurvHandler = kurvHandler;
         this.product = product;
+        
         initComponents();
         jButton1.setText(product.getName());
         jLabel1.setText("Stock: "+product.getQuantities());
+    }
+    
+    public void addProduct(){
+//       productHandler.opretProductLine(product, 1);
+       kurvHandler.setProductLine(product, 1);
+        
     }
 
     
@@ -73,7 +82,7 @@ public class ProductVeiw extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       kurvHandler.setProductList(product);
+       addProduct();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

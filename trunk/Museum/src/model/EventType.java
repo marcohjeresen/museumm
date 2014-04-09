@@ -15,11 +15,11 @@ import java.sql.Time;
 public class EventType {
     private int id;
     private String type;
-    private double priceDk;
-    private double priceEuro;
+    private int priceDk;
+    private int priceEuro;
     private Time time;
 
-    public EventType(int id, String type, double priceDk, double priceEuro, Time time) {
+    public EventType(int id, String type, int priceDk, int priceEuro, Time time) {
         this.id = id;
         this.type = type;
         this.priceDk = priceDk;
@@ -43,19 +43,19 @@ public class EventType {
         this.type = type;
     }
 
-    public double getPriceDk() {
+    public int getPriceDk() {
         return priceDk;
     }
 
-    public void setPriceDk(double priceDk) {
+    public void setPriceDk(int priceDk) {
         this.priceDk = priceDk;
     }
 
-    public double getPriceEuro() {
+    public int getPriceEuro() {
         return priceEuro;
     }
 
-    public void setPriceEuro(double priceEuro) {
+    public void setPriceEuro(int priceEuro) {
         this.priceEuro = priceEuro;
     }
 

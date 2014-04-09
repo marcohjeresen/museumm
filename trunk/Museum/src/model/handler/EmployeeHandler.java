@@ -68,6 +68,7 @@ public class EmployeeHandler {
         for (Employee employee1 : employeeList) {
             if (employee1.getPassword() == kode) {
                 this.employee = employee1;
+                
                 listeners.notifyListeners("Employee log");
                 
                 

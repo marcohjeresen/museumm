@@ -16,17 +16,17 @@ import java.util.Date;
  */
 public class TicketLine {
     private int id;
-    private ArrayList<TicketType> ticketList;
+    private TicketType ticketType;
     private Sale sale;
     private int quantities;
-    private Date date;
+    private String date;
 
-    public TicketLine(int id, Sale sale, int quantities, Date date) {
+    public TicketLine(int id, Sale sale, int quantities, String date, TicketType ticketType) {
         this.id = id;
         this.sale = sale;
         this.quantities = quantities;
         this.date = date;
-        ticketList = new ArrayList<>();
+        this.ticketType = ticketType;
     }
 
     public int getId() {
@@ -37,13 +37,15 @@ public class TicketLine {
         this.id = id;
     }
 
-    public ArrayList<TicketType> getTicketList() {
-        return ticketList;
+    public TicketType getTicketType() {
+        return ticketType;
     }
 
-    public void setTicketList(TicketType ticket) {
-        ticketList.add(ticket);
+    public void setTicketType(TicketType ticketType) {
+        this.ticketType = ticketType;
     }
+
+    
 
     public Sale getSale() {
         return sale;
@@ -61,21 +63,20 @@ public class TicketLine {
         this.quantities = quantities;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
     @Override
     public String toString() {
         String ticketLine = "";
-        
-        for (TicketType ticketType : ticketList) {
+
             ticketLine = ticketLine + ticketType.toString();
-        }
+        
         
         return ticketLine + "Quantities: " + quantities + " Date: " + date;
     }

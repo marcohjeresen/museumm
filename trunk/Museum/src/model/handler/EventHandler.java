@@ -46,8 +46,8 @@ public class EventHandler {
         try {
             ResultSet rs = db.getResult("SELECT * FROM eventtype");
             while (rs.next()) {
-                et = new EventType(rs.getInt("eventtype_id"), rs.getString("eventtype_type"), rs.getDouble("eventtype_pricedk"), 
-                        rs.getDouble("eventtype_priceeuro"), rs.getTime("eventtype_time"));
+                et = new EventType(rs.getInt("eventtype_id"), rs.getString("eventtype_type"), rs.getInt("eventtype_pricedk"), 
+                        rs.getInt("eventtype_priceeuro"), rs.getTime("eventtype_time"));
                 eventTypeList.add(et);
             }
         } catch (SQLException ex) {
@@ -62,8 +62,8 @@ public class EventHandler {
                             if (sale.getId() == rse.getInt("eventline_sale_id")) {
                                 for (Customer customer : cth.getCtList()) {
                                     if (customer.getPhone() == rse.getInt("eventline_customer_phone")) {
-                                        el = new EventLine(rse.getInt("eventline_id"), sale, rse.getInt("eventline_quantities"), rse.getDate("eventline_date"), customer);
-                                        el.setEventtypeList(eventtype);
+                                        el = new EventLine(rse.getInt("eventline_id"),eventtype, sale, rse.getInt("eventline_quantities"), rse.getString("eventline_date"), rse.getInt("eventline_customer_phone"));
+                                        
                                         eventLineList.add(el);
                                     }
                                 }
@@ -78,6 +78,40 @@ public class EventHandler {
             Logger.getLogger(Museum.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+     
+     public void opretEventLine(EventType eventType1, int quantities, int customer, String date) {
+        int idnumer = 0;
+        boolean erder = false;
+        for (int i = 0; i < sh.getSale().getEl().size(); i++) {
+            if (sh.getSale().getEl().get(i).getEventtype().equals(eventType1)) {
+                int quantitiess = sh.getSale().getEl().get(i).getQuantities();
+                sh.getSale().getEl().get(i).setQuantities(quantities + quantitiess);
+                erder = true;
+            }
+        }
+        if (!erder) {
+            for (EventLine eventLine : eventLineList) {
+                if (eventLine.getId() > idnumer) {
+                    idnumer = eventLine.getId();
+                }
+            }
+            
+            idnumer = idnumer + 1;
+            el = new EventLine(idnumer, eventType1, sh.getSale(), quantities, date, customer);
+            sh.addEventLine(el);
+            eventLineList.add(el);
+        }else if (erder) {
+             for (int i = 0; i < eventLineList.size(); i++) {
+                 if (eventLineList.get(i).getId() == idnumer) {
+                     int antal = eventLineList.get(i).getQuantities();
+                     eventLineList.get(i).setQuantities(quantities+ antal);
+                 }
+                
+            }
+         }
+
+    }
+
      
       public void addLineToSale() {
         for (Sale sale : sh.getSaleList()) {

@@ -18,7 +18,7 @@ public class KurvPanel extends javax.swing.JPanel {
      * Creates new form KurvPanel
      */
     public KurvPanel(String kurv, String kurvPrice) {
-        setSize(new Dimension(435, 385));
+        setSize(new Dimension(500, 385));
         initComponents();
         jScrollPane1.setVisible(true);
         jTextArea1.setText(kurv);

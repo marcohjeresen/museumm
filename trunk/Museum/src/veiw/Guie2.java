@@ -363,7 +363,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 331, Short.MAX_VALUE)
+            .addGap(0, 265, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,7 +376,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         jPanel_KurvList.setLayout(jPanel_KurvListLayout);
         jPanel_KurvListLayout.setHorizontalGroup(
             jPanel_KurvListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
+            .addGap(0, 506, Short.MAX_VALUE)
         );
         jPanel_KurvListLayout.setVerticalGroup(
             jPanel_KurvListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,7 +403,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
             .addGap(0, 89, Short.MAX_VALUE)
         );
 
-        jButton_søg.setText("Søg");
+        jButton_søg.setText("Søg På Produkt Nummer");
         jButton_søg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_søgActionPerformed(evt);
@@ -417,21 +417,21 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
             }
         });
 
-        jButton_product.setText("Product");
+        jButton_product.setText("Vis Produkt Grupper");
         jButton_product.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_productActionPerformed(evt);
             }
         });
 
-        jButton_event.setText("Event");
+        jButton_event.setText("Vis Event Typer");
         jButton_event.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_eventActionPerformed(evt);
             }
         });
 
-        jButton_billet.setText("Ticket");
+        jButton_billet.setText("Vis Billet Typer");
         jButton_billet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_billetActionPerformed(evt);

@@ -45,23 +45,7 @@ public class Museum {
         InvoiceHandler invoiceHandler = new InvoiceHandler(saleHandler);
         KurvHandler kurvHandler = new KurvHandler(productHandler, customerHandler, paymentTypeHandler, ticketHandler, employeeHandler,
                 eventHandler, saleHandler, invoiceHandler, listeners);
-        
-        
-     
-        Calendar cal = Calendar.getInstance();
-        String str = cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-"+cal.get(Calendar.DATE);
-        System.out.println(str);
-//        System.out.println("hejeee");
-//        for (int i = 0; i < productHandler.getProductLineList().size(); i++) {
-//            System.out.println(productHandler.getProductLineList().get(i).toString());
-//            
-////        }
-//
-//        for (Sale string : saleHandler.getSaleList()) {
-//                          
-//            System.out.println(string.toString());
-//        }
-
+       
         Guie2 gu = new Guie2(productHandler, listeners, kurvHandler, employeeHandler, eventHandler, ticketHandler);
         gu.setVisible(true);
     }

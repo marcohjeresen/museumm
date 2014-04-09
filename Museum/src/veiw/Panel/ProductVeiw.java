@@ -35,7 +35,7 @@ public class ProductVeiw extends javax.swing.JPanel {
     }
     
     public void addProduct(){
-//       productHandler.opretProductLine(product, 1);
+
        kurvHandler.setProductLine(product, 1);
         
     }

@@ -110,7 +110,7 @@ public class ProductHandler {
             for (int i = 0; i < saleh.getSale().getPl().size(); i++) {
                 if (saleh.getSale().getPl().get(i).getProduct().equals(product)) {
                     int quantitiess = saleh.getSale().getPl().get(i).getQuantities();
-                    System.out.println(""+quantities +" "+ quantitiess);
+                   
                     saleh.getSale().getPl().get(i).setQuantities(quantities + quantitiess);
                     erder = true;
                     idnumer = saleh.getSale().getPl().get(i).getId();

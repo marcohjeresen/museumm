@@ -44,6 +44,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     private JPopupMenu cashRegistre;
     private SearchPanel searchPanel;
     private CashRegistre cashRegistre1;
+    private BuyStof buyStof;
     private boolean openSearchPanel;
 
     /**
@@ -273,6 +274,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
     }
 
     public void setLoginPanel() {
+        disableEnableBottoms();
         userPanel.closepopup();
         userPanel.setPicAndName();
         jPanel_user.removeAll();
@@ -280,6 +282,7 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         jPanel_user.add(userPanel);
         jPanel_user.revalidate();
         userPanel.setVisible(true);
+        
     }
 
     public void searchPanel() {
@@ -391,6 +394,11 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         });
 
         jButton_betal.setText("Betal");
+        jButton_betal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_betalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel_userLayout = new javax.swing.GroupLayout(jPanel_user);
         jPanel_user.setLayout(jPanel_userLayout);
@@ -529,6 +537,11 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
         createPanels("Ticket");
     }//GEN-LAST:event_jButton_billetActionPerformed
 
+    private void jButton_betalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_betalActionPerformed
+        buyStof = new BuyStof(kurvHandler.getSale(), cashRegistre1, listeners, kurvHandler.getSaleHandler());
+        buyStof.setVisible(true);
+    }//GEN-LAST:event_jButton_betalActionPerformed
+
     /**
      * @param ae
      * @param args the command line arguments
@@ -548,6 +561,9 @@ public class Guie2 extends javax.swing.JFrame implements ActionListener {
             case "Update view":
                 setLoginPanel();
                 setViewPanels();
+                break;
+            case "Ny Kurv":
+                kurvHandler.newSale();
                 break;
             default:
                 setKurvPanel();

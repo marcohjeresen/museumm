@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.*;
@@ -29,7 +30,6 @@ public class SaleHandler {
     private PaymentTypeHandler pth;
     private ArrayList<Sale> saleList;
     private int id;
-    
 
     public SaleHandler(EmployeeHandler eh, PaymentTypeHandler pth) {
         this.eh = eh;
@@ -56,78 +56,74 @@ public class SaleHandler {
                     }
                 }
             }
+            db.close();
         } catch (SQLException ex) {
             Logger.getLogger(Museum.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
-    
-    public void opretSale(Employee employee){
+
+    public void opretSale(Employee employee) {
         id = 0;
         for (Sale sale : getSaleList()) {
-            if (sale.getId() < id) {
+            if (sale.getId() > id) {
                 id = sale.getId();
             }
         }
-        id = id + 1;
         
+        id = id + 1;
         sale = new Sale(id, null, employee, null);
         saleList.add(sale);
+        
     }
-    public Sale getSale(){
+
+    public Sale getSale() {
         return sale;
     }
-    
-    public void clearSaleKurv(){
+
+    public void clearSaleKurv() {
         sale.clearTl();
         sale.clearPl();
         sale.clearEl();
     }
-    
-    public void clearSale(){
+
+    public void clearSale() {
         saleList.remove(sale);
         sale = null;
     }
-    
-    
-    public void addEventLine(EventLine eventLine){
+
+    public void addEventLine(EventLine eventLine) {
         sale.setEl(eventLine);
     }
-    
-   
-    public void addTicketLine(TicketLine ticketLine){
+
+    public void addTicketLine(TicketLine ticketLine) {
         sale.setTl(ticketLine);
     }
-    
-    public void addProductLine(ProductLine productLine){
+
+    public void addProductLine(ProductLine productLine) {
         sale.setPl(productLine);
     }
-    
-   
-    public void addPaymentType(PaymentType paymentType){
+
+    public void addPaymentType(PaymentType paymentType) {
         sale.setPaymentType(paymentType);
     }
-    public void addDate(String date){
+
+    public void addDate(String date) {
         sale.setDate(date);
     }
-    public void addEndPrice(int dk, int euro){
+
+    public void addEndPrice(double dk, double euro) {
         sale.setEndpriceDk(dk);
         sale.setEndpriceEuro(euro);
     }
-    public void addInvoice(Invoice invoice){
+
+    public void addInvoice(Invoice invoice) {
         sale.setInvoiceList(null);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    public Sale searchSale(int saleid){
-        
+
+    public Sale searchSale(int saleid) {
         for (Sale sale1 : saleList) {
-            if (sale1.getId() ==  saleid) {
+            if (sale1.getId() == saleid) {
                 sale = sale1;
             }
         }
@@ -141,9 +137,25 @@ public class SaleHandler {
     public void setSaleList(ArrayList<Sale> saleList) {
         this.saleList = saleList;
     }
-
     
-    
-    
-    
+    public void addSaleToDatebase(Sale sale, int paymentid){
+        DBConnection db = new DBConnection();
+        Calendar cal = Calendar.getInstance();
+        String dato = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DATE) + " " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
+        
+        
+        try {
+            int id = sale.getId();
+            
+            int employee = sale.getEmployee().getCpr();
+            String date = dato;
+            db.execute("insert into sale values ("+id+","+paymentid+","+employee+",'"+dato+"')");
+            
+            db.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Museum.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
 }

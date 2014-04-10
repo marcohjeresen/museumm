@@ -21,7 +21,7 @@ public class LogIndPanel extends javax.swing.JPanel {
     /**
      * Creates new form LogInd
      */
-    public LogIndPanel(EmployeeHandler employeeHandler ,KurvHandler kurvHandler) {
+    public LogIndPanel(EmployeeHandler employeeHandler, KurvHandler kurvHandler) {
         this.employeeHandler = employeeHandler;
         this.kurvHandler = kurvHandler;
         initComponents();
@@ -32,10 +32,10 @@ public class LogIndPanel extends javax.swing.JPanel {
     public void setKode(String tal) {
         if (kode == "0") {
             kode = tal;
-        }else{
+        } else {
             kode = kode + tal;
         }
-        
+
         settextfield();
     }
 
@@ -267,18 +267,19 @@ public class LogIndPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
-           int talkode = Integer.parseInt(kode);
-           kode = "0";
-           settextfield();
-           kurvHandler.setBruger(talkode);
-           
-           
-           if (employeeHandler.getLogIndEmployee() == null) {
-               jTextField_kode.setText("Ingen mach. prøv igen");
-        }
-           
-           
+        
+            int talkode = Integer.parseInt(kode);
+            kode = "0";
+            settextfield();
+            kurvHandler.setBruger(talkode);
+
+            if (employeeHandler.getLogIndEmployee() == null) {
+                jTextField_kode.setText("Ingen mach. prøv igen");
+            }
+
+        
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

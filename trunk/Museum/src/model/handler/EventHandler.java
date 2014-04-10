@@ -62,7 +62,8 @@ public class EventHandler {
                             if (sale.getId() == rse.getInt("eventline_sale_id")) {
                                 for (Customer customer : cth.getCtList()) {
                                     if (customer.getPhone() == rse.getInt("eventline_customer_phone")) {
-                                        el = new EventLine(rse.getInt("eventline_id"),eventtype, sale, rse.getInt("eventline_quantities"), rse.getString("eventline_date"), rse.getInt("eventline_customer_phone"));
+                                        el = new EventLine(rse.getInt("eventline_id"),eventtype, sale, rse.getInt("eventline_quantities")
+                                                , rse.getString("eventline_date"), rse.getInt("eventline_customer_phone"), rse.getString("eventLine_place"));
                                         
                                         eventLineList.add(el);
                                     }
@@ -79,7 +80,7 @@ public class EventHandler {
         }
     }
      
-     public void opretEventLine(EventType eventType1, int quantities, int customer, String date) {
+     public void opretEventLine(EventType eventType1, int quantities, int customer, String date, String place) {
         int idnumer = 0;
         boolean erder = false;
         for (int i = 0; i < sh.getSale().getEl().size(); i++) {
@@ -97,7 +98,7 @@ public class EventHandler {
             }
             
             idnumer = idnumer + 1;
-            el = new EventLine(idnumer, eventType1, sh.getSale(), quantities, date, customer);
+            el = new EventLine(idnumer, eventType1, sh.getSale(), quantities, date, customer, place);
             sh.addEventLine(el);
             eventLineList.add(el);
         }else if (erder) {

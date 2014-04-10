@@ -20,14 +20,24 @@ public class EventLine {
     private int quantities;
     private String date;
     private int customer;
+    private String place;
 
-    public EventLine(int id, EventType eventtype, Sale sale, int quantities, String date, int customer) {
+    public EventLine(int id, EventType eventtype, Sale sale, int quantities, String date, int customer, String place) {
         this.id = id;
         this.eventtype = eventtype;
         this.sale = sale;
         this.quantities = quantities;
         this.date = date;
         this.customer = customer;
+        this.place = place;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 
     public int getId() {

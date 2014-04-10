@@ -128,6 +128,8 @@ public class KurvHandler {
         Prisdk = Prisdk * 100;
         Prisdk = Math.round(Prisdk);
         Prisdk = (Prisdk / 100);
+        saleHandler.addEndPrice(Prisdk, Priseuro);
+        
         return kurv;
     }
     
@@ -141,7 +143,10 @@ public class KurvHandler {
         saleHandler.opretSale(employeeHandler.getLogIndEmployee());
         listeners.notifyListeners("Update kurv");
     }
-
+    public void newSale(){
+        saleHandler.opretSale(employeeHandler.getLogIndEmployee());
+        listeners.notifyListeners("Update kurv");
+    }
     public void setCashRegister(double beløbDk, double beløbEuro) {
         Calendar cal = Calendar.getInstance();
         String str = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DATE) + " " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
@@ -159,6 +164,15 @@ public class KurvHandler {
         
         return employee;
     }
+    
+    public Sale getSale(){
+        return saleHandler.getSale();
+    }
+    
+    public SaleHandler getSaleHandler(){
+        return saleHandler;
+    }
+            
     
     
     public void logUd() {
@@ -179,8 +193,8 @@ public class KurvHandler {
         return eventTypesList;
     }
     
-    public void setEventTypesLine(EventType eventType, int quant, int customer, String date) {
-        eventHandler.opretEventLine(eventType, quant, customer, date);
+    public void setEventTypesLine(EventType eventType, int quant, int customer, String date, String place) {
+        eventHandler.opretEventLine(eventType, quant, customer, date, place);
         listeners.notifyListeners("Update kurv");
     }
     

@@ -17,7 +17,7 @@ public class EventView extends javax.swing.JPanel {
 
     private KurvHandler kurvHandler;
     private EventType eventType;
-    
+
     private boolean kunde;
     private boolean dag;
     private boolean måned;
@@ -47,10 +47,21 @@ public class EventView extends javax.swing.JPanel {
         vidre = false;
         jButton11.setEnabled(false);
         jButton_ok.setEnabled(false);
-        
+        setPlace();
+    }
+
+    public void setPlace() {
+        if (eventType.getId() == 3 || eventType.getId() == 4 || eventType.getId() == 7) {
+            jTextField_sted.setText("");
+
+        } else {
+            jTextField_sted.setText("På museumet");
+            jTextField_sted.setEditable(false);
+        }
     }
 
     public void setText(String tal) {
+        setOkbuttom();
         tallet = tallet + tal;
         if (kunde) {
             jTextField_kundenummer.setText(tallet);
@@ -59,7 +70,7 @@ public class EventView extends javax.swing.JPanel {
                 dag = true;
                 tallet = "";
             }
-        }else if (dag) {
+        } else if (dag) {
             jTextField_dag.setText(tallet);
             if (tallet.length() == 2) {
                 dag = false;
@@ -103,17 +114,17 @@ public class EventView extends javax.swing.JPanel {
         } else if (antalBørn) {
             jTextField_antalBørn.setText(tallet);
             jButton11.setEnabled(true);
-            jButton_ok.setEnabled(true);
+            
             if (vidre) {
                 antalBørn = false;
                 tallet = "";
-                jButton11.setEnabled(false);
+                
                 vidre = false;
             }
         }
     }
-    
-    public void ændreText(String textfield){
+
+    public void ændreText(String textfield) {
         kunde = false;
         dag = false;
         måned = false;
@@ -151,17 +162,32 @@ public class EventView extends javax.swing.JPanel {
             case "Antalbørn":
                 antalBørn = true;
                 setText("");
-                
+
                 break;
         }
     }
-    public void addEventLine(){
-        
-        String dato = jTextField_år.getText() + "-" + jTextField_måned.getText() + "-" + jTextField_dag.getText() + " " + jTextField_tid.getText()+":00";
-        int antal = Integer.parseInt(jTextField_antalBørn.getText()) + Integer.parseInt(jTextField_antalWok.getText());
-        int kundenummer = Integer.parseInt(jTextField_kundenummer.getText());
-        kurvHandler.setEventTypesLine(eventType, antal, kundenummer, dato);
-        
+    public void setOkbuttom(){
+        if (!jTextField_sted.getText().isEmpty() && !jTextField_kundenummer.getText().isEmpty()) {
+            if (!jTextField_dag.getText().isEmpty() && !jTextField_måned.getText().isEmpty()) {
+                if (!jTextField_år.getText().isEmpty() && !jTextField_tid.getText().isEmpty()) {
+                    if (!jTextField_antalWok.getText().isEmpty() && !jTextField_antalBørn.getText().isEmpty()) {
+                        jButton_ok.setEnabled(true);
+                    }
+                }
+            }
+        }
+    }
+
+    public void addEventLine() {
+        String place = jTextField_sted.getText();
+        if (!place.equals("") && place.length() > 4) {
+            String dato = jTextField_år.getText() + "-" + jTextField_måned.getText() + "-" + jTextField_dag.getText() + " " + jTextField_tid.getText() + ":00";
+            int antal = Integer.parseInt(jTextField_antalBørn.getText()) + Integer.parseInt(jTextField_antalWok.getText());
+            int kundenummer = Integer.parseInt(jTextField_kundenummer.getText());
+            kurvHandler.setEventTypesLine(eventType, antal, kundenummer, dato, place);
+
+        }
+
     }
 
     /**

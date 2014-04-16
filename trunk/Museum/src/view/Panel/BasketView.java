@@ -115,6 +115,7 @@ private Listeners listeners;
         jLabel_dk = new javax.swing.JLabel();
         jLabel_euro = new javax.swing.JLabel();
 
+        jButton_clear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pict/fjeern2.jpg"))); // NOI18N
         jButton_clear.setText("X");
         jButton_clear.setMaximumSize(new java.awt.Dimension(45, 23));
         jButton_clear.setMinimumSize(new java.awt.Dimension(45, 23));
@@ -126,6 +127,7 @@ private Listeners listeners;
             }
         });
 
+        jButton_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pict/tilføj3.jpg"))); // NOI18N
         jButton_add.setText("+");
         jButton_add.setPreferredSize(new java.awt.Dimension(45, 23));
         jButton_add.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +136,7 @@ private Listeners listeners;
             }
         });
 
+        jButton_remove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pict/romove2.jpg"))); // NOI18N
         jButton_remove.setText("-");
         jButton_remove.setMaximumSize(new java.awt.Dimension(45, 23));
         jButton_remove.setMinimumSize(new java.awt.Dimension(45, 23));
@@ -159,21 +162,21 @@ private Listeners listeners;
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton_clear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jButton_add, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+                .addComponent(jButton_add, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_remove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(jLabel_quantities, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(6, 6, 6)
                         .addComponent(jLabel_dk, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_euro, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-                        .addGap(12, 12, 12))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel_title, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel_euro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel_title, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

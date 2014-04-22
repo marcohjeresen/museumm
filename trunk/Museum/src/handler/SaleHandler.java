@@ -9,6 +9,7 @@ import db.DBConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.*;
@@ -23,14 +24,16 @@ public class SaleHandler {
     private PaymentType paymentType;
     private ArrayList<PaymentType> paymentTypesList;
 
+    private InvoiceStatus invoiceStatus;
+    private Invoice invoice;
+
     private Sale sale;
     private ArrayList<Sale> salesList;
     private ReturnProduct returnProduct;
     private ArrayList<ReturnProduct> returnProductsList;
 
-    private InvoiceStatus invoiceStatus;
     private ArrayList<InvoiceStatus> invoiceStatusesList;
-    private Invoice invoice;
+
     private ArrayList<Invoice> invoicesList;
     private Customer customer;
     private ArrayList<Customer> customersList;
@@ -244,6 +247,59 @@ public class SaleHandler {
         }
     }
 
+    public void endSale(Sale sale1, boolean discount) {
+        int id = 0;
+        for (Invoice invoice : invoicesList) {
+            if (id < invoice.getId()) {
+                id = invoice.getId();
+            }
+        }
+        id = id + 1;
+        Calendar cal = Calendar.getInstance();
+        String dato = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DATE) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
+        for (InvoiceStatus invoiceStatus : invoiceStatusesList) {
+            if (invoiceStatus.getType().equals("Betalt")) {
+                invoice = new Invoice(id, sale1, dato, sale1.getEndpriceDk(discount), sale1.getEndpriceEuro(discount), invoiceStatus);
+
+            }
+            invoicesList.add(invoice);
+        }
+
+        sale1.setInvoiceList(invoice);
+        salesList.add(sale1);
+        sale1.setDate(dato);
+        try {
+            DBConnection db = new DBConnection();
+            db.execute("insert into sale values(" + sale1.getId() + "," + "1" + "," + sale1.getEmployee().getCpr() + ",'" + sale1.getDate() + "')");
+            if (!sale1.getProductLine().isEmpty()) {
+                for (ProductLine productLine : sale1.getProductLine()) {
+                    db.execute("insert into productline values(" + productLine.getId() + "," + productLine.getProduct().getProductNumber() + "," + productLine.getSale().getId() + "," + productLine.getQuantities() + ")");
+                    productLinesList.add(productLine);
+                }
+            }
+            if (!sale1.getEventLine().isEmpty()) {
+                for (EventLine eventLine : sale1.getEventLine()) {
+                    db.execute("insert into eventline values (" + eventLine.getId() + "," + eventLine.getEventtype().getId() + "," + eventLine.getSale().getId() + "," + eventLine.getQuantities() + ",'" + eventLine.getDate() + "'," + eventLine.getCustomer() + ",'" + eventLine.getPlace() + "')");
+                    eventLinesList.add(eventLine);
+                }
+            }
+            if (!sale1.getTicketLine().isEmpty()) {
+                for (TicketLine ticketLine : sale1.getTicketLine()) {
+                    db.execute("insert into ticketline values(" + ticketLine.getId() + "," + ticketLine.getTicketType().getId() + "," + ticketLine.getSale().getId() + "," + ticketLine.getQuantities() + ",'" + ticketLine.getDate() + "')");
+                    ticketLinesList.add(ticketLine);
+                }
+            }
+            if (!sale1.getInvoiceList().isEmpty()) {
+                for (Invoice invoice : sale1.getInvoiceList()) {
+                    System.out.println(invoice.toString());
+                    db.execute("insert into invoice values (" + invoice.getId() + "," + invoice.getSale().getId() + ",'" + invoice.getDate() + "'," + invoice.getPriceDk() + "," + invoice.getPriceEuro() + "," + invoice.getInvoiceStatus().getId() + ")");
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getLocalizedMessage());
+        }
+    }
+
     public ArrayList<PaymentType> getPaymentTypesList() {
         return paymentTypesList;
     }
@@ -302,6 +358,7 @@ public class SaleHandler {
         id = id + 1;
         sale = new Sale(id, null, null, null);
         salesList.add(sale);
+        System.out.println("ny salg");
     }
 
     public void addEmployeeToSale() {
@@ -309,23 +366,23 @@ public class SaleHandler {
     }
 
     public void clearSale() {
-        sale.setInvoiceList(null);
+        sale.clearInvoiceList();
         sale.setPaymentType(null);
         sale.clearTicketLine();
         sale.clearProductLine();
         sale.clearEventLine();
         sale.clearEmployee();
-        sale.setEndpriceDk(0);
-        sale.setEndpriceEuro(0);
+        sale.setEndprice(false);
+
         listeners.notifyListeners("Update Basket");
     }
-    
-    public void clearSaleinventori(){
+
+    public void clearSaleinventori() {
+
         sale.clearTicketLine();
         sale.clearProductLine();
         sale.clearEventLine();
-        sale.setEndpriceDk(0);
-        sale.setEndpriceEuro(0);
+        sale.setEndprice(false);
         listeners.notifyListeners("Update Basket");
     }
 

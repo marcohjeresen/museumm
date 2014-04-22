@@ -19,26 +19,26 @@ import museum2.Museum2;
  * @author markh_000
  */
 public class StoreHandler {
-
+    
     private ProductGroup productGroup;
     private Product product;
     private Product searchProduct;
     private ArrayList<ProductGroup> productGroupList;
     private ArrayList<Product> productsList;
-
+    
     private TicketType ticketType;
     private ArrayList<TicketType> ticketTypesList;
-
+    
     private EventType eventType;
     private ArrayList<EventType> eventTypesList;
-
+    
     private Employee employee;
     private ArrayList<Employee> employeesList;
     
     private String showTypePanel;
     
     private Listeners listeners;
-
+    
     public StoreHandler(Listeners listeners) throws SQLException {
         this.listeners = listeners;
         productGroupList = new ArrayList<>();
@@ -50,9 +50,9 @@ public class StoreHandler {
         getTicketData();
         getEventData();
         getEmployeeData();
-
+        
     }
-
+    
     public void getProductData() throws SQLException {
         DBConnection db = new DBConnection();
         try {
@@ -81,9 +81,9 @@ public class StoreHandler {
         }
         db.close();
     }
-
-    public void getTicketData() throws SQLException  {
-
+    
+    public void getTicketData() throws SQLException {
+        
         DBConnection db = new DBConnection();
         try {
             ResultSet rs = db.getResult("SELECT * FROM tickettype");
@@ -96,8 +96,8 @@ public class StoreHandler {
             Logger.getLogger(Museum2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public void getEventData() throws SQLException  {
+    
+    public void getEventData() throws SQLException {
         DBConnection db = new DBConnection();
         try {
             ResultSet rs = db.getResult("SELECT * FROM eventtype");
@@ -110,10 +110,10 @@ public class StoreHandler {
         } catch (SQLException ex) {
             Logger.getLogger(Museum2.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
     
-    public void getEmployeeData() throws SQLException  {
+    public void getEmployeeData() throws SQLException {
         DBConnection db = new DBConnection();
         try {
             ResultSet rs = db.getResult("SELECT * FROM employee");
@@ -139,108 +139,108 @@ public class StoreHandler {
             Logger.getLogger(Museum2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public ProductGroup getProductGroup() {
         return productGroup;
     }
-
+    
     public void setProductGroup(ProductGroup productGroup) {
         this.productGroup = productGroup;
     }
-
+    
     public Product getProduct() {
         return product;
     }
-
+    
     public void setProduct(Product product) {
         this.product = product;
     }
-
+    
     public ArrayList<ProductGroup> getProductGroupList() {
         return productGroupList;
     }
-
+    
     public void setProductGroupList(ProductGroup productGroup1) {
         productGroupList.add(productGroup1);
     }
-
+    
     public ArrayList<Product> getProductsList() {
         return productsList;
     }
-
+    
     public void setProductsList(Product products1) {
         productsList.add(products1);
     }
-
+    
     public TicketType getTicketType() {
         return ticketType;
     }
-
+    
     public void setTicketType(TicketType ticketType) {
         this.ticketType = ticketType;
     }
-
+    
     public ArrayList<TicketType> getTicketTypesList() {
         return ticketTypesList;
     }
-
+    
     public void setTicketTypesList(TicketType ticketType1) {
         ticketTypesList.add(ticketType1);
     }
-
+    
     public EventType getEventType() {
         return eventType;
     }
-
+    
     public void setEventType(EventType eventType) {
         this.eventType = eventType;
     }
-
+    
     public ArrayList<EventType> getEventTypesList() {
         return eventTypesList;
     }
-
+    
     public void setEventTypesList(EventType eventTypes1) {
         eventTypesList.add(eventTypes1);
     }
-
+    
     public Employee getEmployee() {
         return employee;
     }
-
-    public void logoutEmployee(){
+    
+    public void logoutEmployee() {
         employee = null;
         listeners.notifyListeners("Employee Login");
     }
     
     public void setEmployee(int kode) {
         for (Employee employee1 : employeesList) {
-            if(employee1.getPassword() == kode){
-                employee = employee1; 
+            if (employee1.getPassword() == kode) {
+                employee = employee1;
                 
             }
         }
         listeners.notifyListeners("Employee Login");
     }
-
+    
     public ArrayList<Employee> getEmployeesList() {
         return employeesList;
     }
-
+    
     public void setEmployeesList(Employee employees1) {
         employeesList.add(employees1);
     }
     
-    public void setShowType(String typeNavn){
+    public void setShowType(String typeNavn) {
         showTypePanel = typeNavn;
         listeners.notifyListeners("ShowType Change");
     }
     
-    public String getShowType(){
+    public String getShowType() {
         return showTypePanel;
     }
     
-    public void searchProduct(int productNumber){
+    public void searchProduct(int productNumber) {
         for (Product product : productsList) {
             if (product.getProductNumber() == productNumber) {
                 searchProduct = product;
@@ -250,17 +250,29 @@ public class StoreHandler {
             }
         }
     }
-    public Product getSearchProduct(){
+    
+    public Product getSearchProduct() {
         return searchProduct;
     }
-      
     
+    public void alterProductQuantities(ArrayList<ProductLine> productLines) {
+        int stock = 0;
+        DBConnection db = new DBConnection();
+        for (int i = 0; i < productsList.size(); i++) {
+            for (ProductLine productLine : productLines) {
+                if (productsList.get(i).equals(productLine)) {
+                    stock = productsList.get(i).getQuantities() - productLine.getQuantities();
+                    productsList.get(i).setQuantities(stock);
+                    
+                    try {
+                        db.execute("update product set product_quantities = " + stock + " where product_numberid = " + productsList.get(i).getProductNumber() + ";");
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getLocalizedMessage());
+                    }
+                }
+            }
+            
+        }
+    }
     
-    
-    
-    
-   
-    
-    
-
 }

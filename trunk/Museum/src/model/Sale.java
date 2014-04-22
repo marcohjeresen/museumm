@@ -22,8 +22,8 @@ public class Sale {
     private ArrayList<EventLine> eventLine;
     private ArrayList<ProductLine> productLine;
     private ArrayList<Invoice> invoiceList;
-    private double endpriceDk;
-    private double endpriceEuro;
+    private int endpriceDk;
+    private int endpriceEuro;
 
     public Sale(int id, PaymentType paymentType, Employee employee, String date) {
         this.id = id;
@@ -51,14 +51,16 @@ public class Sale {
     public void setTicketLine(TicketLine tl) {
         ticketLine.add(tl);
     }
-    public void clearTicketLine(){
+
+    public void clearTicketLine() {
         ticketLine.removeAll(ticketLine);
     }
 
     public ArrayList<EventLine> getEventLine() {
         return eventLine;
     }
-    public void clearEventLine(){
+
+    public void clearEventLine() {
         eventLine.removeAll(eventLine);
     }
 
@@ -73,7 +75,8 @@ public class Sale {
     public void setProductLine(ProductLine pl) {
         productLine.add(pl);
     }
-    public void clearProductLine(){
+
+    public void clearProductLine() {
         productLine.removeAll(productLine);
     }
 
@@ -84,11 +87,13 @@ public class Sale {
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
     }
+    
 
     public Employee getEmployee() {
         return employee;
     }
-    public void clearEmployee(){
+
+    public void clearEmployee() {
         employee = null;
     }
 
@@ -111,6 +116,9 @@ public class Sale {
     public void setInvoiceList(Invoice invoice) {
         invoiceList.add(invoice);
     }
+    public void clearInvoiceList(){
+        invoiceList.removeAll(invoiceList);
+    }
 
     @Override
     public String toString() {
@@ -119,13 +127,13 @@ public class Sale {
         String sale = "\nSale id: " + id + "\n" + "paymentType: " + paymentType.getType() + " employee: " + employee.getName() + " date: " + date + "\n\nProduct: \n";
         if (!productLine.isEmpty()) {
             for (ProductLine productline : productLine) {
-                    sale = sale + productline.getProduct().toString() + "\n";
-                    endpriceDk = endpriceDk + productline.getProduct().getPriceDk();
-                    endpriceEuro = endpriceEuro + productline.getProduct().getPriceEuro();
-                
+                sale = sale + productline.getProduct().toString() + "\n";
+                endpriceDk = endpriceDk + productline.getProduct().getPriceDk();
+                endpriceEuro = endpriceEuro + productline.getProduct().getPriceEuro();
+
             }
         }
-        
+
 //        if (!eventLine.isEmpty()) {
 //            sale = sale + "\nEvent: \n";
 //            for (EventLine eventline : eventLine) {
@@ -158,23 +166,61 @@ public class Sale {
         return sale + "PriceDk: " + endpriceDk + " PriceEuro: " + endpriceEuro + "\n";
     }
 
-    public double getEndpriceDk() {
+    public int getEndpriceDk(boolean discount) {
+        setEndprice(discount);
         return endpriceDk;
     }
 
-    public void setEndpriceDk(int endpriceDk) {
-        this.endpriceDk = endpriceDk;
+    public void setEndprice(boolean discount) {
+        double price = 0;
+        endpriceDk = 0;
+        endpriceEuro = 0;
+        if (!productLine.isEmpty()) {
+            for (ProductLine productline : productLine) {
+                if (discount) {
+                    price = (productline.getProduct().getPriceDk() / 100) * productline.getProduct().getDiscount();
+                    price = price * productline.getQuantities();
+                    endpriceDk = (int) (endpriceDk + price);
+                    
+                    price = (productline.getProduct().getPriceEuro() / 100) * productline.getProduct().getDiscount();
+                    price = price * productline.getQuantities();
+                    endpriceEuro = (int) (endpriceEuro + price);
+                }else{
+                    price = productline.getProduct().getPriceDk() * productline.getQuantities();
+                endpriceDk = (int) (endpriceDk + price);
+                price = productline.getProduct().getPriceEuro() * productline.getQuantities();
+                endpriceEuro = (int) (endpriceEuro + price);
+
+                }
+            }
+        }
+        if (!eventLine.isEmpty() ) {
+            for (EventLine eventLine1 : eventLine) {
+                
+                price = eventLine1.getEventlinePriceDk();
+                endpriceDk = (int) (endpriceDk + price);
+                price = eventLine1.getEventlineEuro();
+                endpriceEuro = (int) (endpriceEuro + price);
+            }
+        }
+        if (!ticketLine.isEmpty()) {
+            for (TicketLine ticketLine1 : ticketLine) {
+                price = ticketLine1.getTicketType().getPriceDk() * ticketLine1.getQuantities();
+                endpriceDk = (int) (endpriceDk + price);
+                price = ticketLine1.getTicketType().getPriceEuro() * ticketLine1.getQuantities();
+                endpriceEuro = (int) (endpriceEuro + price);
+            }
+        }
+
     }
 
-    public double getEndpriceEuro() {
+    public int getEndpriceEuro(boolean discount) {
+        setEndprice(discount);
         return endpriceEuro;
     }
 
-    public void setEndpriceEuro(int endpriceEuro) {
-        this.endpriceEuro = endpriceEuro;
-    }
-    public void clearSale(){
-        
+    public void clearSale() {
+
     }
 
 }

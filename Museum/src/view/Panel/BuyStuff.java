@@ -11,109 +11,129 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 import model.Sale;
 import model.Listeners;
-//import model.handler.SaleHandler;
+import handler.*;
+
 
 /**
  *
  * @author markh_000
  */
-public class BuyStof extends javax.swing.JFrame implements ActionListener {
+public class BuyStuff extends javax.swing.JFrame implements ActionListener {
 
-//    private Listeners listeners;
-//    private Sale sale;
-//    private SaleHandler saleHandler;
-//    private CashRegistre cashRegistre;
-//    private String modtaget;
-//    private ArrayList<String> modtag;
-//    private double penge;
-//    private Timer timer;
-//
-//    /**
-//     * Creates new form BuyStof
-//     */
-//    public BuyStof(Sale sale, CashRegistre cashRegistre, Listeners listeners, SaleHandler saleHandler) {
-//        this.sale = sale;
-//        this.cashRegistre = cashRegistre;
-//        this.listeners = listeners;
-//        this.saleHandler = saleHandler;
-//        modtag = new ArrayList<>();
-//        listeners.addListener(this);
-////        jButton_betal.setEnabled(false);
-//        initComponents();
-//        modtaget = "";
-//        setBounds(0, 0, 400, 470);
-//        jTextField_beløb.setText("DK: " + sale.getEndpriceDk());
-//        jLabel_melding.setText("");
-//        timer = new Timer(5000, new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {
-//                
-//                dispose();
-//                timer.stop();
-//            }
-//        });
-//        
-//    }
-//
-//    public void setBetalingsBeløb() {
-//        if (jCheckBox_rabat.isSelected()) {
-//
-//        } else {
-//            if (jCheckBox_danske.isSelected()) {
-//                jTextField_beløb.setText("DK: " + sale.getEndpriceDk());
-//                penge = sale.getEndpriceDk();
-//            } else if (jCheckBox_euro.isSelected()) {
-//                jTextField_beløb.setText("EURO: " + sale.getEndpriceEuro());
-//                penge = sale.getEndpriceEuro();
-//            }
-//        }
-//
-//    }
-//
-//    public void setModtagetBeløb() {
-//        modtaget = "";
-//        if (!modtag.isEmpty()) {
-//            for (String string : modtag) {
-//                modtaget = modtaget + string;
-//            }
-//        }
-//
-//        jTextField_modtaget.setText(modtaget);
-//    }
-//
-//    public void endSale() {
-//        boolean beløbGodkent = false;
-//        double modtagetTilBetaling;
-//        double retur;
-//        int payid = 1;
-//        try {
-//            modtagetTilBetaling = Double.parseDouble(modtaget);
-//            if (penge <= modtagetTilBetaling) {
-//                beløbGodkent = true;
-//                if (jCheckBox_danske.isSelected()) {
-//                    retur = modtagetTilBetaling - penge;
-//                    jTextField_returBeløb.setText("Retur DK: "+ retur);
-//
-//                } else if (jCheckBox_euro.isSelected()) {
-//                    retur = modtagetTilBetaling - penge;
-//                    jTextField_returBeløb.setText("Retur Euro: " +retur);
-//                }
-//                
-//                saleHandler.addSaleToDatebase(sale, payid);
-//                listeners.notifyListeners("Ny Kurv");
-//                timer.start();
-//
-//            } else {
-//                jLabel_melding.setText("Beløb Ikke Nok!!");
-//            }
-//
-//        } catch (NumberFormatException ex) {
-//            jLabel_melding.setText("Tjek indtastede beløb");
-//        }
-//        
-//        
-//    }
+    private Listeners listeners;
+    private Sale sale;
+    private SaleHandler saleHandler;
+private MoneyHandler moneyHandler;
+private StoreHandler storeHandler;
+    private String modtaget;
+    private String dkOrEuro;
+    private ArrayList<String> modtag;
+    private double penge;
+    private Timer timer;
+    private boolean discount;
+
+    /**
+     * Creates new form BuyStuff
+     */
+    public BuyStuff(Sale sale, MoneyHandler moneyHandler, Listeners listeners, SaleHandler saleHandler, StoreHandler storeHandler) {
+        this.sale = sale;
+        this.moneyHandler = moneyHandler;
+        this.storeHandler = storeHandler;
+        this.listeners = listeners;
+        this.saleHandler = saleHandler;
+        modtag = new ArrayList<>();
+        listeners.addListener(this);
+        
+        initComponents();
+        jButton_betal.setEnabled(false);
+        discount = false;
+        modtaget = "";
+        setBounds(0, 0, 400, 470);
+//        jTextField_beløb.setText("DK: " + sale.getEndpriceDk(discount));
+        jLabel_melding.setText("");
+        timer = new Timer(5000, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+                dispose();
+                timer.stop();
+            }
+        });
+        
+    }
+    
+    public void Museumscard(){
+        if (jCheckBox_rabat.isSelected()) {
+            discount = true;
+        }else{
+            discount = false;
+        }
+    }
+
+    public void setBetalingsBeløb() {
+         
+            if (jCheckBox_danske.isSelected()) {
+                double priceDk = sale.getEndpriceDk(discount) / 100;
+                jTextField_beløb.setText("DK: " + priceDk);
+                penge = sale.getEndpriceDk(discount) / 100;
+            } else if (jCheckBox_euro.isSelected()) {
+                double priceEuro = sale.getEndpriceEuro(discount) / 100;
+                jTextField_beløb.setText("EURO: " + priceEuro);
+                penge = sale.getEndpriceEuro(discount) / 100;
+            }
+        
+
+    }
+
+    public void setModtagetBeløb() {
+        modtaget = "";
+        if (!modtag.isEmpty()) {
+            for (String string : modtag) {
+                modtaget = modtaget + string;
+                jButton_betal.setEnabled(true);
+            }
+        }
+
+        jTextField_modtaget.setText(modtaget);
+    }
+
+    public void endSale() {
+        boolean beløbGodkent = false;
+        double modtagetTilBetaling;
+        double retur = 0;
+        int payid = 1;
+        try {
+            modtagetTilBetaling = Double.parseDouble(modtaget);
+            if (penge <= modtagetTilBetaling) {
+                beløbGodkent = true;
+                if (jCheckBox_danske.isSelected()) {
+                    retur = modtagetTilBetaling - penge;
+                    jTextField_returBeløb.setText("Retur DK: "+ retur);
+
+                } else if (jCheckBox_euro.isSelected()) {
+                    retur = modtagetTilBetaling - penge;
+                    jTextField_returBeløb.setText("Retur Euro: " +retur);
+                }
+                
+                saleHandler.endSale(sale, discount);
+                penge = penge;
+                int money = (int) (penge * 100);
+                moneyHandler.addCashAmount("+", dkOrEuro, money);
+                
+                listeners.notifyListeners("End Sale");
+                timer.start();
+
+            } else {
+                jLabel_melding.setText("Beløb Ikke Nok!!");
+            }
+
+        } catch (NumberFormatException ex) {
+            jLabel_melding.setText("Tjek indtastede beløb");
+        }
+        
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -409,83 +429,88 @@ public class BuyStof extends javax.swing.JFrame implements ActionListener {
     private void jCheckBox_danskeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_danskeActionPerformed
         if (jCheckBox_danske.isSelected()) {
             jCheckBox_euro.setSelected(false);
+            dkOrEuro = "DK";
         }
-//        setBetalingsBeløb();
+        setBetalingsBeløb();
     }//GEN-LAST:event_jCheckBox_danskeActionPerformed
 
     private void jCheckBox_euroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_euroActionPerformed
         if (jCheckBox_euro.isSelected()) {
             jCheckBox_danske.setSelected(false);
+            dkOrEuro = "EURO";
         }
-//        setBetalingsBeløb();
+        setBetalingsBeløb();
     }//GEN-LAST:event_jCheckBox_euroActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        modtag.add("1");
-//        setModtagetBeløb();
+        modtag.add("1");
+        setModtagetBeløb();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//        modtag.add("2");
-//        setModtagetBeløb();
+        modtag.add("2");
+        setModtagetBeløb();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-//        modtag.add("3");
-//        setModtagetBeløb();
+        modtag.add("3");
+        setModtagetBeløb();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-//        modtag.add("4");
-//        setModtagetBeløb();
+        modtag.add("4");
+        setModtagetBeløb();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-//        modtag.add("5");
-//        setModtagetBeløb();
+        modtag.add("5");
+        setModtagetBeløb();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-//        modtag.add("6");
-//        setModtagetBeløb();
+        modtag.add("6");
+        setModtagetBeløb();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-//        modtag.add("7");
-//        setModtagetBeløb();
+        modtag.add("7");
+        setModtagetBeløb();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-//        modtag.add("8");
-//        setModtagetBeløb();
+        modtag.add("8");
+        setModtagetBeløb();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-//        modtag.add("9");
-//        setModtagetBeløb();
+        modtag.add("9");
+        setModtagetBeløb();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-//        modtag.add("0");
-//        setModtagetBeløb();
+        modtag.add("0");
+        setModtagetBeløb();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-//        modtag.add(".");
-//        setModtagetBeløb();
+        modtag.add(".");
+        setModtagetBeløb();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton_fortrydActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_fortrydActionPerformed
-//        modtag.remove(modtag.size() - 1);
-//        setModtagetBeløb();
+        modtag.remove(modtag.size() - 1);
+        setModtagetBeløb();
     }//GEN-LAST:event_jButton_fortrydActionPerformed
 
     private void jButton_betalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_betalActionPerformed
-//        endSale();
+        endSale();
     }//GEN-LAST:event_jButton_betalActionPerformed
 
     private void jCheckBox_rabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_rabatActionPerformed
-//        setBetalingsBeløb();
+        
+        if (jCheckBox_rabat.isSelected()) {
+            
+        }setBetalingsBeløb();
     }//GEN-LAST:event_jCheckBox_rabatActionPerformed
 
     /**

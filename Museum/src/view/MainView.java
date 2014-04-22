@@ -36,6 +36,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
     private JPopupMenu popPanl;
     private SearchPanel searchPanel;
     private CashRegistre cashRegistre;
+    private BuyStuff buyStuff;
 
     /**
      * Creates new form MainView
@@ -387,8 +388,12 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         jButton2.setText("Retuner");
 
         jButton3.setText("Betal");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pict/ny.jpg"))); // NOI18N
         jButton4.setText("Tøm Kurv");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -477,8 +482,8 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                         .addGap(18, 18, 18)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -584,6 +589,12 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         saleHandler.clearSaleinventori();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       buyStuff = new BuyStuff(saleHandler.getSale(), moneyHandler, listeners, saleHandler, storeHandler);
+       buyStuff.setBounds(0, 0, 350, 430);
+        buyStuff.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -629,6 +640,13 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                 break;
             case "Update Basket":
                 fillBasket();
+                break;
+            case "End Sale":
+                createNewSale();
+                setLoginPanel();
+                setCashRegistre();
+                fillBasket();
+                break;
             default:
 
         }

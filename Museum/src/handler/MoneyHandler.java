@@ -81,7 +81,7 @@ public class MoneyHandler {
     public void setCashRegister(int dk, int euro) {
         int id = 0;
         Calendar cal = Calendar.getInstance();
-        String dato = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DATE) + " " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
+        String dato = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DATE) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
         for (CashRegister cashRegister1 : cashRegistersList) {
             if (id < cashRegister1.getId()) {
                 id = cashRegister1.getId();
@@ -100,14 +100,14 @@ public class MoneyHandler {
     public void setCashRegistersList(CashRegister cashRegisters) {
         cashRegistersList.add(cashRegisters);
     }
-    public void addDkCashAmount(String type, String curency ,int amount){
+    public void addCashAmount(String type, String curency ,int amount){
         int amountDk = cashRegister.getAmountDk();
         int amountEuro = cashRegister.getAmountEuro();
         switch (type) {
             case "+":
-                if (curency == "Dk") {
+                if (curency == "DK") {
                     cashRegister.setAmountDk(amountDk + amount);
-                }else if (curency == "Euro")
+                }else if (curency == "EURO")
                     cashRegister.setAmountEuro(amountEuro + amount);
                 break;
             case "-":

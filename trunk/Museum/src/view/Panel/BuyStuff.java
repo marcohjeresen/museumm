@@ -69,6 +69,7 @@ private StoreHandler storeHandler;
         }else{
             discount = false;
         }
+        setBetalingsBeløb();
     }
 
     public void setBetalingsBeløb() {

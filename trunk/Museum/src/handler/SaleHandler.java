@@ -463,6 +463,11 @@ public class SaleHandler {
                 }
             }
             id = id + 1;
+            if (ticketType.getId() == 4) {
+                if (quantities < 10) {
+                    quantities = 10;
+                }
+            }
             TicketLine ticketLine = new TicketLine(id, sale, quantities, date, ticketType);
             sale.setTicketLine(ticketLine);
         }

@@ -115,11 +115,12 @@ private StoreHandler storeHandler;
                     retur = modtagetTilBetaling - penge;
                     jTextField_returBeløb.setText("Retur Euro: " +retur);
                 }
-                
+                storeHandler.alterProductQuantities(sale.getProductLine());
                 saleHandler.endSale(sale, discount);
                 penge = penge;
                 int money = (int) (penge * 100);
                 moneyHandler.addCashAmount("+", dkOrEuro, money);
+                
                 
                 listeners.notifyListeners("End Sale");
                 timer.start();

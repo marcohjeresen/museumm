@@ -117,6 +117,7 @@ public class MoneyHandler {
                     cashRegister.setAmountEuro(amountEuro - amount);
                 break;
         }
+        
       
     }
     

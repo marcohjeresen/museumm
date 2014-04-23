@@ -149,6 +149,11 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                 break;
         }
     }
+    public void updateQuantitis(){
+        for (ProductView productView : productViewsList) {
+            productView.addName();
+        }
+    }
 
     public void createShowType(boolean search) {
 
@@ -646,6 +651,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                 setLoginPanel();
                 setCashRegistre();
                 fillBasket();
+                updateQuantitis();
                 break;
             default:
 

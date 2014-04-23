@@ -46,8 +46,8 @@ private Listeners listeners;
         }else if (eventLine != null) {
             jLabel_title.setText(eventLine.getEventtype().getType());
             jLabel_quantities.setText("Antal: " + eventLine.getQuantities());
-            double priceDk = (eventLine.getEventtype().getPriceDk() * eventLine.getQuantities()) /100;
-            double priceEuro = (eventLine.getEventtype().getPriceEuro() * eventLine.getQuantities()) /100;
+            double priceDk = (eventLine.getEventtype().getPriceDk() / 100);
+            double priceEuro = (eventLine.getEventtype().getPriceEuro() /100);
             jLabel_dk.setText("Pris Dk: " + priceDk);
             jLabel_euro.setText("Pris Euro: " + priceEuro);
         }else if (ticketLine != null) {

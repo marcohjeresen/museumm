@@ -8,7 +8,9 @@ package view.Panel;
 import java.awt.Dimension;
 import model.*;
 import handler.*;
-//import model.handler.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 /**
  *
@@ -20,8 +22,13 @@ public class ProductView extends javax.swing.JPanel {
     private SaleHandler saleHandler;
     private StoreHandler storeHandler;
 
+
     /**
      * Creates new form ProductView
+     * @param product
+     * @param saleHandler1
+     * @param storeHandler
+
      */
     public ProductView(Product product, SaleHandler saleHandler1, StoreHandler storeHandler) {
 
@@ -30,21 +37,23 @@ public class ProductView extends javax.swing.JPanel {
         this.product = product;
         this.storeHandler = storeHandler;
         
+        
         initComponents();
+        
+        addName();
+    }
+    public void addName(){
         jButton1.setText(product.getName());
-        jLabel1.setText("Stock: "+product.getQuantities());
-    }
-    
-    public void addProduct(){
-        
-
-       saleHandler.addProductLineToSale(product, 1);
-        
+        jLabel1.setText("Stock: " + product.getQuantities());
     }
 
-    
+    public void addProduct() {
+       
+            saleHandler.addProductLineToSale(product, 1);
+        
+        
+    }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,7 +93,7 @@ public class ProductView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       addProduct();
+        addProduct();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -92,4 +101,6 @@ public class ProductView extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+
 }

@@ -258,9 +258,11 @@ public class StoreHandler {
     public void alterProductQuantities(ArrayList<ProductLine> productLines) {
         int stock = 0;
         DBConnection db = new DBConnection();
+        System.out.println("jeps");
         for (int i = 0; i < productsList.size(); i++) {
             for (ProductLine productLine : productLines) {
-                if (productsList.get(i).equals(productLine)) {
+                if (productsList.get(i).equals(productLine.getProduct())) {
+                    System.out.println("den er der");
                     stock = productsList.get(i).getQuantities() - productLine.getQuantities();
                     productsList.get(i).setQuantities(stock);
                     

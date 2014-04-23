@@ -62,7 +62,7 @@ private Listeners listeners;
     
     public void addQuantities(){
         if (productLine != null) {
-            productLine.setQuantities(productLine.getQuantities() +1);
+            saleHandler.addProductLineToSale(productLine.getProduct(), +1);
         }else if (eventLine != null){
             eventLine.setQuantities(eventLine.getQuantities() +1);
         }else if (ticketLine != null) {

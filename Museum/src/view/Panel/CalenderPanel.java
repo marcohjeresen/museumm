@@ -3,31 +3,162 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view.Panel;
+
+
 import handler.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.*;
+
 /**
  *
  * @author MarcoPc
  */
-public class CalenderPanel extends javax.swing.JPanel {
-private ArrayList<EventLine> eventList;
-private Calendar cal;
+public class CalenderPanel extends javax.swing.JPanel implements ActionListener {
+
+    private ArrayList<EventLine> eventList;
+    private Calendar cal;
+    private Calendar cal2;
+
+    private ArrayList<CalenderView> calList;
+    private Date test;
+    private Calendar testCal;
+
+    private StoreHandler storeHandler;
+    private Listeners listeners;
+
     /**
      * Creates new form CalenderPanel
      */
-    public CalenderPanel(ArrayList<EventLine> eventList) {
+    public CalenderPanel(ArrayList<EventLine> eventList, StoreHandler storeHandler1, Listeners listeners) {
         this.eventList = eventList;
+        this.storeHandler = storeHandler1;
+        this.listeners = listeners;
+        listeners.addListener(this);
         initComponents();
+        setSize(900, 600);
+        calList = new ArrayList<>();
         cal = Calendar.getInstance();
-       
+        cal2 = Calendar.getInstance();
+
     }
-    
-    public void getDaysOfMounth(int mounht){
-       
+
+    public void getDaysOfMounth(int mounht) {
+        boolean erder = false;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        calList.removeAll(calList);
+        int x = 7;
+        int y = 15;
+        int height = 0;
+        int width = 0;
+        cal.set(2014, mounht, 1);
+        jPanel_dage.removeAll();
+        for (int i = 0; i < cal.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
+            erder = false;
+            int days = i + 1;
+            cal.set(2014, mounht, days, 00, 00, 00);
+            cal2.set(2014, mounht, days, 23, 59, 59);
+            for (EventLine eventLine : eventList) {
+                try {
+                    test = formatter.parse(eventLine.getDate());
+                    testCal = Calendar.getInstance();
+                    testCal.setTime(test);
+                } catch (ParseException ex) {
+                    System.out.println("Date parse error");
+                    System.out.println(ex.getLocalizedMessage());
+                }
+                if (testCal.after(cal)) {
+                    if (testCal.before(cal2)) {
+                        erder = true;
+                    }
+                }
+            }
+            if (erder) {
+                CalenderView calenderView = new CalenderView(i + 1, "x", storeHandler, testCal, listeners);
+                if (calList.size() == 9) {
+                    x = 7;
+                    y = calenderView.getHeight() + 25;
+                } else if (calList.size() == 18) {
+                    x = 7;
+                    y = 2 * calenderView.getHeight() + 35;
+                } else if (calList.size() == 27) {
+                    x = 7;
+                    y = 3 * calenderView.getHeight() + 45;
+                }
+                calenderView.setLocation(x, y);
+                jPanel_dage.add(calenderView);
+                jPanel_dage.revalidate();
+                x += calenderView.getWidth() + 5;
+                calenderView.setVisible(true);
+                height = calenderView.getHeight();
+                width = calenderView.getWidth();
+                calList.add(calenderView);
+            } else if (!erder) {
+                CalenderView calenderView = new CalenderView(i + 1, "", storeHandler, testCal, listeners);
+                if (calList.size() == 9) {
+                    x = 7;
+                    y = calenderView.getHeight() + 25;
+                } else if (calList.size() == 18) {
+                    x = 7;
+                    y = 2 * calenderView.getHeight() + 35;
+                } else if (calList.size() == 27) {
+                    x = 7;
+                    y = 3 * calenderView.getHeight() + 45;
+                }
+                calenderView.setLocation(x, y);
+                jPanel_dage.add(calenderView);
+                jPanel_dage.revalidate();
+                x += calenderView.getWidth() + 5;
+                calenderView.setVisible(true);
+                height = calenderView.getHeight();
+                width = calenderView.getWidth();
+                calList.add(calenderView);
+            }
+        }
+        jPanel_dage.revalidate();
+        jPanel_dage.repaint();
+        repaint();
+    }
+
+    public void setTextAraier() {
+        jTextArea1.setText("oioianievvewewv");
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        String text = "";
+        Calendar cal2 = storeHandler.getDateToCalendar();
+        
+        cal2.set(Calendar.HOUR_OF_DAY, 0);
+        cal2.set(Calendar.MINUTE, 0);
+        cal2.set(Calendar.SECOND, 0);
+        System.out.println("gfggggg "+cal2.getTime());
+        Calendar testcal2 = Calendar.getInstance();
+
+        for (EventLine eventLine : eventList) {
+            try {
+                test = formatter.parse(eventLine.getDate());
+                testcal2 = Calendar.getInstance();
+                testcal2.setTime(test);
+            } catch (ParseException ex) {
+                System.out.println("Date parse error");
+                System.out.println(ex.getLocalizedMessage());
+            }
+            if (testcal2.equals(cal2)) {
+                text = text + "Sted: "+eventLine.getPlace() +"\nType Event: \n" +eventLine.getEventtype().getType()+ "\nKundeNummer: " + eventLine.getCustomer() + "\nAntal Personer: " + 
+                        eventLine.getQuantities()+"\n\n";
+            }
+
+        }
+        System.out.println(testcal2.getTime());
+        System.out.println(cal2.getTime());
+        jTextArea1.setText(text);
     }
 
     /**
@@ -52,8 +183,10 @@ private Calendar cal;
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        jPanel_dage = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Måned"));
 
@@ -173,13 +306,14 @@ private Calendar cal;
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
@@ -190,30 +324,34 @@ private Calendar cal;
                     .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dage"));
+        jPanel_dage.setBorder(javax.swing.BorderFactory.createTitledBorder("Dage"));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel_dageLayout = new javax.swing.GroupLayout(jPanel_dage);
+        jPanel_dage.setLayout(jPanel_dageLayout);
+        jPanel_dageLayout.setHorizontalGroup(
+            jPanel_dageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel_dageLayout.setVerticalGroup(
+            jPanel_dageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 454, Short.MAX_VALUE)
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Dagen"));
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -224,7 +362,7 @@ private Calendar cal;
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel_dage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -238,57 +376,57 @@ private Calendar cal;
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel_dage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        getDaysOfMounth(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        getDaysOfMounth(1);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        getDaysOfMounth(2);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        getDaysOfMounth(3);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        getDaysOfMounth(4);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        getDaysOfMounth(5);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        getDaysOfMounth(6);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        getDaysOfMounth(7);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        getDaysOfMounth(8);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        getDaysOfMounth(9);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+        getDaysOfMounth(10);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+        getDaysOfMounth(11);
     }//GEN-LAST:event_jButton12ActionPerformed
 
 
@@ -306,7 +444,22 @@ private Calendar cal;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel_dage;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        switch (ae.getActionCommand()) {
+
+            case "Calendar":
+                setTextAraier();
+                break;
+
+            default:
+
+        }
+    }
 }

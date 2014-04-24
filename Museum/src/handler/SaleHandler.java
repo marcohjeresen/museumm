@@ -215,6 +215,10 @@ public class SaleHandler {
         }
         addEventLineFromDataToSale();
     }
+    public ArrayList<EventLine> getEventlineListFromData(){
+        return eventLinesList;
+        
+    }
     
     public void addTicketLineFromDataToSale() {
         for (Sale sale : salesList) {

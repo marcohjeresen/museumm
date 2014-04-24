@@ -5,27 +5,36 @@
  */
 
 package view.Panel;
+
 import handler.*;
 import java.awt.Dimension;
+import model.Employee;
 //import model.handler.*;
+
 /**
  *
  * @author MarcoPc
  */
 public class CashRegistre extends javax.swing.JPanel {
-private boolean dkcash;
-private boolean eurocash;
-private MoneyHandler moneyHandler;
-private String dk;
-private String euro;
-double dkc;
-double euc;
+
+    private boolean dkcash;
+    private boolean eurocash;
+    private boolean open;
+    private MoneyHandler moneyHandler;
+    private Employee employee;
+    private String dk;
+    private String euro;
+    private double dkc;
+    private double euc;
 
     /**
      * Creates new form CashRegistre
      */
-    public CashRegistre(MoneyHandler moneyHandler1) {
+    public CashRegistre(MoneyHandler moneyHandler1, boolean open, Employee employee) {
         this.moneyHandler = moneyHandler1;
+        this.open = open;
+        this.employee = employee;
+        
         initComponents();
         dk = "0";
         euro = "0";
@@ -34,24 +43,49 @@ double euc;
         setSize(new Dimension(200, 200));
     }
     
-    public void setcash(String tal){
+    public void setcash(String tal) {
         if (dkcash) {
             dk = dk + tal;
-        }else if (!dkcash){
+        } else if (!dkcash) {
             euro = euro + tal;
             eurocash = true;
         }
         setText();
     }
     
-    public void setText(){
+    public void setText() {
         dkc = Double.parseDouble(dk);
         euc = Double.parseDouble(euro);
         if (dkcash) {
-            jTextField_Dk.setText("Total: "+dkc);
-        }else if (!dkcash){
-            jTextField_euro.setText("Total: "+euc);
+            jTextField_Dk.setText("Total: " + dkc);
+        } else if (!dkcash) {
+            jTextField_euro.setText("Total: " + euc);
         }
+    }
+    
+    public void endReg() {
+        if (open) {
+            if (dkcash) {
+                dkcash = false;
+                setText();
+            } else if (!dkcash && eurocash) {
+                int dkMoney = (int) (dkc * 100);
+                int euroMoney = (int) (euc * 100);
+                moneyHandler.setCashRegister(dkMoney, euroMoney);
+                
+            }            
+        }else if (!open) {
+            if (dkcash) {
+                dkcash = false;
+                setText();
+            } else if (!dkcash && eurocash) {
+                int dkMoney = (int) (dkc * 100);
+                int euroMoney = (int) (euc * 100);
+                moneyHandler.endCashregister(euroMoney, euroMoney, employee);
+                
+            }  
+        }
+        
     }
 
     /**
@@ -315,22 +349,14 @@ double euc;
     private void jButton1_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_clearActionPerformed
         if (dkcash) {
             dk = "0";
-        }else if (!dkcash){
+        } else if (!dkcash) {
             euro = "0";
         }
         setText();
     }//GEN-LAST:event_jButton1_clearActionPerformed
 
     private void jButton1_godkendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_godkendActionPerformed
-        if (dkcash) {
-            dkcash = false;
-            setText();
-        }else if (!dkcash && eurocash){
-            int dkMoney = (int) (dkc * 100);
-            int euroMoney = (int) (euc * 100);
-            moneyHandler.setCashRegister(dkMoney, euroMoney);
-            
-        }
+        endReg();
         
     }//GEN-LAST:event_jButton1_godkendActionPerformed
 

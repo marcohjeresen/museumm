@@ -67,7 +67,7 @@ public class MoneyHandler {
         try {
             db.execute("insert into differance values ('"+dif.getId()+"',"+dif.getEmployee().getCpr()+""
                     + ","+dif.getCurrentCashDk()+","+dif.getCurrentCahsEuro()+","+dif.getExpectedDk()+","+dif.getExpectedEuro()+""
-                    + ","+dif.getDifferanceDk()+","+dif.getDifferanceEuro()+","+dif.getDate()+")");
+                    + ","+dif.getDifferanceDk()+","+dif.getDifferanceEuro()+",'"+dif.getDate()+"')");
             db.close();
         } catch (SQLException ex) {
             Logger.getLogger(Museum2.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,6 +91,17 @@ public class MoneyHandler {
         cashRegister = new CashRegister(id,dato, dk, euro, storeHandler.getEmployee());
         addStartingCashToDataBase(cashRegister);
         listeners.notifyListeners("Cash Registre");
+    }
+    
+    public void endCashregister(int expectedDk, int expectedEuro, Employee employee){
+        int differanceDk =  expectedDk - cashRegister.getAmountDk();
+        int differanceEuro =  expectedEuro - cashRegister.getAmountEuro();
+        Calendar cal = Calendar.getInstance();
+        String dato = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DATE) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
+        DifferanceRegistre differanceRegistre = new DifferanceRegistre(cashRegister.getId(), employee, cashRegister.getAmountDk(), cashRegister.getAmountEuro(), expectedDk, expectedEuro, differanceDk, differanceEuro, dato);
+        addEndCashToDatabase(differanceRegistre);
+        cashRegister = null;
+        listeners.notifyListeners("Log Down");
     }
 
     public ArrayList<CashRegister> getCashRegistersList() {

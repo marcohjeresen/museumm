@@ -115,7 +115,6 @@ private Listeners listeners;
         jLabel_dk = new javax.swing.JLabel();
         jLabel_euro = new javax.swing.JLabel();
 
-        jButton_clear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pict/fjeern2.jpg"))); // NOI18N
         jButton_clear.setText("X");
         jButton_clear.setMaximumSize(new java.awt.Dimension(45, 23));
         jButton_clear.setMinimumSize(new java.awt.Dimension(45, 23));
@@ -127,7 +126,6 @@ private Listeners listeners;
             }
         });
 
-        jButton_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pict/tilføj3.jpg"))); // NOI18N
         jButton_add.setText("+");
         jButton_add.setPreferredSize(new java.awt.Dimension(45, 23));
         jButton_add.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +134,6 @@ private Listeners listeners;
             }
         });
 
-        jButton_remove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pict/romove2.jpg"))); // NOI18N
         jButton_remove.setText("-");
         jButton_remove.setMaximumSize(new java.awt.Dimension(45, 23));
         jButton_remove.setMinimumSize(new java.awt.Dimension(45, 23));

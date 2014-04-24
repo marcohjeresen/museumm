@@ -329,7 +329,6 @@ double euc;
             int dkMoney = (int) (dkc * 100);
             int euroMoney = (int) (euc * 100);
             moneyHandler.setCashRegister(dkMoney, euroMoney);
-            System.out.println(""+dkc + " "+ euc);
             
         }
         

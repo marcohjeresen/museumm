@@ -7,6 +7,7 @@
 package view.Panel;
 
 import handler.StoreHandler;
+import static java.awt.Color.RED;
 import java.util.Calendar;
 import model.Listeners;
 
@@ -16,26 +17,39 @@ import model.Listeners;
  */
 public class CalenderView extends javax.swing.JPanel {
 private int day;
+private int mounth;
+private int year;
 private String x;
 private StoreHandler storeHandler;
 private Calendar calendar;
 private Listeners listeners;
     /**
      * Creates new form CalenderView
+     * @param day
+
+     * @param x
      */
-    public CalenderView(int day,String x, StoreHandler storeHandler1 ,Calendar calendar1, Listeners listeners1) {
+    public CalenderView(int day, int mounth, int year, String x, StoreHandler storeHandler1, Listeners listeners1) {
         this.day = day;
+        this.mounth = mounth;
+        this.year = year;
         this.x = x;
         this.storeHandler = storeHandler1;
-        this.calendar = calendar1;
+        
         this.listeners = listeners1;
         initComponents();
         setSize(60, 60);
         setText();
+        calendar = Calendar.getInstance();
+        calendar.set(year, mounth, day, 00, 00, 00);
     }
     
     public void setText(){
-        jButton1.setText(day+x);
+        if (x == "x") {
+            jButton1.setForeground(RED);
+            jButton1.setText(day + x);
+        }else
+        jButton1.setText(day+"");
     }
 
     /**
@@ -69,7 +83,6 @@ private Listeners listeners;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
         storeHandler.SetDateToCalender(calendar);
         listeners.notifyListeners("Calendar");
     }//GEN-LAST:event_jButton1ActionPerformed

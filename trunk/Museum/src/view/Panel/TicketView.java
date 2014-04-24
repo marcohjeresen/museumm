@@ -51,10 +51,9 @@ public class TicketView extends javax.swing.JPanel {
 
     public void addticket() {
         String date = "";
-Calendar cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
         date = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DATE) + " " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
         saleHandler.addTicketLineToSale(ticketType, plusAntal, date);
-        
 
     }
 

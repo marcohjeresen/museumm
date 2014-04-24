@@ -13,7 +13,6 @@ import model.Sale;
 import model.Listeners;
 import handler.*;
 
-
 /**
  *
  * @author markh_000
@@ -23,8 +22,8 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
     private Listeners listeners;
     private Sale sale;
     private SaleHandler saleHandler;
-private MoneyHandler moneyHandler;
-private StoreHandler storeHandler;
+    private MoneyHandler moneyHandler;
+    private StoreHandler storeHandler;
     private String modtaget;
     private String dkOrEuro;
     private ArrayList<String> modtag;
@@ -43,47 +42,45 @@ private StoreHandler storeHandler;
         this.saleHandler = saleHandler;
         modtag = new ArrayList<>();
         listeners.addListener(this);
-        
+
         initComponents();
         jButton_betal.setEnabled(false);
         discount = false;
         modtaget = "";
         setBounds(0, 0, 400, 470);
-//        jTextField_beløb.setText("DK: " + sale.getEndpriceDk(discount));
         jLabel_melding.setText("");
         timer = new Timer(5000, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                
+
                 dispose();
                 timer.stop();
             }
         });
-        
+
     }
-    
-    public void Museumscard(){
+
+    public void Museumscard() {
         if (jCheckBox_rabat.isSelected()) {
             discount = true;
-        }else{
+        } else {
             discount = false;
         }
         setBetalingsBeløb();
     }
 
     public void setBetalingsBeløb() {
-         
-            if (jCheckBox_danske.isSelected()) {
-                double priceDk = sale.getEndpriceDk(discount) / 100;
-                jTextField_beløb.setText("DK: " + priceDk);
-                penge = sale.getEndpriceDk(discount) / 100;
-            } else if (jCheckBox_euro.isSelected()) {
-                double priceEuro = sale.getEndpriceEuro(discount) / 100;
-                jTextField_beløb.setText("EURO: " + priceEuro);
-                penge = sale.getEndpriceEuro(discount) / 100;
-            }
-        
+
+        if (jCheckBox_danske.isSelected()) {
+            double priceDk = sale.getEndpriceDk(discount) / 100;
+            jTextField_beløb.setText("DK: " + priceDk);
+            penge = sale.getEndpriceDk(discount) / 100;
+        } else if (jCheckBox_euro.isSelected()) {
+            double priceEuro = sale.getEndpriceEuro(discount) / 100;
+            jTextField_beløb.setText("EURO: " + priceEuro);
+            penge = sale.getEndpriceEuro(discount) / 100;
+        }
 
     }
 
@@ -110,20 +107,21 @@ private StoreHandler storeHandler;
                 beløbGodkent = true;
                 if (jCheckBox_danske.isSelected()) {
                     retur = modtagetTilBetaling - penge;
-                    jTextField_returBeløb.setText("Retur DK: "+ retur);
+                    jTextField_returBeløb.setText("Retur DK: " + retur);
 
                 } else if (jCheckBox_euro.isSelected()) {
                     retur = modtagetTilBetaling - penge;
-                    jTextField_returBeløb.setText("Retur Euro: " +retur);
+                    jTextField_returBeløb.setText("Retur Euro: " + retur);
                 }
                 storeHandler.alterProductQuantities(sale.getProductLine());
                 saleHandler.endSale(sale, discount);
                 penge = penge;
                 int money = (int) (penge * 100);
                 moneyHandler.addCashAmount("+", dkOrEuro, money);
-                
-                
+
                 listeners.notifyListeners("End Sale");
+                jButton_betal.setEnabled(false);
+                jButton_fortryd.setEnabled(false);
                 timer.start();
 
             } else {
@@ -133,8 +131,7 @@ private StoreHandler storeHandler;
         } catch (NumberFormatException ex) {
             jLabel_melding.setText("Tjek indtastede beløb");
         }
-        
-        
+
     }
 
     /**
@@ -509,16 +506,16 @@ private StoreHandler storeHandler;
     }//GEN-LAST:event_jButton_betalActionPerformed
 
     private void jCheckBox_rabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_rabatActionPerformed
-        
+
         if (jCheckBox_rabat.isSelected()) {
-            
-        }setBetalingsBeløb();
+
+        }
+        setBetalingsBeløb();
     }//GEN-LAST:event_jCheckBox_rabatActionPerformed
 
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -550,13 +547,13 @@ private StoreHandler storeHandler;
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        switch (ae.getActionCommand()){
-            
+        switch (ae.getActionCommand()) {
+
             case "Update kurv":
-                
+
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
     }
 }

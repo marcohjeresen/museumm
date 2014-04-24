@@ -293,7 +293,7 @@ public class SaleHandler {
             }
             if (!sale1.getInvoiceList().isEmpty()) {
                 for (Invoice invoice : sale1.getInvoiceList()) {
-                    System.out.println(invoice.toString());
+
                     db.execute("insert into invoice values (" + invoice.getId() + "," + invoice.getSale().getId() + ",'" + invoice.getDate() + "'," + invoice.getPriceDk() + "," + invoice.getPriceEuro() + "," + invoice.getInvoiceStatus().getId() + ")");
                 }
             }
@@ -360,7 +360,7 @@ public class SaleHandler {
         id = id + 1;
         sale = new Sale(id, null, null, null);
         salesList.add(sale);
-        System.out.println("ny salg");
+       
     }
     
     public void addEmployeeToSale() {

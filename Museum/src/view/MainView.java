@@ -68,8 +68,8 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         userPanel.setVisible(true);
         jLabel1.setText("Kassens Beløb Dk:");
         jLabel2.setText("Kassens Beløb Euro:");
-        calenderPanel = new CalenderPanel(saleHandler.getEventlineListFromData(), storeHandler, listeners);
-        jPanel2.add(calenderPanel);
+        
+        
         createNewSale();
         setLoginPanel();
     }
@@ -293,6 +293,14 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
             jLabel1.setText("Kassens Beløb Dk: ");
             jLabel2.setText("Kassens Beløb Euro: ");
             saleHandler.clearSale();
+            jButton_pay.setEnabled(false);
+            jButton_search.setEnabled(false);
+            jButton_shoeProduct.setEnabled(false);
+            jButton_showEvent.setEnabled(false);
+            jButton_showTicket.setEnabled(false);
+            jButton_return.setEnabled(false);
+            jButton_emtybasket.setEnabled(false);
+            jButton_regred.setEnabled(false);
         }
     }
 
@@ -309,6 +317,16 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
             jLabel1.setText("Kassens Beløb Dk: " + dk);
             jLabel2.setText("Kassens Beløb Euro: " + euro);
             popPanl.setVisible(false);
+            userPanel.closepopup();
+            userPanel.setPicAndName();
+            jButton_pay.setEnabled(true);
+            jButton_search.setEnabled(true);
+            jButton_shoeProduct.setEnabled(true);
+            jButton_showEvent.setEnabled(true);
+            jButton_showTicket.setEnabled(true);
+            jButton_return.setEnabled(true);
+            jButton_emtybasket.setEnabled(true);
+            jButton_regred.setEnabled(true);
         }
     }
 
@@ -338,20 +356,22 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         jPanel_group = new javax.swing.JPanel();
         jPanel_kurv = new javax.swing.JPanel();
         jPanel_product = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        jButton_return = new javax.swing.JButton();
+        jButton_pay = new javax.swing.JButton();
+        jButton_emtybasket = new javax.swing.JButton();
+        jButton_regred = new javax.swing.JButton();
+        jButton_search = new javax.swing.JButton();
+        jButton_showEvent = new javax.swing.JButton();
+        jButton_shoeProduct = new javax.swing.JButton();
+        jButton_showTicket = new javax.swing.JButton();
         jPanel_user = new javax.swing.JPanel();
-        jButton10 = new javax.swing.JButton();
+        jButton_stuff = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jButton_bag = new javax.swing.JButton();
+        jPanel_stof = new javax.swing.JPanel();
+        jButton_calender = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -395,49 +415,49 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
             .addGap(0, 387, Short.MAX_VALUE)
         );
 
-        jButton2.setText("Retuner");
+        jButton_return.setText("Retuner");
 
-        jButton3.setText("Betal");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton_pay.setText("Betal");
+        jButton_pay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton_payActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Tøm Kurv");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButton_emtybasket.setText("Tøm Kurv");
+        jButton_emtybasket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButton_emtybasketActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Fortryd");
+        jButton_regred.setText("Fortryd");
 
-        jButton6.setText("Søg På Product Nummer");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jButton_search.setText("Søg På Product Nummer");
+        jButton_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jButton_searchActionPerformed(evt);
             }
         });
 
-        jButton7.setText("Vis Event Typer");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        jButton_showEvent.setText("Vis Event Typer");
+        jButton_showEvent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                jButton_showEventActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Vis Product Grupper");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        jButton_shoeProduct.setText("Vis Product Grupper");
+        jButton_shoeProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                jButton_shoeProductActionPerformed(evt);
             }
         });
 
-        jButton9.setText("Vis Ticket Typer");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        jButton_showTicket.setText("Vis Ticket Typer");
+        jButton_showTicket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                jButton_showTicketActionPerformed(evt);
             }
         });
 
@@ -454,10 +474,10 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
             .addGap(0, 53, Short.MAX_VALUE)
         );
 
-        jButton10.setText("Andet Godt");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        jButton_stuff.setText("Andet Godt");
+        jButton_stuff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                jButton_stuffActionPerformed(evt);
             }
         });
 
@@ -474,28 +494,28 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton_search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton_shoeProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton_showEvent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton_showTicket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel_product, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                         .addComponent(jPanel_kurv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_stuff, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_regred, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_emtybasket, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_return, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addComponent(jPanel_group, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -506,13 +526,13 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_search, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_shoeProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_showEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_showTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -529,20 +549,38 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton_regred, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_emtybasket, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_return, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_stuff, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, "card2");
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_bag.setText("Tilbage");
+        jButton_bag.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_bagActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel_stofLayout = new javax.swing.GroupLayout(jPanel_stof);
+        jPanel_stof.setLayout(jPanel_stofLayout);
+        jPanel_stofLayout.setHorizontalGroup(
+            jPanel_stofLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 770, Short.MAX_VALUE)
+        );
+        jPanel_stofLayout.setVerticalGroup(
+            jPanel_stofLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 535, Short.MAX_VALUE)
+        );
+
+        jButton_calender.setText("Kalender");
+        jButton_calender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_calenderActionPerformed(evt);
             }
         });
 
@@ -551,15 +589,23 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(870, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_bag, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_calender, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
+                .addComponent(jPanel_stof, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(625, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_calender, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel_stof, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addComponent(jButton_bag, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -568,57 +614,70 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void jButton_shoeProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_shoeProductActionPerformed
         createGroupPanel("Product");
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_jButton_shoeProductActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void jButton_showEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_showEventActionPerformed
         createGroupPanel("Event");
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_jButton_showEventActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void jButton_showTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_showTicketActionPerformed
         createGroupPanel("Ticket");
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_jButton_showTicketActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_bagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_bagActionPerformed
         jPanel1.setVisible(true);
         jPanel2.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_bagActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void jButton_stuffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_stuffActionPerformed
         jPanel1.setVisible(false);
         jPanel2.setVisible(true);
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_jButton_stuffActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButton_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_searchActionPerformed
         searchProduct(true);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jButton_searchActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton_emtybasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_emtybasketActionPerformed
         saleHandler.clearSaleinventori();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButton_emtybasketActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton_payActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_payActionPerformed
        buyStuff = new BuyStuff(saleHandler.getSale(), moneyHandler, listeners, saleHandler, storeHandler);
-       buyStuff.setBounds(0, 0, 350, 430);
+       buyStuff.setBounds(0, 0, 400, 500);
+       buyStuff.setLocation(150, 50);
         buyStuff.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton_payActionPerformed
+
+    private void jButton_calenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_calenderActionPerformed
+       calenderPanel = new CalenderPanel(saleHandler.getEventlineListFromData(), storeHandler, listeners);
+        jPanel_stof.removeAll();
+       calenderPanel.setLocation(5, 7);
+        jPanel_stof.add(calenderPanel);
+        calenderPanel.setVisible(true);
+        
+        jPanel_stof.repaint();
+        jPanel_stof.revalidate();
+    }//GEN-LAST:event_jButton_calenderActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButton_bag;
+    private javax.swing.JButton jButton_calender;
+    private javax.swing.JButton jButton_emtybasket;
+    private javax.swing.JButton jButton_pay;
+    private javax.swing.JButton jButton_regred;
+    private javax.swing.JButton jButton_return;
+    private javax.swing.JButton jButton_search;
+    private javax.swing.JButton jButton_shoeProduct;
+    private javax.swing.JButton jButton_showEvent;
+    private javax.swing.JButton jButton_showTicket;
+    private javax.swing.JButton jButton_stuff;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -626,6 +685,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JPanel jPanel_group;
     private javax.swing.JPanel jPanel_kurv;
     private javax.swing.JPanel jPanel_product;
+    private javax.swing.JPanel jPanel_stof;
     private javax.swing.JPanel jPanel_user;
     // End of variables declaration//GEN-END:variables
 

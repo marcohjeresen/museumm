@@ -340,7 +340,9 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
     }
     public void LogOut(){
         storeHandler.logoutEmployee();
-        
+        jPanel_kurv.removeAll();
+        jPanel_group.removeAll();
+        jPanel_product.removeAll();
         popPanl.setVisible(false);
     }
 

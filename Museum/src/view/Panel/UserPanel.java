@@ -6,7 +6,10 @@
 package view.Panel;
 
 import handler.StoreHandler;
+import model.*;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.*;
@@ -16,17 +19,21 @@ import javax.swing.PopupFactory;
  *
  * @author MarcoPc
  */
-public class UserPanel extends javax.swing.JPanel {
+public class UserPanel extends javax.swing.JPanel implements ActionListener {
     
     private JPopupMenu popup;
     private LogIndPanel logInd;
     private StoreHandler storeHandler;
+    private Listeners listeners;
 
-    public UserPanel(StoreHandler storeHandler1) {
+    public UserPanel(StoreHandler storeHandler1, Listeners listeners1) {
         setSize(new Dimension(380, 50));
         this.storeHandler = storeHandler1;
+        this.listeners = listeners1;
         popup = new JPopupMenu();
         logInd = new LogIndPanel(storeHandler);
+        listeners.addListener(this);
+
         initComponents();
         setPicAndName();
 
@@ -138,4 +145,17 @@ public class UserPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton_logUd;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        switch (ae.getActionCommand()) {
+
+            
+            case "Log Down":
+                setPicAndName();
+                break;
+            default:
+
+        }
+    }
 }

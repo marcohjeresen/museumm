@@ -48,12 +48,12 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         this.storeHandler = storeHandler;
         this.listeners = listeners;
         listeners.addListener(this);
-        userPanel = new UserPanel(storeHandler);
+        userPanel = new UserPanel(storeHandler, listeners);
         searchPanel = new SearchPanel(storeHandler);
         productViewsList = new ArrayList<>();
         ticketViewsList = new ArrayList<>();
         eventViewList = new ArrayList<>();
-        cashRegistre = new CashRegistre(moneyHandler);
+        cashRegistre = new CashRegistre(moneyHandler, false, storeHandler.getEmployee());
         BasketViewList = new ArrayList<>();
 
         initComponents();
@@ -62,14 +62,13 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         jPanel1.setBounds(0, 0, 1000, 695);
         jPanel2.setVisible(false);
         jPanel2.setBounds(0, 0, 1000, 695);
-        
+
         userPanel.setLocation(7, 15);
         jPanel_user.add(userPanel);
         userPanel.setVisible(true);
         jLabel1.setText("Kassens Beløb Dk:");
         jLabel2.setText("Kassens Beløb Euro:");
-        
-        
+
         createNewSale();
         setLoginPanel();
     }
@@ -152,7 +151,8 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                 break;
         }
     }
-    public void updateQuantitis(){
+
+    public void updateQuantitis() {
         for (ProductView productView : productViewsList) {
             productView.addName();
         }
@@ -301,33 +301,51 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
             jButton_return.setEnabled(false);
             jButton_emtybasket.setEnabled(false);
             jButton_regred.setEnabled(false);
+            jButton_closeregi.setEnabled(false);
         }
     }
 
-    public void setCashRegistre() {
-        if (storeHandler.getEmployee() != null && moneyHandler.getCashRegister() == null) {
+    public void setCashRegistre(Boolean open) {
+        if (open) {
+            cashRegistre = new CashRegistre(moneyHandler, true, storeHandler.getEmployee());
+            if (storeHandler.getEmployee() != null && moneyHandler.getCashRegister() == null) {
+                popPanl.setVisible(false);
+                popPanl.removeAll();
+                popPanl.add(cashRegistre);
+                popPanl.setLocation(250, 220);
+                popPanl.setVisible(true);
+            } else if (storeHandler.getEmployee() != null && moneyHandler.getCashRegister() != null) {
+                double dk = moneyHandler.getCashRegister().getAmountDk();
+                dk = dk / 100;
+                double euro = moneyHandler.getCashRegister().getAmountEuro();
+                euro = euro / 100;
+                jLabel1.setText("Kassens Beløb Dk: " + dk);
+                jLabel2.setText("Kassens Beløb Euro: " + euro);
+                popPanl.setVisible(false);
+                userPanel.closepopup();
+                userPanel.setPicAndName();
+                jButton_pay.setEnabled(true);
+                jButton_search.setEnabled(true);
+                jButton_shoeProduct.setEnabled(true);
+                jButton_showEvent.setEnabled(true);
+                jButton_showTicket.setEnabled(true);
+                jButton_return.setEnabled(true);
+                jButton_emtybasket.setEnabled(true);
+                jButton_regred.setEnabled(true);
+                jButton_closeregi.setEnabled(true);
+            }
+        } else if (!open) {
+            popPanl.removeAll();
+            cashRegistre = new CashRegistre(moneyHandler, false, storeHandler.getEmployee());
             popPanl.add(cashRegistre);
             popPanl.setLocation(250, 220);
             popPanl.setVisible(true);
-        } else if (storeHandler.getEmployee() != null && moneyHandler.getCashRegister() != null) {
-            double dk = moneyHandler.getCashRegister().getAmountDk();
-            dk = dk / 100;
-            double euro = moneyHandler.getCashRegister().getAmountEuro();
-            euro = euro / 100;
-            jLabel1.setText("Kassens Beløb Dk: " + dk);
-            jLabel2.setText("Kassens Beløb Euro: " + euro);
-            popPanl.setVisible(false);
-            userPanel.closepopup();
-            userPanel.setPicAndName();
-            jButton_pay.setEnabled(true);
-            jButton_search.setEnabled(true);
-            jButton_shoeProduct.setEnabled(true);
-            jButton_showEvent.setEnabled(true);
-            jButton_showTicket.setEnabled(true);
-            jButton_return.setEnabled(true);
-            jButton_emtybasket.setEnabled(true);
-            jButton_regred.setEnabled(true);
         }
+    }
+    public void LogOut(){
+        storeHandler.logoutEmployee();
+        
+        popPanl.setVisible(false);
     }
 
     public void searchProduct(boolean openClose) {
@@ -340,8 +358,6 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
             popPanl.setVisible(false);
         }
     }
-    
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -372,6 +388,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         jButton_bag = new javax.swing.JButton();
         jPanel_stof = new javax.swing.JPanel();
         jButton_calender = new javax.swing.JButton();
+        jButton_closeregi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -554,7 +571,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                             .addComponent(jButton_return, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton_stuff, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, "card2");
@@ -584,15 +601,23 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
             }
         });
 
+        jButton_closeregi.setText("Luk Kassen");
+        jButton_closeregi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_closeregiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_bag, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_calender, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton_closeregi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_bag, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(jButton_calender, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
                 .addGap(49, 49, 49)
                 .addComponent(jPanel_stof, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -604,8 +629,10 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton_calender, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel_stof, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                .addComponent(jButton_bag, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(jButton_closeregi, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_bag, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -645,22 +672,26 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_jButton_emtybasketActionPerformed
 
     private void jButton_payActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_payActionPerformed
-       buyStuff = new BuyStuff(saleHandler.getSale(), moneyHandler, listeners, saleHandler, storeHandler);
-       buyStuff.setBounds(0, 0, 400, 500);
-       buyStuff.setLocation(150, 50);
+        buyStuff = new BuyStuff(saleHandler.getSale(), moneyHandler, listeners, saleHandler, storeHandler);
+        buyStuff.setBounds(0, 0, 400, 500);
+        buyStuff.setLocation(150, 50);
         buyStuff.setVisible(true);
     }//GEN-LAST:event_jButton_payActionPerformed
 
     private void jButton_calenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_calenderActionPerformed
-       calenderPanel = new CalenderPanel(saleHandler.getEventlineListFromData(), storeHandler, listeners);
+        calenderPanel = new CalenderPanel(saleHandler.getEventlineListFromData(), storeHandler, listeners);
         jPanel_stof.removeAll();
-       calenderPanel.setLocation(5, 7);
+        calenderPanel.setLocation(5, 7);
         jPanel_stof.add(calenderPanel);
         calenderPanel.setVisible(true);
-        
+
         jPanel_stof.repaint();
         jPanel_stof.revalidate();
     }//GEN-LAST:event_jButton_calenderActionPerformed
+
+    private void jButton_closeregiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_closeregiActionPerformed
+        setCashRegistre(false);
+    }//GEN-LAST:event_jButton_closeregiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -669,6 +700,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_bag;
     private javax.swing.JButton jButton_calender;
+    private javax.swing.JButton jButton_closeregi;
     private javax.swing.JButton jButton_emtybasket;
     private javax.swing.JButton jButton_pay;
     private javax.swing.JButton jButton_regred;
@@ -697,11 +729,11 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                 createShowType(false);
                 break;
             case "Employee Login":
-                setCashRegistre();
+                setCashRegistre(true);
                 setLoginPanel();
                 break;
             case "Cash Registre":
-                setCashRegistre();
+                setCashRegistre(true);
                 break;
             case "Search Product":
                 createShowType(true);
@@ -713,9 +745,12 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
             case "End Sale":
                 createNewSale();
                 setLoginPanel();
-                setCashRegistre();
+                setCashRegistre(true);
                 fillBasket();
                 updateQuantitis();
+                break;
+            case "Log Down":
+                LogOut();
                 break;
             default:
 

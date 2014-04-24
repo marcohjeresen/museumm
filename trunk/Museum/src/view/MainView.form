@@ -54,13 +54,9 @@
                           <Component id="jPanel_user" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jButton_stuff" min="-2" pref="108" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton_regred" min="-2" pref="90" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButton_emtybasket" min="-2" pref="98" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton_return" min="-2" pref="90" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButton_pay" min="-2" pref="90" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -104,9 +100,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton_regred" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
                               <Component id="jButton_emtybasket" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
-                              <Component id="jButton_return" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
                               <Component id="jButton_pay" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
                               <Component id="jButton_stuff" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
                           </Group>
@@ -188,11 +182,6 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JButton" name="jButton_return">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Retuner"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="jButton_pay">
           <Properties>
             <Property name="text" type="java.lang.String" value="Betal"/>
@@ -208,11 +197,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_emtybasketActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton_regred">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Fortryd"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButton_search">
           <Properties>

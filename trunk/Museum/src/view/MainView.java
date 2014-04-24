@@ -298,9 +298,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
             jButton_shoeProduct.setEnabled(false);
             jButton_showEvent.setEnabled(false);
             jButton_showTicket.setEnabled(false);
-            jButton_return.setEnabled(false);
             jButton_emtybasket.setEnabled(false);
-            jButton_regred.setEnabled(false);
             jButton_closeregi.setEnabled(false);
         }
     }
@@ -329,9 +327,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                 jButton_shoeProduct.setEnabled(true);
                 jButton_showEvent.setEnabled(true);
                 jButton_showTicket.setEnabled(true);
-                jButton_return.setEnabled(true);
                 jButton_emtybasket.setEnabled(true);
-                jButton_regred.setEnabled(true);
                 jButton_closeregi.setEnabled(true);
             }
         } else if (!open) {
@@ -372,10 +368,8 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         jPanel_group = new javax.swing.JPanel();
         jPanel_kurv = new javax.swing.JPanel();
         jPanel_product = new javax.swing.JPanel();
-        jButton_return = new javax.swing.JButton();
         jButton_pay = new javax.swing.JButton();
         jButton_emtybasket = new javax.swing.JButton();
-        jButton_regred = new javax.swing.JButton();
         jButton_search = new javax.swing.JButton();
         jButton_showEvent = new javax.swing.JButton();
         jButton_shoeProduct = new javax.swing.JButton();
@@ -432,8 +426,6 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
             .addGap(0, 387, Short.MAX_VALUE)
         );
 
-        jButton_return.setText("Retuner");
-
         jButton_pay.setText("Betal");
         jButton_pay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -447,8 +439,6 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                 jButton_emtybasketActionPerformed(evt);
             }
         });
-
-        jButton_regred.setText("Fortryd");
 
         jButton_search.setText("Søg På Product Nummer");
         jButton_search.addActionListener(new java.awt.event.ActionListener() {
@@ -525,13 +515,9 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                         .addComponent(jPanel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton_stuff, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton_regred, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton_emtybasket, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton_return, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addComponent(jPanel_group, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -566,9 +552,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton_regred, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton_emtybasket, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton_return, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton_stuff, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -703,8 +687,6 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JButton jButton_closeregi;
     private javax.swing.JButton jButton_emtybasket;
     private javax.swing.JButton jButton_pay;
-    private javax.swing.JButton jButton_regred;
-    private javax.swing.JButton jButton_return;
     private javax.swing.JButton jButton_search;
     private javax.swing.JButton jButton_shoeProduct;
     private javax.swing.JButton jButton_showEvent;

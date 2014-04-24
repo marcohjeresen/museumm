@@ -9,6 +9,7 @@ import db.DBConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.*;
@@ -38,6 +39,7 @@ public class StoreHandler {
     private String showTypePanel;
     
     private Listeners listeners;
+    private Calendar calendar;
     
     public StoreHandler(Listeners listeners) throws SQLException {
         this.listeners = listeners;
@@ -277,4 +279,10 @@ public class StoreHandler {
         }
     }
     
+    public void SetDateToCalender(Calendar cal){
+        calendar = cal;
+    }
+    public Calendar getDateToCalendar(){
+        return calendar;
+    }
 }

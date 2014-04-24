@@ -37,6 +37,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
     private SearchPanel searchPanel;
     private CashRegistre cashRegistre;
     private BuyStuff buyStuff;
+    private CalenderPanel calenderPanel;
 
     /**
      * Creates new form MainView
@@ -61,12 +62,14 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         jPanel1.setBounds(0, 0, 1000, 695);
         jPanel2.setVisible(false);
         jPanel2.setBounds(0, 0, 1000, 695);
+        
         userPanel.setLocation(7, 15);
         jPanel_user.add(userPanel);
         userPanel.setVisible(true);
         jLabel1.setText("Kassens Beløb Dk:");
         jLabel2.setText("Kassens Beløb Euro:");
-        
+        calenderPanel = new CalenderPanel(saleHandler.getEventlineListFromData(), storeHandler, listeners);
+        jPanel2.add(calenderPanel);
         createNewSale();
         setLoginPanel();
     }
@@ -319,6 +322,8 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
             popPanl.setVisible(false);
         }
     }
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -545,17 +550,17 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(870, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(842, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(625, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(593, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel2, "card3");

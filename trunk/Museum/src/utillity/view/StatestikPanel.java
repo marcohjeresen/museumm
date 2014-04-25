@@ -5,8 +5,9 @@
  */
 
 package utillity.view;
+import model.handler.SaleHandler;
+import model.handler.StoreHandler;
 import model.*;
-import handler.*;
 import java.util.ArrayList;
 
 /**

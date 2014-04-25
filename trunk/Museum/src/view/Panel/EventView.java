@@ -5,10 +5,10 @@
  */
 package view.Panel;
 
-import handler.StoreHandler;
+import model.handler.SaleHandler;
+import model.handler.StoreHandler;
 import java.awt.Dimension;
 import model.*;
-import handler.*;
 //import model.handler.*;
 
 /**

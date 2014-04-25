@@ -5,8 +5,8 @@
  */
 
 package view.Panel;
+import model.handler.SaleHandler;
 import model.*;
-import handler.*;
 /**
  *
  * @author MarcoPc

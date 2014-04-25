@@ -5,7 +5,7 @@
  */
 package view.Panel;
 
-import handler.StoreHandler;
+import model.handler.StoreHandler;
 import model.*;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;

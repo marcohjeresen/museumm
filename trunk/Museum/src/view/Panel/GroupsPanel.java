@@ -5,9 +5,9 @@
  */
 package view.Panel;
 
+import model.handler.StoreHandler;
 import java.awt.Dimension;
 import model.*;
-import handler.*;
 /**
  *
  * @author markh_000

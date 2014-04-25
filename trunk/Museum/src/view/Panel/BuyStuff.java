@@ -5,13 +5,15 @@
  */
 package view.Panel;
 
+import model.handler.MoneyHandler;
+import model.handler.SaleHandler;
+import model.handler.StoreHandler;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.Timer;
 import model.Sale;
 import model.Listeners;
-import handler.*;
 
 /**
  *

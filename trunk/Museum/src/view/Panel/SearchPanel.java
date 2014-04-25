@@ -8,7 +8,7 @@ package view.Panel;
 
 //import model.handler.KurvHandler;
 
-import handler.StoreHandler;
+import model.handler.StoreHandler;
 
 //import model.handler.ProductHandler;
 //import veiw.Guie2;

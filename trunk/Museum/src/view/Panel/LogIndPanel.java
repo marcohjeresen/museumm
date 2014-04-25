@@ -5,7 +5,7 @@
  */
 package view.Panel;
 
-import handler.StoreHandler;
+import model.handler.StoreHandler;
 
 
 /**

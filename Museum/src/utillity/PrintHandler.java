@@ -30,7 +30,7 @@ public class PrintHandler implements Printable {
     private ArrayList<Line> lines;
 
     public PrintHandler() {
-        lines = new ArrayList<Line>();
+        lines = new ArrayList<>();
     }
 
     public void kvitteringPrint(Sale sale, boolean discount) {

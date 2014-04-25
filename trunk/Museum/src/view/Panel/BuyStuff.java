@@ -5,12 +5,15 @@
  */
 package view.Panel;
 
-import model.handler.MoneyHandler;
-import model.handler.SaleHandler;
-import model.handler.StoreHandler;
+import model.handler.*;
+import model.controller.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 import model.Sale;
 import model.Listeners;
@@ -26,6 +29,7 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
     private SaleHandler saleHandler;
     private MoneyHandler moneyHandler;
     private StoreHandler storeHandler;
+    private StoreController storeController;
     private String modtaget;
     private String dkOrEuro;
     private ArrayList<String> modtag;
@@ -36,12 +40,13 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
     /**
      * Creates new form BuyStuff
      */
-    public BuyStuff(Sale sale, MoneyHandler moneyHandler, Listeners listeners, SaleHandler saleHandler, StoreHandler storeHandler) {
+    public BuyStuff(Sale sale, MoneyHandler moneyHandler, Listeners listeners, SaleHandler saleHandler, StoreHandler storeHandler, StoreController storeController) {
         this.sale = sale;
         this.moneyHandler = moneyHandler;
         this.storeHandler = storeHandler;
         this.listeners = listeners;
         this.saleHandler = saleHandler;
+        this.storeController = storeController;
         modtag = new ArrayList<>();
         listeners.addListener(this);
 
@@ -98,7 +103,7 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
         jTextField_modtaget.setText(modtaget);
     }
 
-    public void endSale() {
+    public void endSale() throws SQLException {
         boolean beløbGodkent = false;
         double modtagetTilBetaling;
         double retur = 0;
@@ -115,7 +120,8 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
                     retur = modtagetTilBetaling - penge;
                     jTextField_returBeløb.setText("Retur Euro: " + retur);
                 }
-                storeHandler.alterProductQuantities(sale.getProductLine());
+                storeController.alterProductQuantities(sale.getProductLine(), storeHandler.getProductsList());
+                
                 saleHandler.endSale(sale, discount);
                 penge = penge;
                 int money = (int) (penge * 100);
@@ -504,7 +510,11 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_jButton_fortrydActionPerformed
 
     private void jButton_betalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_betalActionPerformed
-        endSale();
+        try {
+            endSale();
+        } catch (SQLException ex) {
+            Logger.getLogger(BuyStuff.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton_betalActionPerformed
 
     private void jCheckBox_rabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_rabatActionPerformed

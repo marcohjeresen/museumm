@@ -5,9 +5,8 @@
  */
 package view;
 
-import model.handler.MoneyHandler;
-import model.handler.SaleHandler;
-import model.handler.StoreHandler;
+import model.handler.*;
+import model.controller.*;
 import utillity.view.StatestikPanel;
 import utillity.view.CalenderPanel;
 import view.Panel.GroupsPanel;
@@ -31,6 +30,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
     private MoneyHandler moneyHandler;
     private SaleHandler saleHandler;
     private StoreHandler storeHandler;
+    private StoreController storeController;
     private Listeners listeners;
     private ArrayList<ProductView> productViewsList;
     private ArrayList<TicketView> ticketViewsList;
@@ -46,10 +46,11 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
     /**
      * Creates new form MainView
      */
-    public MainView(MoneyHandler moneyHandler, SaleHandler saleHandler, StoreHandler storeHandler, Listeners listeners) {
+    public MainView(MoneyHandler moneyHandler, SaleHandler saleHandler, StoreHandler storeHandler, StoreController storeController, Listeners listeners) {
         this.moneyHandler = moneyHandler;
         this.saleHandler = saleHandler;
         this.storeHandler = storeHandler;
+        this.storeController = storeController;
         this.listeners = listeners;
         listeners.addListener(this);
         userPanel = new UserPanel(storeHandler, listeners);
@@ -674,7 +675,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_jButton_emtybasketActionPerformed
 
     private void jButton_payActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_payActionPerformed
-        buyStuff = new BuyStuff(saleHandler.getSale(), moneyHandler, listeners, saleHandler, storeHandler);
+        buyStuff = new BuyStuff(saleHandler.getSale(), moneyHandler, listeners, saleHandler, storeHandler, storeController);
         buyStuff.setBounds(0, 0, 400, 500);
         buyStuff.setLocation(150, 50);
         buyStuff.setVisible(true);

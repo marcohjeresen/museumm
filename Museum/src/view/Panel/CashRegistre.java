@@ -6,7 +6,7 @@
 
 package view.Panel;
 
-import handler.*;
+import model.handler.MoneyHandler;
 import java.awt.Dimension;
 import model.Employee;
 //import model.handler.*;

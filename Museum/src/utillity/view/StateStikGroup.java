@@ -5,7 +5,7 @@
  */
 
 package utillity.view;
-import handler.*;
+import model.handler.StoreHandler;
 /**
  *
  * @author markh_000

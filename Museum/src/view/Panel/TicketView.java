@@ -5,10 +5,10 @@
  */
 package view.Panel;
 
+import model.handler.SaleHandler;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import model.*;
-import handler.*;
 import java.util.Calendar;
 //import model.handler.*;
 

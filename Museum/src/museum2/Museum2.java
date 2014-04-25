@@ -5,7 +5,9 @@
  */
 
 package museum2;
-import handler.*;
+import model.handler.MoneyHandler;
+import model.handler.SaleHandler;
+import model.handler.StoreHandler;
 import model.*;
 import java.sql.SQLException;
 import java.text.ParseException;

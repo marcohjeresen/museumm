@@ -5,6 +5,8 @@
  */
 package view;
 
+import utillity.view.StatestikPanel;
+import utillity.view.CalenderPanel;
 import view.Panel.GroupsPanel;
 import handler.*;
 import java.awt.CardLayout;

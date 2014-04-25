@@ -5,9 +5,9 @@
  */
 
 package museum2;
-import model.handler.MoneyHandler;
-import model.handler.SaleHandler;
-import model.handler.StoreHandler;
+import model.handler.*;
+import model.controller.*;
+
 import model.*;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -29,10 +29,11 @@ public class Museum2 {
     public static void main(String[] args) throws SQLException {
        Listeners listeners = new Listeners();
        StoreHandler storeHandler = new StoreHandler(listeners);
+       StoreController storeController = new StoreController(storeHandler);
        MoneyHandler moneyHandler = new MoneyHandler(storeHandler,listeners);
        SaleHandler saleHandler = new SaleHandler(storeHandler, moneyHandler, listeners);
        
-       MainView mainView = new MainView(moneyHandler, saleHandler, storeHandler, listeners);
+       MainView mainView = new MainView(moneyHandler, saleHandler, storeHandler, storeController,listeners);
        mainView.setVisible(true);
       
        

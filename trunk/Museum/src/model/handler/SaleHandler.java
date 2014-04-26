@@ -410,7 +410,6 @@ public class SaleHandler {
         }
         if (product.getQuantities() > 0) {
             if (!erder && !forlidt) {
-                System.out.println("heeeej");
                 for (ProductLine productLine : productLinesList) {
                     if (id < productLine.getId()) {
                         id = productLine.getId();

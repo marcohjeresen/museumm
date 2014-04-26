@@ -11,5 +11,11 @@ package model.controller;
  * @author MarcoPc
  */
 public class SaleController {
+
+    public SaleController() {
+    }
+    
+    
+    
     
 }

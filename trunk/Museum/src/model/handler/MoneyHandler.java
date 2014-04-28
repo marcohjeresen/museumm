@@ -90,6 +90,7 @@ public class MoneyHandler {
         id = id +1;
         cashRegister = new CashRegister(id,dato, dk, euro, storeHandler.getEmployee());
         addStartingCashToDataBase(cashRegister);
+        cashRegistersList.add(cashRegister);
         listeners.notifyListeners("Cash Registre");
     }
     
@@ -100,9 +101,12 @@ public class MoneyHandler {
         String dato = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DATE) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
         DifferanceRegistre differanceRegistre = new DifferanceRegistre(cashRegister.getId(), employee, cashRegister.getAmountDk(), cashRegister.getAmountEuro(), expectedDk, expectedEuro, differanceDk, differanceEuro, dato);
         addEndCashToDatabase(differanceRegistre);
+        
         cashRegister = null;
         listeners.notifyListeners("Log Down");
     }
+    
+    
 
     public ArrayList<CashRegister> getCashRegistersList() {
         return cashRegistersList;

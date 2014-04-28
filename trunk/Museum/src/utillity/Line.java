@@ -45,7 +45,11 @@ public class Line {
 
     @Override
     public String toString() {
-        return "text: " + text + " priceDk: " + priceDk + " priceEuro: " + priceEuro;
+        String text = "";
+        if (priceDk == 0) {
+           text = "text: " + text + " priceDk: " + priceDk + " priceEuro: " + priceEuro;
+        }
+        return text;
     }
 
     

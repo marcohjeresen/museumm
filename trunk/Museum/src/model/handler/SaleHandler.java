@@ -252,6 +252,7 @@ public class SaleHandler {
     }
     
     public void endSale(Sale sale1, boolean discount) {
+         salesList.add(sale1);
         int id = 0;
         for (Invoice invoice : invoicesList) {
             if (id < invoice.getId()) {
@@ -359,7 +360,7 @@ public class SaleHandler {
         }
         id = id + 1;
         sale = new Sale(id, null, null, null);
-        salesList.add(sale);
+       
        
     }
     

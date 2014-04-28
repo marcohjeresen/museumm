@@ -9,7 +9,7 @@ import model.handler.*;
 import model.controller.*;
 
 import model.*;
-import utillity.StatistikHandler;
+import utillity.UtilHandler;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,8 +33,9 @@ public class Museum2 {
        StoreController storeController = new StoreController(storeHandler);
        MoneyHandler moneyHandler = new MoneyHandler(storeHandler,listeners);
        SaleHandler saleHandler = new SaleHandler(storeHandler, moneyHandler, listeners);
-       StatistikHandler statistikHandler = new StatistikHandler(storeHandler, saleHandler, listeners);
-       MainView mainView = new MainView(moneyHandler, saleHandler, storeHandler, storeController,listeners,statistikHandler);
+       UtilHandler utilHandler = new UtilHandler(storeHandler, saleHandler, listeners);
+       
+       MainView mainView = new MainView(moneyHandler, saleHandler, storeHandler, storeController,listeners,utilHandler);
        mainView.setVisible(true);
       
        

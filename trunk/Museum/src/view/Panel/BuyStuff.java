@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.Timer;
 import model.Sale;
 import model.Listeners;
+import utillity.*;
 
 /**
  *
@@ -30,6 +31,7 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
     private MoneyHandler moneyHandler;
     private StoreHandler storeHandler;
     private StoreController storeController;
+    private PrintHandler printHandler;
     private String modtaget;
     private String dkOrEuro;
     private ArrayList<String> modtag;
@@ -40,13 +42,14 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
     /**
      * Creates new form BuyStuff
      */
-    public BuyStuff(Sale sale, MoneyHandler moneyHandler, Listeners listeners, SaleHandler saleHandler, StoreHandler storeHandler, StoreController storeController) {
+    public BuyStuff(Sale sale, MoneyHandler moneyHandler, Listeners listeners, SaleHandler saleHandler, StoreHandler storeHandler, StoreController storeController, PrintHandler printHandler) {
         this.sale = sale;
         this.moneyHandler = moneyHandler;
         this.storeHandler = storeHandler;
         this.listeners = listeners;
         this.saleHandler = saleHandler;
         this.storeController = storeController;
+        this.printHandler = printHandler;
         modtag = new ArrayList<>();
         listeners.addListener(this);
 
@@ -120,8 +123,9 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
                     retur = modtagetTilBetaling - penge;
                     jTextField_returBeløb.setText("Retur Euro: " + retur);
                 }
+
                 storeController.alterProductQuantities(sale.getProductLine(), storeHandler.getProductsList());
-                
+
                 saleHandler.endSale(sale, discount);
                 penge = penge;
                 int money = (int) (penge * 100);
@@ -131,7 +135,9 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
                 jButton_betal.setEnabled(false);
                 jButton_fortryd.setEnabled(false);
                 timer.start();
-
+                if (jCheckBox_kvit.isSelected()) {
+                    printHandler.kvitteringPrint(sale, discount);
+                }
             } else {
                 jLabel_melding.setText("Beløb Ikke Nok!!");
             }
@@ -173,7 +179,7 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
         jButton11 = new javax.swing.JButton();
         jButton_betal = new javax.swing.JButton();
         jButton_fortryd = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox_kvit = new javax.swing.JCheckBox();
         jCheckBox_rabat = new javax.swing.JCheckBox();
         jLabel_melding = new javax.swing.JLabel();
 
@@ -301,8 +307,8 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
             }
         });
 
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jCheckBox1.setText("Kvitering");
+        jCheckBox_kvit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jCheckBox_kvit.setText("Kvitering");
 
         jCheckBox_rabat.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jCheckBox_rabat.setText("MuseumsKort");
@@ -358,7 +364,7 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jCheckBox_kvit, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -405,7 +411,7 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
+                    .addComponent(jCheckBox_kvit))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -543,9 +549,9 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JButton jButton9;
     private javax.swing.JButton jButton_betal;
     private javax.swing.JButton jButton_fortryd;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox_danske;
     private javax.swing.JCheckBox jCheckBox_euro;
+    private javax.swing.JCheckBox jCheckBox_kvit;
     private javax.swing.JCheckBox jCheckBox_rabat;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

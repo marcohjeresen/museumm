@@ -108,9 +108,21 @@ public class Product{
 
     @Override
     public String toString() {
-        return "productNumber: " + productNumber + " name: " + name 
-                + " productGroup: " + productGroup.getGroupType() + " priceDk: " + priceDk + " priceEuro: " + priceEuro;
+        double buyPriceDk = (buyPrice / 100);
+        String product = "";
+        if (name.length() > 7 && name.length() > 15) {
+            product = "pNumber: " + productNumber + "   name: " + name + "\t\t supplier: " + supplier + "\t buyPrice: " + buyPriceDk + ", quantities: " + quantities;
+        }else if (name.length() > 15) {
+            product = "pNumber: " + productNumber + "   name: " + name + "\t supplier: " + supplier + "\t buyPrice: " + buyPriceDk + ", quantities: " + quantities;
+        } else{
+            product = "pNumber: " + productNumber + "   name: " + name + "\t\t\t supplier: " + supplier + "\t buyPrice: " + buyPriceDk + ", quantities: " + quantities;
+        }
+        return product;
     }
+
+    
+
+       
 
     
     

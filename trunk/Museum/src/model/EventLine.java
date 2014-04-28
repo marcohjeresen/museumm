@@ -99,14 +99,14 @@ public class EventLine {
     public int getEventlinePriceDk() {
         int dk = 0;
         
-            dk = eventtype.getPriceDk() * quantities;
+            dk = eventtype.getPriceDk();
         
         return dk;
     }
 
     public int getEventlineEuro() {
         int euro = 0;
-        euro = eventtype.getPriceEuro() * quantities;
+        euro = eventtype.getPriceEuro();
         return euro;
     }
 

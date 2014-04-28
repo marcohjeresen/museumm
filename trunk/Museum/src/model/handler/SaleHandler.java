@@ -533,4 +533,9 @@ public class SaleHandler {
         sale.getEventLine().remove(plads);
         listeners.notifyListeners("Update Basket");
     }
+
+    public ArrayList<ProductLine> getProductLinesList() {
+        return productLinesList;
+    }
+    
 }

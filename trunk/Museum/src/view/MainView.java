@@ -57,7 +57,7 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         this.storeController = storeController;
         this.listeners = listeners;
         this.UtilHandler = statistikHandler;
-        printHandler = new PrintHandler(saleHandler);
+        printHandler = new PrintHandler(saleHandler, storeHandler, moneyHandler);
         listeners.addListener(this);
         userPanel = new UserPanel(storeHandler, listeners);
         searchPanel = new SearchPanel(storeHandler);

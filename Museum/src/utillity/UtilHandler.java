@@ -29,7 +29,7 @@ public class UtilHandler {
 
     private ArrayList<Line> stringList;
     private ArrayList<Line> typeList;
-    private ArrayList<Product> productsList;
+    private ArrayList<StockLine> productsList;
 
     public UtilHandler(StoreHandler storeHandler1, SaleHandler saleHandler1, Listeners listeners1) {
         this.storeHandler = storeHandler1;
@@ -54,11 +54,9 @@ public class UtilHandler {
                 while (rse.next()) {
                     for (ProductGroup group : storeHandler.getProductGroupList()) {
                         if (group.getGroupId() == rse.getInt("product_groupid")) {
+                            StockLine l = new StockLine(""+rse.getInt("product_numberid"), rse.getString("product_name"), rse.getString("product_supplier"), ""+rse.getInt("product_buyprice"), ""+rse.getInt("product_quantities"));
 
-                            Product pr = new Product(rse.getInt("product_numberid"), rse.getString("product_name"), group, rse.getString("product_supplier"),
-                                    rse.getInt("product_buyprice"), rse.getInt("product_saleprice_dk"), rse.getInt("product_saleprice_euro"),
-                                    rse.getInt("product_discount"), rse.getInt("product_quantities"));
-                            productsList.add(pr);
+                            productsList.add(l);
                         }
                     }
                 }
@@ -66,8 +64,10 @@ public class UtilHandler {
                 Logger.getLogger(Museum2.class.getName()).log(Level.SEVERE, null, ex);
             }
             String list = "";
-            for (Product product : productsList) {
-                list = list + product.toString()+"\n";
+            StockLine st= new StockLine("Nummer", "Navn", "Suplier", "KøbsPris", "Antal");
+            list = list + st.toString()+ "\n";
+            for (StockLine stockLine : productsList) {
+                list = list + stockLine.toString() + "\n";
                     
                 }
             

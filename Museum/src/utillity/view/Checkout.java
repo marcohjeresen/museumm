@@ -6,6 +6,9 @@
 
 package utillity.view;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Employee;
 import model.handler.MoneyHandler;
 import utillity.PrintHandler;
@@ -68,7 +71,7 @@ private boolean dkcash;
         }
     }
     
-    public void endReg() {
+    public void endReg() throws ParseException {
                
        
             if (dkcash) {
@@ -78,11 +81,11 @@ private boolean dkcash;
                 int dkMoney = (int) (dkc * 100);
                 int euroMoney = (int) (euc * 100);
                 setEndText();
-                if (jCheckBox_kvit.isSelected()) {
+               
+                moneyHandler.endCashregister(dkMoney, euroMoney, employee);
+                 if (jCheckBox_kvit.isSelected()) {
                     printHandler.cashReport();
                 }
-                moneyHandler.endCashregister(euroMoney, euroMoney, employee);
-                
                 
             }  
         }
@@ -408,11 +411,19 @@ private boolean dkcash;
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton_endActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_endActionPerformed
-       endReg();
+    try {
+        endReg();
+    } catch (ParseException ex) {
+        Logger.getLogger(Checkout.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_jButton_endActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    try {
         endReg();
+    } catch (ParseException ex) {
+        Logger.getLogger(Checkout.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_jButton12ActionPerformed
 
 

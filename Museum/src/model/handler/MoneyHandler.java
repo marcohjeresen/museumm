@@ -94,12 +94,12 @@ public class MoneyHandler {
         listeners.notifyListeners("Cash Registre");
     }
     
-    public void endCashregister(int expectedDk, int expectedEuro, Employee employee){
-        int differanceDk =  expectedDk - cashRegister.getAmountDk();
-        int differanceEuro =  expectedEuro - cashRegister.getAmountEuro();
+    public void endCashregister(int DkIndTheBox, int EuroIndTheBox, Employee employee){
+        int differanceDk =  DkIndTheBox - cashRegister.getAmountDk();
+        int differanceEuro = EuroIndTheBox - cashRegister.getAmountEuro() ;
         Calendar cal = Calendar.getInstance();
         String dato = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DATE) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
-        DifferanceRegistre differanceRegistre = new DifferanceRegistre(cashRegister.getId(), employee, cashRegister.getAmountDk(), cashRegister.getAmountEuro(), expectedDk, expectedEuro, differanceDk, differanceEuro, dato);
+        DifferanceRegistre differanceRegistre = new DifferanceRegistre(cashRegister.getId(), employee, DkIndTheBox, EuroIndTheBox,cashRegister.getAmountDk(), cashRegister.getAmountEuro(),  differanceDk, differanceEuro, dato);
         addEndCashToDatabase(differanceRegistre);
         
         cashRegister = null;

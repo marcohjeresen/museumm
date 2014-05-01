@@ -3,24 +3,50 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package utillity.view;
+
+import java.awt.Dimension;
 import utillity.*;
+
 /**
  *
  * @author MarcoPc
  */
 public class StockVeiw extends javax.swing.JPanel {
-private UtilHandler statistikHandler;
+
+    private UtilHandler statistikHandler;
+    private PrintHandler printHandler;
+
     /**
      * Creates new form StockVeiw
      */
-    public StockVeiw(UtilHandler statistikHandler1) {
+    public StockVeiw(UtilHandler statistikHandler1, PrintHandler printHandler) {
         this.statistikHandler = statistikHandler1;
+        this.printHandler = printHandler;
         initComponents();
         setSize(805, 660);
-        jTextArea1.setText(statistikHandler.getStockList());
+        int count = 0;
+        int y = 0;
+        int x = 0;
+//        jScrollPane2.setVisible(true);
+        for (StockLine stockLine : statistikHandler.getStockList()) {
+            StockViewPanel st = new StockViewPanel(stockLine);
+            y = ((count * st.getHeight()) + (10 * count));
+            x = 7;
+            st.setLocation(x, y);
+            st.setVisible(true);
+            jPanel2.add(st);
+            
+            jPanel2.setPreferredSize(new Dimension(x, y));
+            jPanel2.revalidate();
+            count++;
+            
+            
+        }
+//       jScrollPane2.repaint();
+//       jScrollPane2.revalidate();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,37 +57,50 @@ private UtilHandler statistikHandler;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jButton_prin = new javax.swing.JButton();
         jButton_doc = new javax.swing.JButton();
-
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel2 = new javax.swing.JPanel();
 
         jButton_prin.setText("Print");
+        jButton_prin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_prinActionPerformed(evt);
+            }
+        });
 
         jButton_doc.setText("Gem Som Doc");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 798, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 578, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton_prin, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(480, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton_prin, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                     .addComponent(jButton_doc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -69,11 +108,15 @@ private UtilHandler statistikHandler;
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton_prinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_prinActionPerformed
+         printHandler.stockReport(statistikHandler.getStockList());
+    }//GEN-LAST:event_jButton_prinActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_doc;
     private javax.swing.JButton jButton_prin;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

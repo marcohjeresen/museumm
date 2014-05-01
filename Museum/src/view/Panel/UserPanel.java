@@ -27,11 +27,11 @@ public class UserPanel extends javax.swing.JPanel implements ActionListener {
     private Listeners listeners;
 
     public UserPanel(StoreHandler storeHandler1, Listeners listeners1) {
-        setSize(new Dimension(380, 50));
+        setSize(new Dimension(500, 50));
         this.storeHandler = storeHandler1;
         this.listeners = listeners1;
         popup = new JPopupMenu();
-        logInd = new LogIndPanel(storeHandler);
+        
         listeners.addListener(this);
 
         initComponents();
@@ -64,16 +64,17 @@ public class UserPanel extends javax.swing.JPanel implements ActionListener {
         setPicAndName();
     }
     public void closepopup(){
-        popup.setVisible(false);
+        listeners.notifyListeners("Log In");
+//        this.setVisible(false);
     }
     
     public void popUpPanel() {
-        
-        logInd.setPreferredSize(new Dimension(220, 400));
-        
-        popup.add(logInd);
-        popup.setLocation(250, 220);
-        popup.setVisible(true);
+        listeners.notifyListeners("Log On");
+//        logInd.setPreferredSize(new Dimension(220, 400));
+//        
+//        popup.add(logInd);
+//        popup.setLocation(250, 220);
+//        popup.setVisible(true);
  
     }
     
@@ -91,6 +92,7 @@ public class UserPanel extends javax.swing.JPanel implements ActionListener {
         jButton_logInd = new javax.swing.JButton();
         jButton_logUd = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jButton_logInd.setText("Log Ind");
         jButton_logInd.addActionListener(new java.awt.event.ActionListener() {
@@ -108,24 +110,29 @@ public class UserPanel extends javax.swing.JPanel implements ActionListener {
 
         jLabel1.setText("jLabel2");
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picter/User.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton_logUd)
-                .addGap(18, 18, 18)
-                .addComponent(jButton_logInd)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addComponent(jButton_logUd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_logInd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jButton_logUd, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1))
+            .addComponent(jButton_logUd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton_logInd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -144,6 +151,7 @@ public class UserPanel extends javax.swing.JPanel implements ActionListener {
     private javax.swing.JButton jButton_logInd;
     private javax.swing.JButton jButton_logUd;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -151,7 +159,7 @@ public class UserPanel extends javax.swing.JPanel implements ActionListener {
         switch (ae.getActionCommand()) {
 
             
-            case "Log Down":
+            case "Log":
                 setPicAndName();
                 break;
             default:

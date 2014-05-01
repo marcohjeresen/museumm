@@ -65,19 +65,23 @@
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jTextField1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel_fra" pref="160" max="32767" attributes="0"/>
+                              <Component id="jLabel_to" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Component id="jTextField_0" min="-2" pref="85" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                          <Component id="jTextField2" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="jTextField_1" min="-2" pref="85" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                          <Component id="jTextField3" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="jTextField_2" min="-2" pref="85" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                          <Component id="jTextField4" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="jTextField_3" min="-2" pref="85" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                          <Component id="jTextField5" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="jTextField_4" min="-2" pref="85" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                          <Component id="jTextField6" min="-2" pref="85" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                          <Component id="jTextField7" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="jTextField_5" min="-2" pref="85" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="jTextField9" min="-2" pref="180" max="-2" attributes="0"/>
@@ -117,16 +121,22 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jTextField1" pref="60" max="32767" attributes="0"/>
-                  <Component id="jTextField2" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jTextField3" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jTextField4" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jTextField5" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jTextField6" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jTextField7" alignment="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jTextField_0" alignment="0" pref="60" max="32767" attributes="0"/>
+                      <Component id="jTextField_1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTextField_2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTextField_3" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTextField_4" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTextField_5" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Component id="jLabel_fra" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel_to" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jTextField9" alignment="0" max="32767" attributes="0"/>
                   <Component id="jTextField_AduTue" alignment="0" max="32767" attributes="0"/>
@@ -181,18 +191,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="jTextField1">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-        <Property name="text" type="java.lang.String" value="      Dato/Uge:"/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2">
+    <Component class="javax.swing.JTextField" name="jTextField_0">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="      Tirsdag:"/>
@@ -203,7 +202,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField3">
+    <Component class="javax.swing.JTextField" name="jTextField_1">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="      Onsdag:"/>
@@ -214,7 +213,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField4">
+    <Component class="javax.swing.JTextField" name="jTextField_2">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="      Torsdag:"/>
@@ -225,7 +224,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField5">
+    <Component class="javax.swing.JTextField" name="jTextField_3">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="      Fredag:"/>
@@ -236,7 +235,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField6">
+    <Component class="javax.swing.JTextField" name="jTextField_4">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="      L&#xf8;rdag:"/>
@@ -247,7 +246,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField7">
+    <Component class="javax.swing.JTextField" name="jTextField_5">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="      S&#xf8;ndag:"/>
@@ -258,7 +257,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField7ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_5ActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField_AduWed">
@@ -644,6 +643,16 @@
             <LineBorder/>
           </Border>
         </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_fra">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_to">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel2"/>
       </Properties>
     </Component>
   </SubComponents>

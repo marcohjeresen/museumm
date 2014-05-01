@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package utillity.view;
+
+import java.awt.Color;
 import java.sql.SQLException;
 import java.text.ParseException;
 import utillity.*;
@@ -22,24 +23,63 @@ import java.util.logging.Logger;
  * @author markh_000
  */
 public class StatestikPanel extends javax.swing.JPanel {
-private StoreHandler storeHandler;
-private SaleHandler saleHandler;
-private UtilHandler utilHandler;
-private StatistikHandler statistikHandler;
+
+    private StoreHandler storeHandler;
+    private SaleHandler saleHandler;
+    private UtilHandler utilHandler;
+    private StatistikHandler statistikHandler;
+    
 
     /**
      * Creates new form StatestikPanel
      */
-    public StatestikPanel(StoreHandler storeHandler, SaleHandler saleHandler, UtilHandler utilHandler) {
-        this.storeHandler =storeHandler;
+    public StatestikPanel(StoreHandler storeHandler, SaleHandler saleHandler, UtilHandler utilHandler) throws SQLException {
+        this.storeHandler = storeHandler;
         this.saleHandler = saleHandler;
-        this.utilHandler  = utilHandler;
-        statistikHandler = new StatistikHandler();
+        this.utilHandler = utilHandler;
+        statistikHandler = StatistikHandler.getStatistikHandler();
         setSize(805, 660);
         initComponents();
     }
-    public void setViewPanel(String type){
-        
+
+    public void setViewPanel(String type) {
+
+    }
+
+    public String parsDate() {
+        String date = "";
+        jButton_showw.setForeground(Color.BLACK);
+        jButton_showw.setText("Vis Statestik");
+        try {
+            int yaer = Integer.parseInt(jTextField_year.getText());
+            int mounht = Integer.parseInt(jTextField_mounht.getText());
+            int day = Integer.parseInt(jTextField_day.getText());
+            if (mounht < 10) {
+                String l = 0 + "" + mounht + "";
+                mounht = Integer.parseInt(l);
+            }
+            date = "" + yaer + "-" + mounht + "-" + day + " 00:00:00";
+        } catch (NumberFormatException ex) {
+            jButton_showw.setForeground(Color.RED);
+            jButton_showw.setText("Fejl: Tjek Dato Og Prøv Igen");
+        }
+        return date;
+    }
+
+    public void ShowStat() throws ParseException {
+        String date = parsDate();
+        if (date != "") {
+            System.out.println("ja");
+           StatestikView st = new StatestikView(statistikHandler.getWeekStat(date),date);
+           st.setVisible(true);
+            jPanel_p.add(st);
+            jPanel_p.revalidate();
+            
+            
+            
+        }
+                
+
     }
 
     /**
@@ -51,14 +91,11 @@ private StatistikHandler statistikHandler;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton_showw = new javax.swing.JButton();
+        jButton_endd = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField_year = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -67,32 +104,8 @@ private StatistikHandler statistikHandler;
         jTextField_day = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Statestik"));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 792, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 465, Short.MAX_VALUE)
-        );
-
-        jScrollPane2.setViewportView(jPanel2);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
-        );
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel_p = new javax.swing.JPanel();
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Finish"));
 
@@ -102,14 +115,14 @@ private StatistikHandler statistikHandler;
         jCheckBox2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jCheckBox2.setText("Doc");
 
-        jButton1.setText("Afslut");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_showw.setText("Vis Statestik");
+        jButton_showw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_showwActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Ny Statistik");
+        jButton_endd.setText("Afslut");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -122,9 +135,9 @@ private StatistikHandler statistikHandler;
                         .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 7, Short.MAX_VALUE))
+                    .addComponent(jButton_endd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_showw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
         );
         jPanel3Layout.setVerticalGroup(
@@ -134,27 +147,24 @@ private StatistikHandler statistikHandler;
                     .addComponent(jCheckBox2)
                     .addComponent(jCheckBox1))
                 .addGap(7, 7, 7)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_showw, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButton_endd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Fra Dato:");
 
-        jTextField_year.setEditable(false);
         jTextField_year.setText("YYYY");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("År:");
 
-        jTextField_mounht.setEditable(false);
         jTextField_mounht.setText("MMMM");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Måned:");
 
-        jTextField_day.setEditable(false);
         jTextField_day.setText("DDDD");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -166,6 +176,19 @@ private StatistikHandler statistikHandler;
                 jButton3ActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel_pLayout = new javax.swing.GroupLayout(jPanel_p);
+        jPanel_p.setLayout(jPanel_pLayout);
+        jPanel_pLayout.setHorizontalGroup(
+            jPanel_pLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 804, Short.MAX_VALUE)
+        );
+        jPanel_pLayout.setVerticalGroup(
+            jPanel_pLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 488, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(jPanel_p);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -179,7 +202,7 @@ private StatistikHandler statistikHandler;
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jTextField_year))
+                            .addComponent(jTextField_year, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -193,7 +216,7 @@ private StatistikHandler statistikHandler;
                 .addGap(286, 286, 286)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,51 +241,40 @@ private StatistikHandler statistikHandler;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    try {
-        int yaer = Integer.parseInt(jTextField_year.getText());
-        int mounht = Integer.parseInt(jTextField_mounht.getText());
-        if (mounht < 10) {
-            String l = 0+""+mounht+"";
-            mounht = Integer.parseInt(l);
+    private void jButton_showwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_showwActionPerformed
+        try {
+            ShowStat();
+        } catch (ParseException ex) {
+            Logger.getLogger(StatestikPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        int day = Integer.parseInt(jTextField_day.getText());
-        String date = ""+yaer+"-"+mounht+"-"+day+" 00:00:00";
-        System.out.println(date);
-        statistikHandler.getStat(date);
-    } catch (SQLException ex) {
-        Logger.getLogger(StatestikPanel.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ParseException ex) {
-        Logger.getLogger(StatestikPanel.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton_showwActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Calendar c = Calendar.getInstance();
-        jTextField_year.setText(c.get(Calendar.YEAR)+"");
-        jTextField_mounht.setText((c.get(Calendar.MONTH)+1)+"");
-        jTextField_day.setText(c.get(Calendar.DAY_OF_MONTH)+"");
+        jTextField_year.setText(c.get(Calendar.YEAR) + "");
+        jTextField_mounht.setText((c.get(Calendar.MONTH) + 1) + "");
+        jTextField_day.setText(c.get(Calendar.DAY_OF_MONTH) + "");
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton_endd;
+    private javax.swing.JButton jButton_showw;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel jPanel_p;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField_day;
     private javax.swing.JTextField jTextField_mounht;
     private javax.swing.JTextField jTextField_year;

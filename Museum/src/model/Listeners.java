@@ -15,21 +15,29 @@ import java.util.ArrayList;
  * @author markh_000
  */
 public class Listeners {
-    private ArrayList<ActionListener> listeners;
+    private static Listeners listeners;
+    private ArrayList<ActionListener> listenersList;
 
 
-    public Listeners() {
-        listeners = new ArrayList<>();
+    private Listeners() {
+        listenersList = new ArrayList<>();
 
+    }
+    
+    public static Listeners getList(){
+        if (listeners == null) {
+            listeners = new Listeners();
+        }
+        return listeners;
     }
 
     public void addListener(ActionListener listener) {
-        listeners.add(listener);
+        listenersList.add(listener);
 
     }
 
     public void notifyListeners(String event) {
-        for (ActionListener actionListener : listeners) {
+        for (ActionListener actionListener : listenersList) {
             actionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, event));
         }
 

@@ -13,7 +13,10 @@ import view.Panel.GroupsPanel;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPopupMenu;
 import model.*;
 import utillity.PrintHandler;
@@ -748,12 +751,16 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_jButton_closeregiActionPerformed
 
     private void jButton_statestikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_statestikActionPerformed
-        jPanel_stof.removeAll();
-        StatestikPanel statestikPanel = new StatestikPanel(storeHandler, saleHandler, UtilHandler);
-        statestikPanel.setLocation(5, 7);
-        jPanel_stof.add(statestikPanel);
-        jPanel_stof.revalidate();
-        jPanel_stof.repaint();
+        try {
+            jPanel_stof.removeAll();
+            StatestikPanel statestikPanel = new StatestikPanel(storeHandler, saleHandler, UtilHandler);
+            statestikPanel.setLocation(5, 7);
+            jPanel_stof.add(statestikPanel);
+            jPanel_stof.revalidate();
+            jPanel_stof.repaint();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton_statestikActionPerformed
 
     private void jButton_lagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_lagerActionPerformed

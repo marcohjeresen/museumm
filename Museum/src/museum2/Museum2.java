@@ -28,12 +28,12 @@ public class Museum2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-       Listeners listeners = new Listeners();
-       StoreHandler storeHandler = new StoreHandler(listeners);
-       StoreController storeController = new StoreController(storeHandler);
-       MoneyHandler moneyHandler = new MoneyHandler(storeHandler,listeners);
-       SaleHandler saleHandler = new SaleHandler(storeHandler, moneyHandler, listeners);
-       UtilHandler utilHandler = new UtilHandler(storeHandler, saleHandler, listeners);
+       Listeners listeners = Listeners.getList();
+       StoreHandler storeHandler = StoreHandler.getStoreHandler();
+       StoreController storeController = StoreController.getStoreController();
+       MoneyHandler moneyHandler = MoneyHandler.getMoneyHandler();
+       SaleHandler saleHandler = SaleHandler.getSaleHandler();
+       UtilHandler utilHandler = UtilHandler.getUtilHandler();
        
        MainView mainView = new MainView(moneyHandler, saleHandler, storeHandler, storeController,listeners,utilHandler);
        mainView.setSize(1024, 730);

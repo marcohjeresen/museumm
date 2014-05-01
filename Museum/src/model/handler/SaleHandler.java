@@ -20,6 +20,7 @@ import museum2.Museum2;
  * @author markh_000
  */
 public class SaleHandler {
+    private static SaleHandler saleHandlere;
     
     private PaymentType paymentType;
     private ArrayList<PaymentType> paymentTypesList;
@@ -46,10 +47,10 @@ public class SaleHandler {
     private MoneyHandler moneyHandler;
     private Listeners listeners;
     
-    public SaleHandler(StoreHandler storeHandler1, MoneyHandler moneyHandler1, Listeners listeners1) throws SQLException {
-        this.storeHandler = storeHandler1;
-        this.moneyHandler = moneyHandler1;
-        this.listeners = listeners1;
+    private SaleHandler() throws SQLException {
+        storeHandler = StoreHandler.getStoreHandler();
+        moneyHandler = MoneyHandler.getMoneyHandler();
+        listeners = Listeners.getList();
         paymentTypesList = new ArrayList<>();
         salesList = new ArrayList<>();
         returnProductsList = new ArrayList<>();
@@ -66,6 +67,12 @@ public class SaleHandler {
         getEventLineData();
         getTicketLineData();
         
+    }
+    public static SaleHandler getSaleHandler() throws SQLException{
+        if (saleHandlere == null) {
+            saleHandlere = new SaleHandler();
+        }
+        return saleHandlere;
     }
     
     public void getPaymentData() throws SQLException {
@@ -537,6 +544,10 @@ public class SaleHandler {
 
     public ArrayList<ProductLine> getProductLinesList() {
         return productLinesList;
+    }
+
+    public ArrayList<TicketLine> getTicketLinesList() {
+        return ticketLinesList;
     }
     
 }

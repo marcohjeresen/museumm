@@ -20,7 +20,7 @@ import museum2.Museum2;
  * @author markh_000
  */
 public class UtilHandler {
-
+private static UtilHandler utilHandler;
     private StoreHandler storeHandler;
     private SaleHandler saleHandler;
     private Listeners listeners;
@@ -31,15 +31,22 @@ public class UtilHandler {
     private ArrayList<Line> typeList;
     private ArrayList<StockLine> productsList;
 
-    public UtilHandler(StoreHandler storeHandler1, SaleHandler saleHandler1, Listeners listeners1) {
-        this.storeHandler = storeHandler1;
-        this.saleHandler = saleHandler1;
-        this.listeners = listeners1;
+    private UtilHandler() throws SQLException {
+        storeHandler = StoreHandler.getStoreHandler();
+        saleHandler = SaleHandler.getSaleHandler();
+        listeners = Listeners.getList();
         stringList = new ArrayList<>();
         typeList = new ArrayList<>();
         valgte = new ArrayList();
         productsList = new ArrayList<>();
         stringList.removeAll(stringList);
+    }
+    
+    public static UtilHandler getUtilHandler() throws SQLException{
+        if (utilHandler == null) {
+            utilHandler = new UtilHandler();
+        }
+        return utilHandler;
     }
 
     public void setvalgte(String type, String typeNavn) {

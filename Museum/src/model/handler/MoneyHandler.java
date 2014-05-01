@@ -19,6 +19,7 @@ import museum2.Museum2;
  * @author markh_000
  */
 public class MoneyHandler {
+    private static MoneyHandler moneyHandler; 
     private CashRegister cashRegister;
     private ArrayList<CashRegister> cashRegistersList;
     private StoreHandler storeHandler;
@@ -26,12 +27,19 @@ public class MoneyHandler {
     private ArrayList<DifferanceRegistre> differanceRegistresList;
     private Listeners listeners;
     
-    public MoneyHandler(StoreHandler storeHandler, Listeners listeners1) throws SQLException {
-        this.storeHandler = storeHandler;
-        this.listeners = listeners1;
+    private MoneyHandler() throws SQLException {
+        storeHandler = StoreHandler.getStoreHandler();
+        listeners = Listeners.getList();
         cashRegistersList = new ArrayList<>();
         differanceRegistresList = new ArrayList<>();
         getCashDatabase();
+    }
+    
+    public static MoneyHandler getMoneyHandler() throws SQLException{
+        if (moneyHandler == null) {
+            moneyHandler = new MoneyHandler();
+        }
+        return moneyHandler;
     }
     
     public void getCashDatabase()throws SQLException {

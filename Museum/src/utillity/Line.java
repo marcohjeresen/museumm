@@ -4,6 +4,10 @@
  */
 package utillity;
 
+import java.util.Calendar;
+import model.Sale;
+import model.TicketType;
+
 /**
  *
  * @author davs
@@ -19,6 +23,16 @@ public class Line {
     private String productQuantities;
     private int day;
     private int sum;
+    private int id;
+    
+    
+    private int tkAdultQu;
+    private int tkKidsQu;
+    private int tkFreeQu;
+    private int tkAGroupQu;
+    
+    private String ticketDate;
+    
 
     public Line(String text, int priceDk, int priceEuro) {
         this.text = text;
@@ -26,8 +40,66 @@ public class Line {
         this.priceEuro = priceEuro;
     }
 
+    public int getTkAdultQu() {
+        return tkAdultQu;
+    }
+
+    public void setTkAdultQu(int tkAdultQu) {
+        this.tkAdultQu = tkAdultQu;
+    }
+
+    public int getTkKidsQu() {
+        return tkKidsQu;
+    }
+
+    public void setTkKidsQu(int tkKidsQu) {
+        this.tkKidsQu = tkKidsQu;
+    }
+
+    public int getTkFreeQu() {
+        return tkFreeQu;
+    }
+
+    public void setTkFreeQu(int tkFreeQu) {
+        this.tkFreeQu = tkFreeQu;
+    }
+
+    public int getTkAGroupQu() {
+        return tkAGroupQu;
+    }
+
+    public void setTkAGroupQu(int tkAGroupQu) {
+        this.tkAGroupQu = tkAGroupQu;
+    }
+
     public String getText() {
         return text;
+    }
+
+   
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getTicketQuantities() {
+        return tkAdultQu;
+    }
+
+    public void setTicketQuantities(int ticketQuantities) {
+        this.tkAdultQu = ticketQuantities;
+    }
+
+    public String getTicketDate() {
+        return ticketDate;
+    }
+
+    public void setTicketDate(String ticketDate) {
+        this.ticketDate = ticketDate;
     }
 
     public void setText(String text) {

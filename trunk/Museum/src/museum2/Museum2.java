@@ -36,6 +36,7 @@ public class Museum2 {
        UtilHandler utilHandler = new UtilHandler(storeHandler, saleHandler, listeners);
        
        MainView mainView = new MainView(moneyHandler, saleHandler, storeHandler, storeController,listeners,utilHandler);
+       mainView.setSize(1024, 730);
        mainView.setVisible(true);
       
        

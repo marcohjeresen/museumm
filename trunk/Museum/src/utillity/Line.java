@@ -12,6 +12,13 @@ public class Line {
     private String text;
     private int priceDk;
     private int priceEuro;
+    private String productNumber;
+    private String productTitle;
+    private String productSupplier;
+    private String productBuyPrice;
+    private String productQuantities;
+    private int day;
+    private int sum;
 
     public Line(String text, int priceDk, int priceEuro) {
         this.text = text;
@@ -41,6 +48,62 @@ public class Line {
 
     public void setPriceEuro(int priceEuro) {
         this.priceEuro = priceEuro;
+    }
+
+    public String getProductNumber() {
+        return productNumber;
+    }
+
+    public void setProductNumber(String productNumber) {
+        this.productNumber = productNumber;
+    }
+
+    public String getProductTitle() {
+        return productTitle;
+    }
+
+    public void setProductTitle(String productTitle) {
+        this.productTitle = productTitle;
+    }
+
+    public String getProductSupplier() {
+        return productSupplier;
+    }
+
+    public void setProductSupplier(String productSupplier) {
+        this.productSupplier = productSupplier;
+    }
+
+    public String getProductBuyPrice() {
+        return productBuyPrice;
+    }
+
+    public void setProductBuyPrice(String productBuyPrice) {
+        this.productBuyPrice = productBuyPrice;
+    }
+
+    public String getProductQuantities() {
+        return productQuantities;
+    }
+
+    public void setProductQuantities(String productQuantities) {
+        this.productQuantities = productQuantities;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
     }
 
     @Override

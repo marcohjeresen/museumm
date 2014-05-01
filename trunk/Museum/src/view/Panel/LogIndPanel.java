@@ -64,7 +64,7 @@ public class LogIndPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Log På Systemmet. Skriv Kode"));
+        setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Log På Systemmet. Skriv Kode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 0)));
 
         jTextField_kode.setEditable(false);
 
@@ -213,7 +213,7 @@ public class LogIndPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -269,6 +269,7 @@ public class LogIndPanel extends javax.swing.JPanel {
             kode = "0";
             settextfield();
             storeHandler.setEmployee(talkode);
+            
 
             if (storeHandler.getEmployee() == null) {
                 jTextField_kode.setText("Ingen mach. prøv igen");

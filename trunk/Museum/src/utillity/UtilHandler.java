@@ -46,8 +46,10 @@ public class UtilHandler {
 
     }
 
-    public String getStockList() {
+    public ArrayList<StockLine> getStockList() {
         productsList.removeAll(productsList);
+        StockLine st= new StockLine("Nummer", "Navn", "Suplier", "KøbsPris", "Antal");
+        productsList.add(st);
         DBConnection db = new DBConnection();
             try {
                 ResultSet rse = db.getResult("SELECT * FROM product order by product_quantities");
@@ -63,16 +65,11 @@ public class UtilHandler {
             } catch (SQLException ex) {
                 Logger.getLogger(Museum2.class.getName()).log(Level.SEVERE, null, ex);
             }
-            String list = "";
-            StockLine st= new StockLine("Nummer", "Navn", "Suplier", "KøbsPris", "Antal");
-            list = list + st.toString()+ "\n";
-            for (StockLine stockLine : productsList) {
-                list = list + stockLine.toString() + "\n";
-                    
-                }
-            
         
+        return productsList;
+    }
+    
+    public void print(){
         
-        return list;
     }
 }

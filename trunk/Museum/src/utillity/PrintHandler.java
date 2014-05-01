@@ -128,7 +128,7 @@ public class PrintHandler implements Printable {
         lines.add(employ2);
         lines.add(end);
 
-        doPrint();
+        doPrint("Kvit");
     }
 
     public void cashReport() throws ParseException {
@@ -330,8 +330,21 @@ public class PrintHandler implements Printable {
 
         }
 
-        doPrint();
+        doPrint("Kvit");
 
+    }
+
+    public void stockReport(ArrayList<StockLine> stockList) {
+        for (StockLine stockLine : stockList) {
+            Line li = new Line("", 1, -2);
+            li.setProductNumber(stockLine.getProducNumber());
+            li.setProductTitle(stockLine.getProducName());
+            li.setProductSupplier(stockLine.getProducSuppl());
+            li.setProductBuyPrice(stockLine.getProducBuyPrice());
+            li.setProductQuantities(stockLine.getProducQuantitis());
+            lines.add(li);
+        }
+        doPrint("Kvit");
     }
 
     public void drawLines(Graphics g, int page) {
@@ -348,16 +361,29 @@ public class PrintHandler implements Printable {
         for (int i = page * LINES_PER_PAGE; i < (page + 1) * LINES_PER_PAGE; i++) {
             if (i < lines.size()) {
                 int yCoord = 120 + 20 * (i - page * LINES_PER_PAGE);
-                g.drawString(lines.get(i).getText(), 10, yCoord);
+
                 if (lines.get(i).getPriceDk() != 0) {
                     if (lines.get(i).getPriceEuro() == -1) {
+                        g.drawString(lines.get(i).getText(), 10, yCoord);
                         int priceDk = (lines.get(i).getPriceDk());
                         g.drawString(priceDk + "", 9 * xCord, yCoord);
-                    } else {
-
-                        double priceDk = (lines.get(i).getPriceDk() / 100);
-                        g.drawString(priceDk + " kr", 9 * xCord, yCoord);
+                    } else if (lines.get(i).getPriceEuro() == -2) {
+                        g.drawString(lines.get(i).getProductNumber(), 10, yCoord);
+                        g.drawString(lines.get(i).getProductTitle(), 70, yCoord);
+                        g.drawString(lines.get(i).getProductSupplier(), 260, yCoord);
+                        if (lines.get(i).getProductBuyPrice() != "KøbsPris") {
+                            int priceeee = Integer.parseInt(lines.get(i).getProductBuyPrice());
+                            double price = priceeee / 100;
+                            g.drawString(price+"", 370, yCoord);
+                        } else {
+                            g.drawString(lines.get(i).getProductBuyPrice(), 370, yCoord);
+                        }
+                        g.drawString(lines.get(i).getProductQuantities(), 450, yCoord);
                     }
+                } else {
+                    g.drawString(lines.get(i).getText(), 10, yCoord);
+                    double priceDk = (lines.get(i).getPriceDk() / 100);
+                    g.drawString(priceDk + " kr", 9 * xCord, yCoord);
                 }
 
                 lineCount++;
@@ -401,14 +427,23 @@ public class PrintHandler implements Printable {
 
     }
 
-    public void doPrint() {
+    public void doPrint(String type) {
         PrinterJob job = PrinterJob.getPrinterJob();
         Printable doc = this;
         job.setPrintable(doc);
         boolean accept = job.printDialog();
         if (accept) {
             try {
-                job.print();
+                switch (type) {
+                    case "Kvit":
+                        job.print();
+
+                        break;
+                    case "Stock":
+
+                        break;
+                }
+
             } catch (PrinterException ex) {
                 System.out.println("printer problemmer");
             }

@@ -26,15 +26,22 @@ import museum2.Museum2;
  * @author MarcoPc
  */
 public class StoreController {
+private static StoreController storeController;
 
-    public StoreController(StoreHandler storeHandler) throws SQLException {
+    private StoreController() throws SQLException {
+        StoreHandler storeHandler = StoreHandler.getStoreHandler();
         getProductData(storeHandler.getProductGroupList(), storeHandler.getProductsList());
         getEventData(storeHandler.getEventTypesList());
         getTicketData(storeHandler.getTicketTypesList());
         getEmployeeData(storeHandler.getEmployeesList());
     }
     
-    
+    public static StoreController getStoreController() throws SQLException{
+        if (storeController == null) {
+            storeController = new StoreController();
+        }
+        return storeController;
+    }
     private void getProductData(ArrayList<ProductGroup> productGroupList, ArrayList<Product> productsList) throws SQLException {
         DBConnection db = new DBConnection();
         try {

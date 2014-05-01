@@ -21,7 +21,7 @@ import museum2.Museum2;
  * @author markh_000
  */
 public class StoreHandler {
-    
+    private static StoreHandler storeHandler;
     private ProductGroup productGroup;
     private Product product;
     private Product searchProduct;
@@ -43,14 +43,20 @@ public class StoreHandler {
     private Calendar calendar;
     private StoreController storeController;
     
-    public StoreHandler(Listeners listeners) throws SQLException {
-        this.listeners = listeners;
+    private StoreHandler() throws SQLException {
+        listeners = Listeners.getList();
         productGroupList = new ArrayList<>();
         productsList = new ArrayList<>();
         ticketTypesList = new ArrayList<>();
         eventTypesList = new ArrayList<>();
         employeesList = new ArrayList<>();
         
+    }
+    public static StoreHandler getStoreHandler() throws SQLException{
+        if (storeHandler == null) {
+            storeHandler = new StoreHandler();
+        }
+        return storeHandler;
     }
     
     public ProductGroup getProductGroup() {

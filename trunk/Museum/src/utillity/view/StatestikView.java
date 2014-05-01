@@ -3,8 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package utillity.view;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import utillity.DateFormatTools;
+import utillity.Line;
 
 /**
  *
@@ -12,11 +19,80 @@ package utillity.view;
  */
 public class StatestikView extends javax.swing.JPanel {
 
+    private ArrayList<Line> lineList;
+    private String date;
+    private DateFormatTools dateTools;
+
     /**
      * Creates new form StatestikView
      */
-    public StatestikView() {
+    public StatestikView(ArrayList<Line> lineList, String date) throws ParseException {
+        this.lineList = lineList;
+        this.date = date;
+        dateTools = DateFormatTools.getDateFormat();
+
         initComponents();
+        setSize(700, 400);
+        fillStat();
+
+    }
+
+    public void fillStat() throws ParseException {
+        Calendar fromDate = dateTools.getShortDate(date);
+        Calendar fromDate2 = dateTools.getShortDate(date);
+        Calendar toDate = dateTools.getEndDateFromString(date);
+
+        toDate = dateTools.getNextday(toDate, 7);
+        SimpleDateFormat format = new SimpleDateFormat("EEEE dd MMM yyyy");
+
+        jLabel_fra.setText("Fra: " + format.format(fromDate.getTime()));
+        jLabel_to.setText("Til: " + format.format(toDate.getTime()));
+        SimpleDateFormat format4 = new SimpleDateFormat("EEEE");
+        int count = 6;
+        for (int i = 0; i < count; i++) {
+            
+            switch (i) {
+                case 0:
+                    Calendar isDate = dateTools.getNextday(fromDate2,0);
+                    jTextField_0.setText(" " + format4.format(isDate.getTime()));
+                    break;
+                case 1:
+                    isDate = dateTools.getNextday(fromDate2, 1);
+                    jTextField_1.setText(" " + format4.format(isDate.getTime()));
+                    break;
+                case 2:
+                    isDate = dateTools.getNextday(fromDate2, 1);
+                    jTextField_2.setText(" "+format4.format(isDate.getTime()));
+                    break;
+                case 3:
+                    isDate = dateTools.getNextday(fromDate2, 1);
+                    jTextField_3.setText(" " + format4.format(isDate.getTime()));
+                    break;
+                case 4:
+                    isDate = dateTools.getNextday(fromDate2, 1);
+                    jTextField_4.setText(" " + format4.format(isDate.getTime()));
+                    break;
+                case 5:
+                    isDate = dateTools.getNextday(fromDate2, 1);
+                    jTextField_5.setText(" " + format4.format(isDate.getTime()));
+                    break;
+            }
+            count++;
+        }
+        
+        
+        
+        for (Line line : lineList) {
+            
+           
+//            
+            
+
+            if (line.getText().equals("Voksne")) {
+
+            }
+            
+        }
     }
 
     /**
@@ -28,13 +104,12 @@ public class StatestikView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        jTextField_0 = new javax.swing.JTextField();
+        jTextField_1 = new javax.swing.JTextField();
+        jTextField_2 = new javax.swing.JTextField();
+        jTextField_3 = new javax.swing.JTextField();
+        jTextField_4 = new javax.swing.JTextField();
+        jTextField_5 = new javax.swing.JTextField();
         jTextField_AduWed = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
         jTextField_AduThu = new javax.swing.JTextField();
@@ -70,37 +145,35 @@ public class StatestikView extends javax.swing.JPanel {
         jTextField_SumSat = new javax.swing.JTextField();
         jTextField_SumSun = new javax.swing.JTextField();
         jTextField_SumTue = new javax.swing.JTextField();
+        jLabel_fra = new javax.swing.JLabel();
+        jLabel_to = new javax.swing.JLabel();
 
-        jTextField1.setEditable(false);
-        jTextField1.setText("      Dato/Uge:");
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_0.setEditable(false);
+        jTextField_0.setText("      Tirsdag:");
+        jTextField_0.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTextField2.setEditable(false);
-        jTextField2.setText("      Tirsdag:");
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_1.setEditable(false);
+        jTextField_1.setText("      Onsdag:");
+        jTextField_1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTextField3.setEditable(false);
-        jTextField3.setText("      Onsdag:");
-        jTextField3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_2.setEditable(false);
+        jTextField_2.setText("      Torsdag:");
+        jTextField_2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTextField4.setEditable(false);
-        jTextField4.setText("      Torsdag:");
-        jTextField4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_3.setEditable(false);
+        jTextField_3.setText("      Fredag:");
+        jTextField_3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTextField5.setEditable(false);
-        jTextField5.setText("      Fredag:");
-        jTextField5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_4.setEditable(false);
+        jTextField_4.setText("      Lørdag:");
+        jTextField_4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTextField6.setEditable(false);
-        jTextField6.setText("      Lørdag:");
-        jTextField6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jTextField7.setEditable(false);
-        jTextField7.setText("      Søndag:");
-        jTextField7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        jTextField_5.setEditable(false);
+        jTextField_5.setText("      Søndag:");
+        jTextField_5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                jTextField_5ActionPerformed(evt);
             }
         });
 
@@ -244,6 +317,10 @@ public class StatestikView extends javax.swing.JPanel {
         jTextField_SumTue.setText("jTextField1");
         jTextField_SumTue.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabel_fra.setText("jLabel1");
+
+        jLabel_to.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -294,19 +371,22 @@ public class StatestikView extends javax.swing.JPanel {
                         .addComponent(jTextField_KidSun, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(10, 10, 10)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel_fra, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                .addComponent(jLabel_to, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(10, 10, 10)
+                            .addComponent(jTextField_0, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, 0)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, 0)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, 0)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, 0)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, 0)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, 0)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField_5, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, 0)
@@ -339,15 +419,19 @@ public class StatestikView extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField4)
-                    .addComponent(jTextField5)
-                    .addComponent(jTextField6)
-                    .addComponent(jTextField7))
-                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextField_0, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                        .addComponent(jTextField_1)
+                        .addComponent(jTextField_2)
+                        .addComponent(jTextField_3)
+                        .addComponent(jTextField_4)
+                        .addComponent(jTextField_5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel_fra)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_to)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField9)
                     .addComponent(jTextField_AduTue)
@@ -395,24 +479,25 @@ public class StatestikView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void jTextField_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_jTextField_5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel_fra;
+    private javax.swing.JLabel jLabel_to;
     private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField23;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField30;
     private javax.swing.JTextField jTextField37;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextField_0;
+    private javax.swing.JTextField jTextField_1;
+    private javax.swing.JTextField jTextField_2;
+    private javax.swing.JTextField jTextField_3;
+    private javax.swing.JTextField jTextField_4;
+    private javax.swing.JTextField jTextField_5;
     private javax.swing.JTextField jTextField_AduFri;
     private javax.swing.JTextField jTextField_AduSat;
     private javax.swing.JTextField jTextField_AduSun;

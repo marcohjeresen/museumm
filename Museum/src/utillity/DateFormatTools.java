@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,16 +18,7 @@ import java.util.Date;
  */
 public class DateFormatTools {
 
-    private static DateFormatTools dateFormat;
-
-    private DateFormatTools() {
-    }
-
-    public static DateFormatTools getDateFormat() {
-        if (dateFormat == null) {
-            dateFormat = new DateFormatTools();
-        }
-        return dateFormat;
+    public DateFormatTools() {
     }
 
     public Calendar getDateNowCal() {
@@ -62,10 +55,10 @@ public class DateFormatTools {
     public Calendar getShortDate(String date) throws ParseException {
 
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         Calendar c = Calendar.getInstance();
         c.setTime(format1.parse(date));
-        
+
 //        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 //        Calendar dateCal = Calendar.getInstance();
 //        Date d = null;
@@ -93,11 +86,10 @@ public class DateFormatTools {
     }
 
     public Calendar getNextday(Calendar calendar, int days) {
-
+        
         calendar.roll(Calendar.DAY_OF_YEAR, days);
 
-        Calendar c = calendar;
-        return c;
+        return calendar;
     }
 
     public Calendar getStartDateFromString(String date) {
@@ -131,4 +123,39 @@ public class DateFormatTools {
         dateCal.set(Calendar.SECOND, 59);
         return dateCal;
     }
+
+    public String getDay(String date) {
+        String theDate = "";
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            Date d = formatter.parse(date);
+            Calendar fromDate = Calendar.getInstance();
+            fromDate.setTime(d);
+
+            SimpleDateFormat format = new SimpleDateFormat("EEEE dd MMM");
+            theDate = format.format(fromDate.getTime());
+
+        } catch (ParseException ex) {
+            Logger.getLogger(DateFormatTools.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return theDate;
+    }
+    
+    public String getDayLetter(String date) {
+        String theDate = "";
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            Date d = formatter.parse(date);
+            Calendar fromDate = Calendar.getInstance();
+            fromDate.setTime(d);
+
+            SimpleDateFormat format = new SimpleDateFormat("EEEE dd");
+            theDate = format.format(fromDate.getTime());
+
+        } catch (ParseException ex) {
+            Logger.getLogger(DateFormatTools.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return theDate;
+    }
+
 }

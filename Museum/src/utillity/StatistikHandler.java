@@ -36,7 +36,7 @@ public class StatistikHandler {
     private StatistikHandler() throws SQLException {
 
         lineList = new ArrayList<>();
-        dateFormat = DateFormatTools.getDateFormat();
+        dateFormat = new DateFormatTools();
         saleHandler = SaleHandler.getSaleHandler();
     }
 
@@ -47,128 +47,119 @@ public class StatistikHandler {
         return statistikHandler;
     }
 
-//    public void getStat(String fromDate) {
-//        lineList = new ArrayList<>();
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//        Calendar dateFrom = Calendar.getInstance();
-//        
-//        try {
-//            Date d = formatter.parse(fromDate);
-//            
-//            dateFrom.setTime(d);
-//            
-//        } catch (ParseException ex) {
-//            System.out.println("Date parse error");
-//            System.out.println(ex.getLocalizedMessage());
-//        }
-//        int countType = 4;
-//        String type = "";
-//        for (int i = 0; i < countType; i++) {
-//            switch (i + 1) {
-//                case 1:
-//                    type = "Gratister";
-//                    break;
-//                case 2:
-//                    type = "Voksne";
-//                    break;
-//                case 3:
-//                    type = "Børn";
-//                    break;
-//                case 4:
-//                    type = "Gruppe";
-//                    break;
-//            }
-//            
-//            int count = 6;
-//            for (int j = 0; j < count; j++) {
-//                if (j != 0) {
-//                    dateFrom.roll(Calendar.DAY_OF_MONTH, true);
-//                }
-//                String date1 = dateFrom.get(Calendar.YEAR) + "-" + (dateFrom.get(Calendar.MONTH) + 1) + "-" + (dateFrom.get(Calendar.DAY_OF_MONTH))
-//                        + " " + "00:00:00";
-//                
-//                String date2 = dateFrom.get(Calendar.YEAR) + "-" + (dateFrom.get(Calendar.MONTH) + 1) + "-" + (dateFrom.get(Calendar.DAY_OF_MONTH))
-//                        + " " + "23:59:59";
-//                
-//                DBConnection db = new DBConnection();
-//                try {
-//                    
-//                    ResultSet rse = db.getResult("select sum(ticketline_quantities) from ticketline, sale "
-//                            + "where sale_date > '" + date1 + "' and sale_date < '" + date2 + "' "
-//                            + "and ticketline_sale_id = sale_id "
-//                            + "and ticketline_tickettype_id = " + (i + 1));
-//                    
-//                    while (rse.next()) {
-//                        
-//                        Line l = new Line(type, 0, 0);
-//                        l.setDay(j + 1);
-//                        l.setSum(rse.getInt("sum(ticketline_quantities)"));
-//                        lineList.add(l);
-//                        
-//                    }
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(Museum2.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//                System.out.println(date1);
-//                System.out.println(date2);
-//                System.out.println(i + 1);
-//                db.close();
-//            }
-//        }
-//        show();
-//    }
     public ArrayList<Line> getWeekStat(String Date) {
 
         lineList.removeAll(lineList);
-
-        Calendar fromDate = dateFormat.getStartDateFromString(Date);
-        Calendar endDate = dateFormat.getNextday(dateFormat.getDateFromString(Date), 7);
-
-        for (TicketLine tl : saleHandler.getTicketLinesList()) {
-            Calendar tlDate = dateFormat.getStartDateFromString(tl.getDate());
-            boolean erder = false;
-            if (tlDate.after(fromDate) && tlDate.before(endDate) || tlDate.equals(fromDate) && tlDate.before(endDate)) {
-                if (!lineList.isEmpty()) {
-
-                    for (int i = 0; i < lineList.size(); i++) {
-                        Calendar lnDate = dateFormat.getStartDateFromString(lineList.get(i).getTicketDate());
-                        
-                        if (tl.getTicketType().getType().equals("Voksenbillet, over 18 år") && tlDate.equals(lnDate)) {
-                            erder = true;
-                            int quantities = lineList.get(i).getTkAdultQu();
-                            lineList.get(i).setTkAdultQu(quantities + tl.getQuantities());
-                           
-                        } else if (tl.getTicketType().getType().equals("Børnebillet, under 18 år") && tlDate.equals(lnDate)) {
-                            erder = true;
-                            int quantities = lineList.get(i).getTkKidsQu();
-                            lineList.get(i).setTkKidsQu(quantities + tl.getQuantities());
-                           
-                        } else if (tl.getTicketType().getType().equals("Gruppebillet, min. 10 personer") && tlDate.equals(lnDate)) {
-                            erder = true;
-                            int quantities = lineList.get(i).getTkAGroupQu();
-                            lineList.get(i).setTkAGroupQu(quantities + tl.getQuantities());
-                           
-                        }else if (tl.getTicketType().getType().equals("Gratister (Museumskort, foregning, ovs)") && tlDate.equals(lnDate)) {
-                            erder = true;
-                            int quantities = lineList.get(i).getTkFreeQu();
-                            lineList.get(i).setTkFreeQu(quantities + tl.getQuantities());
-                           
+        Calendar StringDate = dateFormat.getStartDateFromString(Date);
+        Calendar fromDate = StringDate;
+        int count = 6;
+        for (int i = 0; i < count; i++) {
+            if (count != 0) {
+                fromDate = dateFormat.getNextday(dateFormat.getDateFromString(Date), i);
+            }
+            for (TicketLine tl : saleHandler.getTicketLinesList()) {
+                Calendar tlDate = dateFormat.getStartDateFromString(tl.getDate());
+                boolean erder = false;
+                if (tlDate.equals(fromDate)) {
+                    if (!lineList.isEmpty()) {
+                        for (int j = 0; j < lineList.size(); j++) {
+                            Calendar lnDate = dateFormat.getStartDateFromString(lineList.get(j).getTicketDate());
+                            if (lnDate.equals(fromDate)) {
+                                erder = false;
+                                switch (tl.getTicketType().getType()) {
+                                    case "Voksenbillet, over 18 år":
+                                        {
+                                            erder = true;
+                                            int quantities = lineList.get(j).getTkAdultQu();
+                                            lineList.get(j).setTkAdultQu(quantities + tl.getQuantities());
+                                            break;
+                                        }
+                                    case "Børnebillet, under 18 år":
+                                        {
+                                            erder = true;
+                                            int quantities = lineList.get(j).getTkKidsQu();
+                                            lineList.get(j).setTkKidsQu(quantities + tl.getQuantities());
+                                            break;
+                                        }
+                                    case "Gruppebillet, min. 10 personer":
+                                        {
+                                            erder = true;
+                                            int quantities = lineList.get(j).getTkAGroupQu();
+                                            lineList.get(j).setTkAGroupQu(quantities + tl.getQuantities());
+                                            break;
+                                        }
+                                    case "Gratister (Museumskort, foregning, ovs)":
+                                        {
+                                            erder = true;
+                                            int quantities = lineList.get(j).getTkFreeQu();
+                                            lineList.get(j).setTkFreeQu(quantities + tl.getQuantities());
+                                            break;
+                                        }
+                                }
+                            }
                         }
-                    }
-                    if (!erder) {
-                        Line l = new Line(tl.getTicketType().getType(), 0, 0);
-
+                        if (!erder) {
+                            Line l = new Line("", 0, 0);
+                            switch (tl.getTicketType().getType()) {
+                                case "Voksenbillet, over 18 år":
+                                    {
+                                        int quantities = tl.getQuantities();
+                                        l.setTkAdultQu(quantities);
+                                        break;
+                                    }
+                                case "Børnebillet, under 18 år":
+                                    {
+                                        int quantities = tl.getQuantities();
+                                        l.setTkKidsQu(quantities);
+                                        break;
+                                    }
+                                case "Gruppebillet, min. 10 personer":
+                                    {
+                                        int quantities = tl.getQuantities();
+                                        l.setTkAGroupQu(quantities);
+                                        break;
+                                    }
+                                case "Gratister (Museumskort, foregning, ovs)":
+                                    {
+                                        int quantities = tl.getQuantities();
+                                        l.setTkFreeQu(quantities);
+                                        break;
+                                    }
+                            }
+                            l.setTicketDate(dateFormat.getDateFromCal(tlDate));
+                            lineList.add(l);
+                        }
+                    } else {
+                        Line l = new Line("", 0, 0);
+                        switch (tl.getTicketType().getType()) {
+                            case "Voksenbillet, over 18 år":
+                                {
+                                    int quantities = tl.getQuantities();
+                                    l.setTkAdultQu(quantities);
+                                    break;
+                                }
+                            case "Børnebillet, under 18 år":
+                                {
+                                    int quantities = tl.getQuantities();
+                                    l.setTkKidsQu(quantities);
+                                    break;
+                                }
+                            case "Gruppebillet, min. 10 personer":
+                                {
+                                    int quantities = tl.getQuantities();
+                                    l.setTkAGroupQu(quantities);
+                                    break;
+                                }
+                            case "Gratister (Museumskort, foregning, ovs)":
+                                {
+                                    int quantities = tl.getQuantities();
+                                    l.setTkFreeQu(quantities);
+                                    break;
+                                }
+                        }
                         l.setTicketDate(dateFormat.getDateFromCal(tlDate));
-                        l.setTicketQuantities(tl.getQuantities());
-                        
                         lineList.add(l);
                     }
-                } else {
-                    Line l = new Line(tl.getTicketType().getType(), 0, 0);
-                    l.setTicketDate(dateFormat.getDateFromCal(tlDate));
-                    l.setTicketQuantities(tl.getQuantities());
-                    
-                    lineList.add(l);
                 }
             }
         }
@@ -178,7 +169,7 @@ public class StatistikHandler {
 
     public void show() {
         for (Line line : lineList) {
-            System.out.println(line.getText() + " " + line.getTicketDate() + " " + line.getTicketQuantities() + " ");
+            System.out.println(line.getText() + " " + line.getTicketDate() + " a " + line.getTkAdultQu() + " g " + line.getTkAGroupQu() + " f " + line.getTkFreeQu() + " k " + line.getTkKidsQu());
         }
     }
 }

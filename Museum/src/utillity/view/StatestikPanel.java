@@ -72,9 +72,8 @@ public class StatestikPanel extends javax.swing.JPanel {
             System.out.println("ja");
            StatestikView st = new StatestikView(statistikHandler.getWeekStat(date),date);
            st.setVisible(true);
-            jPanel_p.add(st);
-            jPanel_p.revalidate();
-            
+           jPanel_p.add(st);
+           jPanel_p.revalidate();
             
             
         }
@@ -135,7 +134,7 @@ public class StatestikPanel extends javax.swing.JPanel {
                         .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 7, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jButton_endd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton_showw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
@@ -177,15 +176,19 @@ public class StatestikPanel extends javax.swing.JPanel {
             }
         });
 
+        jScrollPane1.setBorder(null);
+
+        jPanel_p.setPreferredSize(new java.awt.Dimension(800, 480));
+
         javax.swing.GroupLayout jPanel_pLayout = new javax.swing.GroupLayout(jPanel_p);
         jPanel_p.setLayout(jPanel_pLayout);
         jPanel_pLayout.setHorizontalGroup(
             jPanel_pLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 804, Short.MAX_VALUE)
+            .addGap(0, 806, Short.MAX_VALUE)
         );
         jPanel_pLayout.setVerticalGroup(
             jPanel_pLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(jPanel_p);
@@ -202,7 +205,7 @@ public class StatestikPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jTextField_year, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
+                            .addComponent(jTextField_year))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

@@ -30,6 +30,9 @@ public class Line {
     private int tkKidsQu;
     private int tkFreeQu;
     private int tkAGroupQu;
+    private int evQuantities;
+    private int evSold;
+    
     
     private String ticketDate;
     
@@ -42,6 +45,22 @@ public class Line {
 
     public int getTkAdultQu() {
         return tkAdultQu;
+    }
+
+    public int getEvQuantities() {
+        return evQuantities;
+    }
+
+    public void setEvQuantities(int evQuantities) {
+        this.evQuantities = evQuantities;
+    }
+
+    public int getEvSold() {
+        return evSold;
+    }
+
+    public void setEvSold(int evSold) {
+        this.evSold = evSold;
     }
 
     public void setTkAdultQu(int tkAdultQu) {
@@ -185,6 +204,10 @@ public class Line {
            text = "text: " + text + " priceDk: " + priceDk + " priceEuro: " + priceEuro;
         }
         return text;
+    }
+
+    int getPrice() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

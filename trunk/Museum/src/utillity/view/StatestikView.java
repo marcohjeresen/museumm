@@ -34,17 +34,14 @@ public class StatestikView extends javax.swing.JPanel {
     private StatistikHandler statistikHandler;
     public static final int LINES_PER_PAGE = 23;
     private ArrayList<Line> lines;
-
+    private static StatestikView statestikView;
     private int xCord;
 
     /**
      * Creates new form StatestikView
      */
-    public StatestikView(ArrayList<Line> lineList, String date) throws ParseException {
+    private StatestikView() throws ParseException {
         try {
-            this.lines = lineList;
-            this.date = date;
-
             statistikHandler = StatistikHandler.getStatistikHandler();
             initComponents();
             setSize(780, 480);
@@ -56,13 +53,28 @@ public class StatestikView extends javax.swing.JPanel {
 
     }
 
+    public static StatestikView getStatView() throws ParseException {
+        if (statestikView == null) {
+            statestikView = new StatestikView();
+        }
+        return statestikView;
+    }
+
+    public void setStat(ArrayList<Line> lineList, String date) {
+        this.lines = lineList;
+        this.date = date;
+        statestikView.repaint();
+        
+        
+    }
+
     public void drawLines(Graphics g, int page) {
         dateTools = new DateFormatTools();
         Calendar c = dateTools.getDateFromString(date);
         c = dateTools.getNextday(c, 6);
 
         g.setColor(Color.BLACK);
-        g.drawRect(10, 10, 760, 450);
+        g.drawRect(10, 10, 760, 375);
         g.drawLine(10, 70, 770, 70);
         g.drawLine(10, 120, 770, 120);
         g.drawLine(10, 170, 770, 170);
@@ -70,54 +82,37 @@ public class StatestikView extends javax.swing.JPanel {
         g.drawLine(10, 270, 770, 270);
         g.drawLine(10, 320, 770, 320);
 
-        g.drawLine(130, 10, 130, 460);
-        g.drawLine(220, 10, 220, 460);
-        g.drawLine(310, 10, 310, 460);
-        g.drawLine(400, 10, 400, 460);
-        g.drawLine(490, 10, 490, 460);
-        g.drawLine(580, 10, 580, 460);
-        g.drawLine(670, 10, 670, 460);
+        g.drawLine(130, 10, 130, 385);
+        g.drawLine(220, 10, 220, 385);
+        g.drawLine(310, 10, 310, 385);
+        g.drawLine(400, 10, 400, 385);
+        g.drawLine(490, 10, 490, 385);
+        g.drawLine(580, 10, 580, 385);
+        g.drawLine(670, 10, 670, 385);
 
-        g.drawString(dateTools.getDay(date), 14, 30);
-        g.drawString("Til", 55, 45);
-        g.drawString(dateTools.getDay(dateTools.getDateFromCal(c)), 14, 60);
-        g.drawString("Voksne", 20, (50 + 50));
-        g.drawString("Børn", 20, 150);
-        g.drawString("Gratister", 20, 200);
-        g.drawString("Omvisninger", 20, 250);
-        g.drawString("Omvisninger i pers", 20, 300);
-        
+        g.drawString(dateTools.getDay(date), 15, 30);
+        g.drawString("Til", 15, 45);
+        g.drawString(dateTools.getDay(dateTools.getDateFromCal(c)), 15, 60);
+        g.drawString("Voksne", 15, (50 + 50));
+        g.drawString("Børn", 15, 150);
+        g.drawString("Gratister", 15, 200);
+        g.drawString("Omvisninger", 15, 250);
+        g.drawString("Omvisninger i pers", 15, 300);
+        g.drawString("Antal i Alt", 15, 360);
+
         for (int i = 0; i < lines.size(); i++) {
-            g.drawString(dateTools.getDayLetter(lines.get(i).getTicketDate()), (140 + (i*90)), 30);
+            g.drawString(dateTools.getDayLetter(lines.get(i).getTicketDate()), (140 + (i * 90)), 40);
             int number = lines.get(i).getTkAdultQu() + lines.get(i).getTkAGroupQu();
-            g.drawString(""+number, (160 + (i*90)),  100);
-            g.drawString(""+lines.get(i).getTkKidsQu(), (160 + (i*90)),  150);
-            g.drawString(""+lines.get(i).getTkFreeQu(), (160 + (i*90)),  200);
-            
-        }
-        System.out.println(dateTools.getDayLetter(date));
-//        
+            g.drawString("" + number, (170 + (i * 90)), 100);
+            g.drawString("" + lines.get(i).getTkKidsQu(), (170 + (i * 90)), 150);
+            g.drawString("" + lines.get(i).getTkFreeQu(), (170 + (i * 90)), 200);
+            g.drawString("" + lines.get(i).getEvSold(), (170 + (i * 90)), 250);
+            g.drawString("" + lines.get(i).getEvQuantities(), (170 + (i * 90)), 300);
+            int total = number + lines.get(i).getTkKidsQu() + lines.get(i).getTkFreeQu() + lines.get(i).getEvSold() + lines.get(i).getEvQuantities();
+            g.drawString("" + total, (170 + (i * 90)), 360);
 
-//        int lineCount = 0;
-//        for (int i = page * LINES_PER_PAGE; i < (page + 1) * LINES_PER_PAGE; i++) {
-//            if (i < lines.size()) {
-//                int yCoord = 120 + 20 * (i - page * LINES_PER_PAGE);
-//                g.drawString(lines.get(i).getText(), 10, yCoord);
-//                g.drawString(lines.get(i).getTkAGroupQu() + " kr", 210, yCoord);
-//                lineCount++;
-//            }
-//        }
-//        if ((page + 1) * LINES_PER_PAGE >= lines.size()) {
-//            int total = 0;
-//            for (int i = 0; i < lines.size(); i++) {
-//                total = total + lines.get(i).getTkAGroupQu();
-//            }
-//            g.drawLine(10, lineCount * 20 + 115, 275, lineCount * 20 + 115);
-//            g.drawString("Total", 10, 130 + lineCount * 20);
-//            g.drawString(total + " kr", 210, 130 + lineCount * 20);
-//            g.drawLine(10, lineCount * 20 + 135, 275, lineCount * 20 + 135);
-//        }
-//        g.drawString("Side " + (page + 1), 10, 300);
+        }
+
     }
 
     /**
@@ -135,6 +130,8 @@ public class StatestikView extends javax.swing.JPanel {
                 drawLines(g,0);
             }
         };
+
+        jPanel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

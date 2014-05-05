@@ -419,6 +419,11 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         jButton_lager = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.CardLayout());
 
         jPanel_group.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Typer:"));
@@ -771,6 +776,10 @@ public class MainView extends javax.swing.JFrame implements ActionListener {
         jPanel_stof.revalidate();
         jPanel_stof.repaint();
     }//GEN-LAST:event_jButton_lagerActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.out.println(" heheheh");
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

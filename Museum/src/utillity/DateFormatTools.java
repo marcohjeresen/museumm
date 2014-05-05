@@ -134,6 +134,7 @@ public class DateFormatTools {
 
             SimpleDateFormat format = new SimpleDateFormat("EEEE dd MMM");
             theDate = format.format(fromDate.getTime());
+            theDate = theDate.substring(0, 1).toUpperCase() + theDate.substring(1);
 
         } catch (ParseException ex) {
             Logger.getLogger(DateFormatTools.class.getName()).log(Level.SEVERE, null, ex);
@@ -151,6 +152,7 @@ public class DateFormatTools {
 
             SimpleDateFormat format = new SimpleDateFormat("EEEE dd");
             theDate = format.format(fromDate.getTime());
+            theDate = theDate.substring(0, 1).toUpperCase() + theDate.substring(1);
 
         } catch (ParseException ex) {
             Logger.getLogger(DateFormatTools.class.getName()).log(Level.SEVERE, null, ex);

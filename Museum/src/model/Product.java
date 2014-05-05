@@ -10,7 +10,7 @@ package model;
  *
  * @author markh_000
  */
-public class Product{
+public class Product {
     private int productNumber;
     private String name;
     private ProductGroup productGroup;

@@ -74,6 +74,10 @@ public class SaleHandler {
         }
         return saleHandlere;
     }
+
+    public ArrayList<EventLine> getEventLinesList() {
+        return eventLinesList;
+    }
     
     public void getPaymentData() throws SQLException {
         DBConnection db = new DBConnection();

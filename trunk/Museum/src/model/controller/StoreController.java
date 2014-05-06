@@ -92,7 +92,7 @@ private static StoreController storeController;
             ResultSet rs = db.getResult("SELECT * FROM eventtype");
             while (rs.next()) {
                 EventType eventType = new EventType(rs.getInt("eventtype_id"), rs.getString("eventtype_type"), rs.getInt("eventtype_pricedk"),
-                        rs.getInt("eventtype_priceeuro"), rs.getTime("eventtype_time"));
+                        rs.getInt("eventtype_priceeuro"));
                 eventTypesList.add(eventType);
             }
             db.close();

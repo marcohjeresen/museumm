@@ -17,14 +17,14 @@ public class EventType {
     private String type;
     private int priceDk;
     private int priceEuro;
-    private Time time;
+    
 
-    public EventType(int id, String type, int priceDk, int priceEuro, Time time) {
+    public EventType(int id, String type, int priceDk, int priceEuro) {
         this.id = id;
         this.type = type;
         this.priceDk = priceDk;
         this.priceEuro = priceEuro;
-        this.time = time;
+        
     }
 
     public int getId() {
@@ -59,18 +59,14 @@ public class EventType {
         this.priceEuro = priceEuro;
     }
 
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
-
     @Override
     public String toString() {
-        return "type: " + type + " priceDk: " + priceDk + " priceEuro: " + priceEuro + " time: " + time;
+        return "EventType{" + "id=" + id + ", type=" + type + ", priceDk=" + priceDk + ", priceEuro=" + priceEuro + '}';
     }
+
+   
+
+    
     
     
 }

@@ -186,7 +186,7 @@ public class SaleHandler {
                         for (TicketType ticketType : storeHandler.getTicketTypesList()) {
                             if (ticketType.getId() == rse.getInt("ticketline_tickettype_id")) {
                                 
-                                TicketLine ticketLine = new TicketLine(rse.getInt("ticketline_id"), sale, rse.getInt("ticketline_quantities"), rse.getString("ticketline_date"), ticketType);
+                                TicketLine ticketLine = new TicketLine(rse.getInt("ticketline_id"), sale, rse.getInt("ticketline_quantities"), ticketType);
                                 
                                 ticketLinesList.add(ticketLine);
                             }
@@ -299,7 +299,7 @@ public class SaleHandler {
             }
             if (!sale1.getTicketLine().isEmpty()) {
                 for (TicketLine ticketLine : sale1.getTicketLine()) {
-                    db.execute("insert into ticketline values(" + ticketLine.getId() + "," + ticketLine.getTicketType().getId() + "," + ticketLine.getSale().getId() + "," + ticketLine.getQuantities() + ",'" + ticketLine.getDate() + "')");
+                    db.execute("insert into ticketline values(" + ticketLine.getId() + "," + ticketLine.getTicketType().getId() + "," + ticketLine.getSale().getId() + "," + ticketLine.getQuantities() + ")");
                     ticketLinesList.add(ticketLine);
                 }
             }
@@ -483,7 +483,7 @@ public class SaleHandler {
                     quantities = 10;
                 }
             }
-            TicketLine ticketLine = new TicketLine(id, sale, quantities, date, ticketType);
+            TicketLine ticketLine = new TicketLine(id, sale, quantities,ticketType);
             sale.setTicketLine(ticketLine);
         }
         listeners.notifyListeners("Update Basket");

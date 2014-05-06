@@ -108,7 +108,7 @@ private static StoreController storeController;
             ResultSet rs = db.getResult("SELECT * FROM employee");
             while (rs.next()) {
                 Employee employee = new Employee(rs.getInt("employee_cpr"), rs.getString("employee_name"), rs.getString("employee_adresse"),
-                        rs.getInt("employee_postzip"), rs.getString("employee_city"), rs.getString("employee_username"), rs.getInt("employee_password"));
+                        rs.getInt("employee_postzip"), rs.getString("employee_city"), rs.getInt("employee_password"));
                 employeesList.add(employee);
             }
         } catch (SQLException ex) {

@@ -18,18 +18,18 @@ public class Employee {
     private String adresse;
     private int postZip;
     private String city;
-    private String username;
+
     private int password;
     private int phone;
     private ArrayList phoneList;
 
-    public Employee(int cpr, String name, String adresse, int postZip, String city, String username, int password) {
+    public Employee(int cpr, String name, String adresse, int postZip, String city,int password) {
         this.cpr = cpr;
         this.name = name;
         this.adresse = adresse;
         this.postZip = postZip;
         this.city = city;
-        this.username = username;
+
         this.password = password;
         phoneList = new ArrayList();
     }
@@ -82,14 +82,7 @@ public class Employee {
         this.city = city;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+  
     public int getPassword() {
         return password;
     }
@@ -101,7 +94,7 @@ public class Employee {
     @Override
     public String toString() {
         String employee = "cpr: " + cpr + " name: " + name + " adresse: " + adresse + " postZip: " + postZip + " city: " 
-                + city + " username: " + username + " phoneList: ";
+                + city + " phoneList: ";
         for (Object number : phoneList) {
             employee = employee + number+" - ";
         }

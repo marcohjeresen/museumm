@@ -79,7 +79,7 @@ public class StatestikPanel extends javax.swing.JPanel {
         String date = parsDate();
         if (date != "") {
             System.out.println("ja");
-           st.setStat(statistikHandler.getWeekStat(date),date);
+//           st.setStat(statistikHandler.getWeekStat(date),date);
            st.setVisible(true);
            jPanel_p.add(st);
            jPanel_p.revalidate();

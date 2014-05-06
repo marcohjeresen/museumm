@@ -196,11 +196,11 @@ public class PrintHandler implements Printable {
                                     }
                                 }
                                 if (!erder) {
-                                    TicketLine t = new TicketLine(1, null, ticketLine.getQuantities(), ticketLine.getDate(), ticketLine.getTicketType());
+                                    TicketLine t = new TicketLine(1, null, ticketLine.getQuantities(),ticketLine.getTicketType());
                                     ticketLines.add(t);
                                 }
                             } else {
-                                TicketLine t = new TicketLine(1, null, ticketLine.getQuantities(), ticketLine.getDate(), ticketLine.getTicketType());
+                                TicketLine t = new TicketLine(1, null, ticketLine.getQuantities(),ticketLine.getTicketType());
                                 ticketLines.add(t);
                             }
                         }

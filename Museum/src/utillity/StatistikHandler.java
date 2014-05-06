@@ -48,137 +48,137 @@ public class StatistikHandler {
         return statistikHandler;
     }
 
-    public ArrayList<Line> getWeekStat(String Date) {
-
-        lineList.removeAll(lineList);
-        Calendar StringDate = dateFormat.getStartDateFromString(Date);
-        Calendar fromDate = StringDate;
-        int count = 7;
-        for (int i = 0; i < count; i++) {
-            if (i != 0) {
-                fromDate = dateFormat.getNextday(dateFormat.getDateFromString(Date), i);
-            }
-            for (TicketLine tl : saleHandler.getTicketLinesList()) {
-                Calendar tlDate = dateFormat.getStartDateFromString(tl.getDate());
-                boolean erder = false;
-                if (tlDate.equals(fromDate)) {
-                    if (!lineList.isEmpty()) {
-                        for (int j = 0; j < lineList.size(); j++) {
-                            Calendar lnDate = dateFormat.getStartDateFromString(lineList.get(j).getTicketDate());
-                            if (lnDate.equals(fromDate)) {
-                                erder = false;
-                                switch (tl.getTicketType().getType()) {
-                                    case "Voksenbillet, over 18 år": {
-                                        erder = true;
-                                        int quantities = lineList.get(j).getTkAdultQu();
-                                        lineList.get(j).setTkAdultQu(quantities + tl.getQuantities());
-                                        break;
-                                    }
-                                    case "Børnebillet, under 18 år": {
-                                        erder = true;
-                                        int quantities = lineList.get(j).getTkKidsQu();
-                                        lineList.get(j).setTkKidsQu(quantities + tl.getQuantities());
-                                        break;
-                                    }
-                                    case "Gruppebillet, min. 10 personer": {
-                                        erder = true;
-                                        int quantities = lineList.get(j).getTkAGroupQu();
-                                        lineList.get(j).setTkAGroupQu(quantities + tl.getQuantities());
-                                        break;
-                                    }
-                                    case "Gratister (Museumskort, foregning, ovs)": {
-                                        erder = true;
-                                        int quantities = lineList.get(j).getTkFreeQu();
-                                        lineList.get(j).setTkFreeQu(quantities + tl.getQuantities());
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        if (!erder) {
-                            Line l = new Line("", 0, 0);
-                            switch (tl.getTicketType().getType()) {
-                                case "Voksenbillet, over 18 år": {
-                                    int quantities = tl.getQuantities();
-                                    l.setTkAdultQu(quantities);
-                                    break;
-                                }
-                                case "Børnebillet, under 18 år": {
-                                    int quantities = tl.getQuantities();
-                                    l.setTkKidsQu(quantities);
-                                    break;
-                                }
-                                case "Gruppebillet, min. 10 personer": {
-                                    int quantities = tl.getQuantities();
-                                    l.setTkAGroupQu(quantities);
-                                    break;
-                                }
-                                case "Gratister (Museumskort, foregning, ovs)": {
-                                    int quantities = tl.getQuantities();
-                                    l.setTkFreeQu(quantities);
-                                    break;
-                                }
-                            }
-                            l.setTicketDate(dateFormat.getDateFromCal(tlDate));
-                            lineList.add(l);
-                        }
-                    } else {
-                        Line l = new Line("", 0, 0);
-                        switch (tl.getTicketType().getType()) {
-                            case "Voksenbillet, over 18 år": {
-                                int quantities = tl.getQuantities();
-                                l.setTkAdultQu(quantities);
-                                break;
-                            }
-                            case "Børnebillet, under 18 år": {
-                                int quantities = tl.getQuantities();
-                                l.setTkKidsQu(quantities);
-                                break;
-                            }
-                            case "Gruppebillet, min. 10 personer": {
-                                int quantities = tl.getQuantities();
-                                l.setTkAGroupQu(quantities);
-                                break;
-                            }
-                            case "Gratister (Museumskort, foregning, ovs)": {
-                                int quantities = tl.getQuantities();
-                                l.setTkFreeQu(quantities);
-                                break;
-                            }
-                        }
-                        l.setTicketDate(dateFormat.getDateFromCal(tlDate));
-                        lineList.add(l);
-                    }
-                }
-            }
-            for (EventLine el : saleHandler.getEventLinesList()) {
-                boolean erder = false;
-                Calendar elDate = dateFormat.getStartDateFromString(el.getDate());
-                if (elDate.equals(fromDate)) {
-                    for (int j = 0; j < lineList.size(); j++) {
-                        Calendar lnDate = dateFormat.getStartDateFromString(lineList.get(j).getTicketDate());
-                        if (lnDate.equals(fromDate)) {
-                            int sold = lineList.get(i).getEvSold();
-                            int quintities = lineList.get(i).getEvQuantities();
-                            lineList.get(i).setEvQuantities(quintities + el.getQuantities());
-                            lineList.get(i).setEvSold(sold + 1);
-                            erder = true;
-                        } 
-                    }
-                    if (!erder) {
-                        Line l = new Line("", 0, 0);
-                           l.setEvQuantities(el.getQuantities());
-                            l.setEvSold(1);
-                            l.setTicketDate(dateFormat.getDateFromCal(elDate));
-                            lineList.add(l);
-                    }
-
-                }
-            }
-        }
-        show();
-        return lineList;
-    }
+//    public ArrayList<Line> getWeekStat(String Date) {
+//
+//        lineList.removeAll(lineList);
+//        Calendar StringDate = dateFormat.getStartDateFromString(Date);
+//        Calendar fromDate = StringDate;
+//        int count = 7;
+//        for (int i = 0; i < count; i++) {
+//            if (i != 0) {
+//                fromDate = dateFormat.getNextday(dateFormat.getDateFromString(Date), i);
+//            }
+//            for (TicketLine tl : saleHandler.getTicketLinesList()) {
+//                Calendar tlDate = dateFormat.getStartDateFromString(tl.getDate());
+//                boolean erder = false;
+//                if (tlDate.equals(fromDate)) {
+//                    if (!lineList.isEmpty()) {
+//                        for (int j = 0; j < lineList.size(); j++) {
+//                            Calendar lnDate = dateFormat.getStartDateFromString(lineList.get(j).getTicketDate());
+//                            if (lnDate.equals(fromDate)) {
+//                                erder = false;
+//                                switch (tl.getTicketType().getType()) {
+//                                    case "Voksenbillet, over 18 år": {
+//                                        erder = true;
+//                                        int quantities = lineList.get(j).getTkAdultQu();
+//                                        lineList.get(j).setTkAdultQu(quantities + tl.getQuantities());
+//                                        break;
+//                                    }
+//                                    case "Børnebillet, under 18 år": {
+//                                        erder = true;
+//                                        int quantities = lineList.get(j).getTkKidsQu();
+//                                        lineList.get(j).setTkKidsQu(quantities + tl.getQuantities());
+//                                        break;
+//                                    }
+//                                    case "Gruppebillet, min. 10 personer": {
+//                                        erder = true;
+//                                        int quantities = lineList.get(j).getTkAGroupQu();
+//                                        lineList.get(j).setTkAGroupQu(quantities + tl.getQuantities());
+//                                        break;
+//                                    }
+//                                    case "Gratister (Museumskort, foregning, ovs)": {
+//                                        erder = true;
+//                                        int quantities = lineList.get(j).getTkFreeQu();
+//                                        lineList.get(j).setTkFreeQu(quantities + tl.getQuantities());
+//                                        break;
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        if (!erder) {
+//                            Line l = new Line("", 0, 0);
+//                            switch (tl.getTicketType().getType()) {
+//                                case "Voksenbillet, over 18 år": {
+//                                    int quantities = tl.getQuantities();
+//                                    l.setTkAdultQu(quantities);
+//                                    break;
+//                                }
+//                                case "Børnebillet, under 18 år": {
+//                                    int quantities = tl.getQuantities();
+//                                    l.setTkKidsQu(quantities);
+//                                    break;
+//                                }
+//                                case "Gruppebillet, min. 10 personer": {
+//                                    int quantities = tl.getQuantities();
+//                                    l.setTkAGroupQu(quantities);
+//                                    break;
+//                                }
+//                                case "Gratister (Museumskort, foregning, ovs)": {
+//                                    int quantities = tl.getQuantities();
+//                                    l.setTkFreeQu(quantities);
+//                                    break;
+//                                }
+//                            }
+//                            l.setTicketDate(dateFormat.getDateFromCal(tlDate));
+//                            lineList.add(l);
+//                        }
+//                    } else {
+//                        Line l = new Line("", 0, 0);
+//                        switch (tl.getTicketType().getType()) {
+//                            case "Voksenbillet, over 18 år": {
+//                                int quantities = tl.getQuantities();
+//                                l.setTkAdultQu(quantities);
+//                                break;
+//                            }
+//                            case "Børnebillet, under 18 år": {
+//                                int quantities = tl.getQuantities();
+//                                l.setTkKidsQu(quantities);
+//                                break;
+//                            }
+//                            case "Gruppebillet, min. 10 personer": {
+//                                int quantities = tl.getQuantities();
+//                                l.setTkAGroupQu(quantities);
+//                                break;
+//                            }
+//                            case "Gratister (Museumskort, foregning, ovs)": {
+//                                int quantities = tl.getQuantities();
+//                                l.setTkFreeQu(quantities);
+//                                break;
+//                            }
+//                        }
+//                        l.setTicketDate(dateFormat.getDateFromCal(tlDate));
+//                        lineList.add(l);
+//                    }
+//                }
+//            }
+//            for (EventLine el : saleHandler.getEventLinesList()) {
+//                boolean erder = false;
+//                Calendar elDate = dateFormat.getStartDateFromString(el.getDate());
+//                if (elDate.equals(fromDate)) {
+//                    for (int j = 0; j < lineList.size(); j++) {
+//                        Calendar lnDate = dateFormat.getStartDateFromString(lineList.get(j).getTicketDate());
+//                        if (lnDate.equals(fromDate)) {
+//                            int sold = lineList.get(i).getEvSold();
+//                            int quintities = lineList.get(i).getEvQuantities();
+//                            lineList.get(i).setEvQuantities(quintities + el.getQuantities());
+//                            lineList.get(i).setEvSold(sold + 1);
+//                            erder = true;
+//                        } 
+//                    }
+//                    if (!erder) {
+//                        Line l = new Line("", 0, 0);
+//                           l.setEvQuantities(el.getQuantities());
+//                            l.setEvSold(1);
+//                            l.setTicketDate(dateFormat.getDateFromCal(elDate));
+//                            lineList.add(l);
+//                    }
+//
+//                }
+//            }
+//        }
+//        show();
+//        return lineList;
+//    }
 
     public void show() {
         for (Line line : lineList) {

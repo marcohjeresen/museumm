@@ -19,13 +19,13 @@ public class TicketLine {
     private TicketType ticketType;
     private Sale sale;
     private int quantities;
-    private String date;
+ 
 
-    public TicketLine(int id, Sale sale, int quantities, String date, TicketType ticketType) {
+    public TicketLine(int id, Sale sale, int quantities,TicketType ticketType) {
         this.id = id;
         this.sale = sale;
         this.quantities = quantities;
-        this.date = date;
+
         this.ticketType = ticketType;
     }
 
@@ -63,13 +63,7 @@ public class TicketLine {
         this.quantities = quantities;
     }
 
-    public String getDate() {
-        return date;
-    }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     @Override
     public String toString() {
@@ -78,7 +72,7 @@ public class TicketLine {
             ticketLine = ticketLine + ticketType.toString();
         
         
-        return ticketLine + "Quantities: " + quantities + " Date: " + date;
+        return ticketLine + "Quantities: " + quantities;
     }
     
     

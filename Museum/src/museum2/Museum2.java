@@ -5,6 +5,7 @@
  */
 
 package museum2;
+import docTools.DocHandler;
 import model.handler.*;
 import model.controller.*;
 

@@ -5,6 +5,7 @@
  */
 package utillity.view;
 
+import docTools.DocHandler;
 import java.awt.Dimension;
 import utillity.*;
 
@@ -70,6 +71,11 @@ public class StockVeiw extends javax.swing.JPanel {
         });
 
         jButton_doc.setText("Gem Som Doc");
+        jButton_doc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_docActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -111,6 +117,10 @@ public class StockVeiw extends javax.swing.JPanel {
     private void jButton_prinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_prinActionPerformed
          printHandler.stockReport(statistikHandler.getStockList());
     }//GEN-LAST:event_jButton_prinActionPerformed
+
+    private void jButton_docActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_docActionPerformed
+        DocHandler docHandler = new DocHandler(statistikHandler.getStockList());
+    }//GEN-LAST:event_jButton_docActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

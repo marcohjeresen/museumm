@@ -99,6 +99,7 @@ public class StatestikView extends javax.swing.JPanel {
         g.drawString("Omvisninger", 15, 250);
         g.drawString("Omvisninger i pers", 15, 300);
         g.drawString("Antal i Alt", 15, 360);
+        
 
         for (int i = 0; i < lines.size(); i++) {
             g.drawString(dateTools.getDayLetter(lines.get(i).getTicketDate()), (140 + (i * 90)), 40);

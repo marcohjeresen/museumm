@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
 import model.Sale;
-import model.Listeners;
+import utillity.Listeners;
 import utillity.*;
 
 /**
@@ -439,6 +439,19 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jCheckBox_rabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_rabatActionPerformed
+
+        if (jCheckBox_rabat.isSelected()) {
+
+        }
+        setBetalingsBeløb();
+    }//GEN-LAST:event_jCheckBox_rabatActionPerformed
+
+    private void jButton_fortrydActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_fortrydActionPerformed
+        modtag.remove(modtag.size() - 1);
+        setModtagetBeløb();
+    }//GEN-LAST:event_jButton_fortrydActionPerformed
+
     private void jCheckBox_danskeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_danskeActionPerformed
         if (jCheckBox_danske.isSelected()) {
             jCheckBox_euro.setSelected(false);
@@ -446,6 +459,11 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
         }
         setBetalingsBeløb();
     }//GEN-LAST:event_jCheckBox_danskeActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        modtag.add("2");
+        setModtagetBeløb();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jCheckBox_euroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_euroActionPerformed
         if (jCheckBox_euro.isSelected()) {
@@ -460,11 +478,6 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
         setModtagetBeløb();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        modtag.add("2");
-        setModtagetBeløb();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         modtag.add("3");
         setModtagetBeløb();
@@ -475,45 +488,15 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
         setModtagetBeløb();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        modtag.add("5");
-        setModtagetBeløb();
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        modtag.add("6");
-        setModtagetBeløb();
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        modtag.add("7");
-        setModtagetBeløb();
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        modtag.add("8");
-        setModtagetBeløb();
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        modtag.add("9");
-        setModtagetBeløb();
-    }//GEN-LAST:event_jButton9ActionPerformed
-
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         modtag.add("0");
         setModtagetBeløb();
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        modtag.add(".");
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        modtag.add("9");
         setModtagetBeløb();
-    }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jButton_fortrydActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_fortrydActionPerformed
-        modtag.remove(modtag.size() - 1);
-        setModtagetBeløb();
-    }//GEN-LAST:event_jButton_fortrydActionPerformed
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton_betalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_betalActionPerformed
         try {
@@ -523,13 +506,30 @@ public class BuyStuff extends javax.swing.JFrame implements ActionListener {
         }
     }//GEN-LAST:event_jButton_betalActionPerformed
 
-    private void jCheckBox_rabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_rabatActionPerformed
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        modtag.add(".");
+        setModtagetBeløb();
+    }//GEN-LAST:event_jButton11ActionPerformed
 
-        if (jCheckBox_rabat.isSelected()) {
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        modtag.add("6");
+        setModtagetBeløb();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
-        }
-        setBetalingsBeløb();
-    }//GEN-LAST:event_jCheckBox_rabatActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        modtag.add("5");
+        setModtagetBeløb();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        modtag.add("8");
+        setModtagetBeløb();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        modtag.add("7");
+        setModtagetBeløb();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments

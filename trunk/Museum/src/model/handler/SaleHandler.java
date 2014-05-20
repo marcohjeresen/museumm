@@ -5,6 +5,7 @@
  */
 package model.handler;
 
+import utillity.Listeners;
 import db.DBConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,9 +37,7 @@ public class SaleHandler {
     private ArrayList<InvoiceStatus> invoiceStatusesList;
     
     private ArrayList<Invoice> invoicesList;
-    private Customer customer;
-    private ArrayList<Customer> customersList;
-    
+
     private ArrayList<ProductLine> productLinesList;
     private ArrayList<EventLine> eventLinesList;
     private ArrayList<TicketLine> ticketLinesList;
@@ -56,7 +55,6 @@ public class SaleHandler {
         returnProductsList = new ArrayList<>();
         invoiceStatusesList = new ArrayList<>();
         invoicesList = new ArrayList<>();
-        customersList = new ArrayList<>();
         productLinesList = new ArrayList<>();
         eventLinesList = new ArrayList<>();
         ticketLinesList = new ArrayList<>();
@@ -354,13 +352,7 @@ public class SaleHandler {
         invoicesList.add(invoice);
     }
     
-    public ArrayList<Customer> getCustomersList() {
-        return customersList;
-    }
-    
-    public void addToCustomersList(Customer customers) {
-        customersList.add(customers);
-    }
+  
     
     public void createNewSale() {
         int id = 0;

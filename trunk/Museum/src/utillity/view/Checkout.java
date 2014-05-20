@@ -20,14 +20,14 @@ import utillity.PrintHandler;
 public class Checkout extends javax.swing.JPanel {
 private boolean dkcash;
     private boolean eurocash;
-
-    private MoneyHandler moneyHandler;
-    private Employee employee;
-    private PrintHandler printHandler;
-    private String dk;
+private String dk;
     private String euro;
     private double dkc;
     private double euc;
+    private MoneyHandler moneyHandler;
+    private Employee employee;
+    private PrintHandler printHandler;
+    
     /**
      * Creates new form Checkout
      */
